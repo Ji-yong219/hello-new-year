@@ -5,16 +5,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.7</version>
+		<version>3.0.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>hello-new-year</artifactId>
+	<groupId>com.newyearletter</groupId>
+	<artifactId>newyearletter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>java-docs-spring-hello-world</name>
-	<description>2023 new year resolution & letter service</description>
+	<name>newyearletter</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
