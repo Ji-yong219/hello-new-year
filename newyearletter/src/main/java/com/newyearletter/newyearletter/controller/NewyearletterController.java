@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /*
  * 
@@ -24,6 +25,11 @@ public class NewyearletterController {
 	@RequestMapping("/") //, method={RequestMethod.POST, RequestMethod.PUT})
 	String indexPage() {
 		return "2023 New Year's Resoulution & Letter Service";
+	}
+
+	@GetMapping("/api/hello")
+	public String test() {
+		return "Hello world";
 	}
 
 }
