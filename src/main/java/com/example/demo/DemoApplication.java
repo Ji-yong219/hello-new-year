@@ -15,6 +15,6 @@ public class DemoApplication {
 
 	@RequestMapping("/")
 	String sayHello() {
-		return "Hello Azure!";
+		return "2023 new year resolution & letter service";
 	}
 }
