@@ -1,20 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './style.css';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './style.css'
+import reportWebVitals from './reportWebVitals'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import loginState from './reducers/loginState'
+
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+
+import { composeWithDevTools } from 'redux-devtools-extension'
+import logger from 'redux-logger'
+import { Provider } from 'react-redux'
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+const rootReducer = combineReducers({
+  loginState,
+})
+
+const enhancer =
+  process.env.NODE_ENV === 'production'
+    ? compose(applyMiddleware())
+    : composeWithDevTools(applyMiddleware(logger))
+
+const store = createStore(rootReducer, enhancer)
+
 root.render(
-  <center>
-    <React.StrictMode>
-      <App/>
-    </React.StrictMode>
-  </center>
-);
-
+  <Provider store={store}>
+    <App />
+  </Provider>
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()

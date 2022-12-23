@@ -1,0 +1,94 @@
+import React, { useEffect, useState } from 'react'
+
+import styled from 'styled-components'
+import APP_TITLE from '../utils/AppTitle'
+
+import ButtonItem from '../components/ButtonItem'
+import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../utils/reducers/loginState'
+
+function Main() {
+  const [appTitle, setAppTitle] = useState('')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // axios
+    //   .get('/api/getAppTitle')
+    //   .then(response => setAppTitle(response.data))
+    //   .catch(error => console.log(error))
+  }, [])
+
+  const dispatch = useDispatch()
+  const { isLogin } = useSelector(state => state.loginState)
+
+  console.log(isLogin)
+  return (
+    <Container>
+      <AppTitle>{APP_TITLE}</AppTitle>
+
+      <ButtonItem
+        onClick={
+          isLogin
+            ? () => {
+                dispatch(logout())
+              }
+            : () => {
+                navigate('/login')
+              }
+        }
+      >
+        {isLogin ? '로그아웃' : '로그인'}
+      </ButtonItem>
+
+      <ButtonItem
+        onClick={
+          isLogin
+            ? null
+            : () => {
+                navigate('/sign-up')
+              }
+        }
+        isActive={!isLogin}
+      >
+        회원가입
+      </ButtonItem>
+
+      <ButtonItem
+        onClick={() => {
+          navigate('/mail-box')
+        }}
+      >
+        우체통
+      </ButtonItem>
+
+      <ButtonItem
+        onClick={() => {
+          navigate('/receive-mail')
+        }}
+      >
+        받은 편지 확인하기
+      </ButtonItem>
+    </Container>
+  )
+}
+
+export const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: max(2rem, 36px);
+`
+
+export const AppTitle = styled.div`
+  font-family: 'score';
+  font-weight: 600;
+  font-size: max(2.5rem, 36px);
+  cursor: pointer;
+`
+
+export default Main

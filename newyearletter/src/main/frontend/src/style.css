@@ -1,43 +1,74 @@
 @font-face {
-  font-family: "SCD1";
-  src: url("fonts/SCDream1.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 100;
+  src: url('assets/fonts/SCDream1.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD2";
-  src: url("fonts/SCDream2.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 200;
+  src: url('assets/fonts/SCDream2.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD3";
-  src: url("fonts/SCDream3.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 300;
+  src: url('assets/fonts/SCDream3.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD4";
-  src: url("fonts/SCDream4.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 400;
+  src: url('assets/fonts/SCDream4.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD5";
-  src: url("fonts/SCDream5.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 500;
+  src: url('assets/fonts/SCDream5.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD6";
-  src: url("fonts/SCDream6.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 600;
+  src: url('assets/fonts/SCDream6.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD7";
-  src: url("fonts/SCDream7.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 700;
+  src: url('assets/fonts/SCDream7.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD";
-  src: url("fonts/SCDream8.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 800;
+  src: url('assets/fonts/SCDream8.otf') format('truetype');
 }
 @font-face {
-  font-family: "SCD9";
-  src: url("fonts/SCDream9.otf") format("truetype");
+  font-family: 'score';
+  font-weight: 900;
+  src: url('assets/fonts/SCDream9.otf') format('truetype');
 }
+
+html {
+  font-size: 1vw !important;
+
+  /* Colors ----------------------------- */
+  --primary: #1f54c3;
+  --primary-light-100: #bcc8e5;
+  --light-100: #fafafa;
+  --light-200: #f3f2f2;
+  --light-300: #ebebeb;
+  --light-400: #ededed;
+  --light-500: #dddcdc;
+  --light-600: #d4d4d4;
+  --light-700: #a1a1a1;
+  --light-800: #7c7c7c;
+
+  --second: #e49c68;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration-line: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
 }
 
 body {
@@ -54,41 +85,34 @@ code {
     monospace;
 }
 
-
 /* ================================ */
 
-.appTitle {
-  font-family: "SCD7";
-  cursor: pointer;
-}
 .input-1 {
-  font-family: "SCD3";
+  font-family: 'SCD3';
 }
 .btn-1 {
   display: block;
-  background: #1F54C3;
+  background: #1f54c3;
   color: white;
-  font-family: "SCD4";
+  font-family: 'SCD4';
   cursor: pointer;
 }
 .bottomText {
   text-decoration: underline;
-  font-family: "SCD2";
+  font-family: 'SCD2';
   cursor: pointer;
 }
 .mailBoxBtn {
   background: red;
   color: white;
-  font-family: "SCD6";
+  font-family: 'SCD6';
   cursor: pointer;
 }
-
-
 
 .wrapper {
   position: relative;
   display: flex;
-  background-color: #3760C9;
+  background-color: #3760c9;
   justify-content: center;
   z-index: 0;
 }
@@ -125,13 +149,14 @@ code {
   transition: 0.3s;
 }
 
-.letter p,.letter pre {
+.letter p,
+.letter pre {
   text-align: center;
-  color: #3B4049;
+  color: #3b4049;
   overflow-wrap: break-word;
   white-space: pre-wrap;
-  
-  font-family: "SCD6";
+
+  font-family: 'SCD6';
   visibility: hidden;
 }
 .letter p:first-child {
@@ -142,30 +167,26 @@ code {
 }
 
 .wrapper:hover .lid.one {
-    transform: rotateX(90deg);
-    transition-delay: 0s;
+  transform: rotateX(90deg);
+  transition-delay: 0s;
 }
 
 .wrapper:hover .lid.two {
-    transform: rotateX(180deg);
-    transition-delay: 0.15s;
+  transform: rotateX(180deg);
+  transition-delay: 0.15s;
 }
 
 .wrapper:hover .letter {
   transition-delay: 0.3s;
   height: fit-content;
 }
-.wrapper:hover .letter p,.wrapper:hover .letter pre {
+.wrapper:hover .letter p,
+.wrapper:hover .letter pre {
   transition-delay: 0.4s;
   visibility: visible;
 }
 
-
-@media (max-width:512px) {
-  .appTitle {
-    font-size: 36px;
-    margin: 100px 0;
-  }
+@media (max-width: 512px) {
   .input-1 {
     width: 350px;
     height: 55px;
@@ -184,8 +205,6 @@ code {
     border-radius: 150px;
     font-size: 30px;
   }
-
-
 
   .wrapper {
     height: 50vw;
@@ -209,7 +228,7 @@ code {
 
   /* Lid when opened */
   .lid.two {
-    border-top: 25vw solid #3760C9;
+    border-top: 25vw solid #3760c9;
   }
 
   .envelope {
@@ -218,8 +237,8 @@ code {
     top: 0;
     left: 0;
     border-top: 25vw solid transparent;
-    border-right: 40vw solid #C4DFF0;
-    border-bottom: 25vw solid #C4DFF0;
+    border-right: 40vw solid #c4dff0;
+    border-bottom: 25vw solid #c4dff0;
     border-left: 40vw solid #a4d4f2;
   }
 
@@ -232,10 +251,11 @@ code {
     box-shadow: 3px 3px 5px 5px gray;
   }
 
-  .letter p,.letter pre {
+  .letter p,
+  .letter pre {
     width: 90%;
     margin-top: 30px;
-    
+
     font-size: 14px;
   }
   .wrapper:hover .letter {
@@ -243,8 +263,7 @@ code {
   }
 }
 
-
-@media (min-width:512px) and (max-width:800px) {
+@media (min-width: 512px) and (max-width: 800px) {
   .appTitle {
     font-size: 40px;
     margin: 100px 0;
@@ -267,8 +286,6 @@ code {
     border-radius: 150px;
     font-size: 30px;
   }
-
-
 
   .wrapper {
     height: 300px;
@@ -292,7 +309,7 @@ code {
 
   /* Lid when opened */
   .lid.two {
-    border-top: 150px solid #3760C9;
+    border-top: 150px solid #3760c9;
   }
 
   .envelope {
@@ -301,8 +318,8 @@ code {
     top: 0;
     left: 0;
     border-top: 150px solid transparent;
-    border-right: 250px solid #C4DFF0;
-    border-bottom: 150px solid #C4DFF0;
+    border-right: 250px solid #c4dff0;
+    border-bottom: 150px solid #c4dff0;
     border-left: 250px solid #a4d4f2;
   }
 
@@ -315,10 +332,11 @@ code {
     box-shadow: 3px 3px 5px 5px gray;
   }
 
-  .letter p,.letter pre {
+  .letter p,
+  .letter pre {
     width: 90%;
     margin-top: 30px;
-    
+
     font-size: 14px;
   }
 
@@ -327,7 +345,7 @@ code {
   }
 }
 
-@media (min-width:800px) {
+@media (min-width: 800px) {
   .appTitle {
     font-size: 40px;
     margin: 100px 0;
@@ -351,8 +369,6 @@ code {
     font-size: 30px;
   }
 
-
-
   .wrapper {
     height: 400px;
     width: 700px;
@@ -375,7 +391,7 @@ code {
 
   /* Lid when opened */
   .lid.two {
-    border-top: 200px solid #3760C9;
+    border-top: 200px solid #3760c9;
   }
 
   .envelope {
@@ -384,8 +400,8 @@ code {
     top: 0;
     left: 0;
     border-top: 200px solid transparent;
-    border-right: 350px solid #C4DFF0;
-    border-bottom: 200px solid #C4DFF0;
+    border-right: 350px solid #c4dff0;
+    border-bottom: 200px solid #c4dff0;
     border-left: 350px solid #a4d4f2;
   }
 
@@ -398,10 +414,11 @@ code {
     box-shadow: 3px 3px 5px 5px gray;
   }
 
-  .letter p,.letter pre {
+  .letter p,
+  .letter pre {
     width: 90%;
     margin-top: 30px;
-    
+
     font-size: 14px;
   }
 
