@@ -5,6 +5,7 @@ import Main from './Main';
 import Login from './Login';
 import CreateAccount from './CreateAccount';
 import MailBox from './MailBox';
+import ReceiveMail from './ReceiveMail';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/Login" element={<Login/>} />
             <Route path="/CreateAccount" element={<CreateAccount/>} />
             <Route path="/MailBox" element={<MailBox/>} />
+            <Route path="/ReceiveMail" element={<ReceiveMail/>} />
           </Routes>
         </BrowserRouter>
       </>

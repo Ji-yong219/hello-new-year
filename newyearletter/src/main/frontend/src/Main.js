@@ -22,6 +22,9 @@ function Main() {
   const goToMailBox = () => {
     navigate('/MailBox');
   };
+  const goToReceiveMail = () => {
+    navigate('/ReceiveMail');
+  };
   
 
   let [active, setActive] = useState(false);
@@ -53,11 +56,20 @@ function Main() {
       
       <button
         type="button"
+        className='btn-1'
         onClick={goToMailBox}
         name=""
-        className={active ? 'activeCreateAccountBtn btn-1' : 'createAccountBtn btn-1'}
       >
         [임시] 우체통 페이지
+      </button>
+      
+      <button
+        type="button"
+        className='btn-1'
+        onClick={goToReceiveMail}
+        name=""
+      >
+        [임시] 받은 편지 페이지
       </button>
     </>
   );
