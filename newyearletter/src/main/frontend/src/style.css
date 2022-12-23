@@ -54,27 +54,20 @@ code {
     monospace;
 }
 
+
+/* ================================ */
+
 .appTitle {
-  font-size: 40px;
-  margin: 100px 0;
   font-family: "SCD7";
   cursor: pointer;
 }
 .input-1 {
-  width: 400px;
-  height: 60px;
-  margin-bottom: 20px;
-  font-size: 24px;
   font-family: "SCD3";
 }
 .btn-1 {
   display: block;
-  width: 400px;
-  height: 60px;
-  margin-bottom: 20px;
   background: #1F54C3;
   color: white;
-  font-size: 24px;
   font-family: "SCD4";
   cursor: pointer;
 }
@@ -84,12 +77,8 @@ code {
   cursor: pointer;
 }
 .mailBoxBtn {
-  width: 300px;
-  height: 300px;
-  border-radius: 150px;
   background: red;
   color: white;
-  font-size: 30px;
   font-family: "SCD6";
   cursor: pointer;
 }
@@ -97,31 +86,21 @@ code {
 
 
 .wrapper {
-  height: 300px;
-  width: 500px;
-  background-color: #3760C9;
   position: relative;
   display: flex;
+  background-color: #3760C9;
   justify-content: center;
   z-index: 0;
 }
 
 .lid {
   position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  border-right: 250px solid transparent;
-  border-bottom: 150px solid transparent;
-  border-left: 250px solid transparent;
   transform-origin: top;
   transition: transform 0.15s linear;
 }
 
 /* Lid when closed */
 .lid.one {
-  border-top: 150px solid #658ced;
   transform: rotateX(0deg);
   z-index: 3;
   transition-delay: 0.4s;
@@ -129,7 +108,6 @@ code {
 
 /* Lid when opened */
 .lid.two {
-  border-top: 150px solid #3760C9;
   transform: rotateX(90deg);
   z-index: 1;
   transition-delay: 0.3s;
@@ -137,40 +115,30 @@ code {
 
 .envelope {
   position: absolute;
-  height: 100%;
-  width: 90%;
-  top: 0;
-  left: 0;
-  border-top: 150px solid transparent;
-  border-right: 250px solid #C4DFF0;
-  border-bottom: 150px solid #C4DFF0;
-  border-left: 250px solid #a4d4f2;
   z-index: 3;
 }
 
 .letter {
   position: absolute;
-  top: 5px;
-  width: 80%;
-  /* height: 80%; */
-  height: fit-content;
   background-color: white;
-  border-radius: 15px;
-  box-shadow: 3px 3px 5px 5px gray;
   z-index: 2;
   transition: 0.3s;
 }
 
 .letter p,.letter pre {
   text-align: center;
-  margin-top: 30px;
   color: #3B4049;
   overflow-wrap: break-word;
   white-space: pre-wrap;
   
-  font-size: 20px;
   font-family: "SCD6";
   visibility: hidden;
+}
+.letter p:first-child {
+  text-align: left;
+}
+.letter p:last-child {
+  text-align: right;
 }
 
 .wrapper:hover .lid.one {
@@ -184,10 +152,260 @@ code {
 }
 
 .wrapper:hover .letter {
-  transform: translateY(-150px);
   transition-delay: 0.3s;
+  height: fit-content;
 }
 .wrapper:hover .letter p,.wrapper:hover .letter pre {
   transition-delay: 0.4s;
   visibility: visible;
+}
+
+
+@media (max-width:512px) {
+  .appTitle {
+    font-size: 36px;
+    margin: 100px 0;
+  }
+  .input-1 {
+    width: 350px;
+    height: 55px;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+  .btn-1 {
+    width: 350px;
+    height: 55px;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+  .mailBoxBtn {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    font-size: 30px;
+  }
+
+
+
+  .wrapper {
+    height: 50vw;
+    width: 80vw;
+  }
+
+  .lid {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-right: 40vw solid transparent;
+    border-bottom: 25vw solid transparent;
+    border-left: 40vw solid transparent;
+  }
+
+  /* Lid when closed */
+  .lid.one {
+    border-top: 25vw solid #658ced;
+  }
+
+  /* Lid when opened */
+  .lid.two {
+    border-top: 25vw solid #3760C9;
+  }
+
+  .envelope {
+    height: 100%;
+    width: 90%;
+    top: 0;
+    left: 0;
+    border-top: 25vw solid transparent;
+    border-right: 40vw solid #C4DFF0;
+    border-bottom: 25vw solid #C4DFF0;
+    border-left: 40vw solid #a4d4f2;
+  }
+
+  .letter {
+    top: 5px;
+    width: 80%;
+    min-height: 40vw;
+    height: 80%;
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px 5px gray;
+  }
+
+  .letter p,.letter pre {
+    width: 90%;
+    margin-top: 30px;
+    
+    font-size: 14px;
+  }
+  .wrapper:hover .letter {
+    transform: translateY(-45vw);
+  }
+}
+
+
+@media (min-width:512px) and (max-width:800px) {
+  .appTitle {
+    font-size: 40px;
+    margin: 100px 0;
+  }
+  .input-1 {
+    width: 400px;
+    height: 60px;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .btn-1 {
+    width: 400px;
+    height: 60px;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .mailBoxBtn {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    font-size: 30px;
+  }
+
+
+
+  .wrapper {
+    height: 300px;
+    width: 500px;
+  }
+
+  .lid {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-right: 250px solid transparent;
+    border-bottom: 150px solid transparent;
+    border-left: 250px solid transparent;
+  }
+
+  /* Lid when closed */
+  .lid.one {
+    border-top: 150px solid #658ced;
+  }
+
+  /* Lid when opened */
+  .lid.two {
+    border-top: 150px solid #3760C9;
+  }
+
+  .envelope {
+    height: 100%;
+    width: 90%;
+    top: 0;
+    left: 0;
+    border-top: 150px solid transparent;
+    border-right: 250px solid #C4DFF0;
+    border-bottom: 150px solid #C4DFF0;
+    border-left: 250px solid #a4d4f2;
+  }
+
+  .letter {
+    top: 5px;
+    width: 80%;
+    min-height: 250px;
+    height: 80%;
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px 5px gray;
+  }
+
+  .letter p,.letter pre {
+    width: 90%;
+    margin-top: 30px;
+    
+    font-size: 14px;
+  }
+
+  .wrapper:hover .letter {
+    transform: translateY(-140px);
+  }
+}
+
+@media (min-width:800px) {
+  .appTitle {
+    font-size: 40px;
+    margin: 100px 0;
+  }
+  .input-1 {
+    width: 400px;
+    height: 60px;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .btn-1 {
+    width: 400px;
+    height: 60px;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .mailBoxBtn {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    font-size: 30px;
+  }
+
+
+
+  .wrapper {
+    height: 400px;
+    width: 700px;
+  }
+
+  .lid {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-right: 350px solid transparent;
+    border-bottom: 200px solid transparent;
+    border-left: 350px solid transparent;
+  }
+
+  /* Lid when closed */
+  .lid.one {
+    border-top: 200px solid #658ced;
+  }
+
+  /* Lid when opened */
+  .lid.two {
+    border-top: 200px solid #3760C9;
+  }
+
+  .envelope {
+    height: 100%;
+    width: 90%;
+    top: 0;
+    left: 0;
+    border-top: 200px solid transparent;
+    border-right: 350px solid #C4DFF0;
+    border-bottom: 200px solid #C4DFF0;
+    border-left: 350px solid #a4d4f2;
+  }
+
+  .letter {
+    top: 5px;
+    width: 80%;
+    min-height: 350px;
+    height: 80%;
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px 5px gray;
+  }
+
+  .letter p,.letter pre {
+    width: 90%;
+    margin-top: 30px;
+    
+    font-size: 14px;
+  }
+
+  .wrapper:hover .letter {
+    transform: translateY(-190px);
+  }
 }
