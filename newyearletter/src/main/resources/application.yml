@@ -10,9 +10,9 @@ spring:
     show-sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://203.252.240.74:3306/newyearletter
-    username: dblab
-    password: dblab6100!@#
+    url: 
+    username: 
+    password: 
 
 jwt:
   token:
