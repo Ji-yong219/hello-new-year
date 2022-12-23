@@ -78,3 +78,13 @@ code {
   font-family: "SCD2";
   cursor: pointer;
 }
+.mailBoxBtn {
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+  background: red;
+  color: white;
+  font-size: 30px;
+  font-family: "SCD6";
+  cursor: pointer;
+}

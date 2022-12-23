@@ -35,7 +35,7 @@ function MailBox() {
         type="button"
         // onClick={goToLogin}
         name=""
-        className={active ? 'activeLoginBtn btn-1' : 'loginBtn btn-1'}
+        className="mailBoxBtn"
       >
         {mailboxTitle}
       </button>

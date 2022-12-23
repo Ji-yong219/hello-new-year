@@ -19,6 +19,9 @@ function Main() {
   const goToCreateAccount = () => {
     navigate('/CreateAccount');
   };
+  const goToMailBox = () => {
+    navigate('/MailBox');
+  };
   
 
   let [active, setActive] = useState(false);
@@ -45,6 +48,16 @@ function Main() {
         className={active ? 'activeCreateAccountBtn btn-1' : 'createAccountBtn btn-1'}
       >
         계정 생성
+      </button>
+      
+      
+      <button
+        type="button"
+        onClick={goToMailBox}
+        name=""
+        className={active ? 'activeCreateAccountBtn btn-1' : 'createAccountBtn btn-1'}
+      >
+        [임시] 우체통 페이지
       </button>
     </>
   );
