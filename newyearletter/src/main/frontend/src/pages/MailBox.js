@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AppTitle, Container } from './Main'
+import APP_TITLE from '../utils/AppTitle'
 
 function MailBox() {
-  const [appTitle, setAppTitle] = useState('')
   const [mailboxTitle, setMailboxTitle] = useState('')
 
   useEffect(() => {
-      axios.get('/api/getAppTitle')
-      .then(response => setAppTitle(response.data))
-      .catch(error => console.log(error));
-
       axios.get('/api/getMailboxTitle')
       .then(response => setMailboxTitle(response.data))
       .catch(error => console.log(error))
@@ -26,19 +23,18 @@ function MailBox() {
 
   return (
     <>
-      <h1
-        className="appTitle"
-        onClick={goToMain}>{appTitle}
-      </h1>
+    <Container>
+      <AppTitle>{APP_TITLE}</AppTitle>
 
-      <button
-        type="button"
-        // onClick={goToLogin}
-        name=""
-        className="mailBoxBtn"
-      >
-        {mailboxTitle}
-      </button>
+        <button
+          type="button"
+          // onClick={goToLogin}
+          name=""
+          className="mailBoxBtn"
+        >
+          {mailboxTitle}
+        </button>
+      </Container>
     </>
   );
 }

@@ -9,15 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../utils/reducers/loginState'
 
 function Main() {
-  const [appTitle, setAppTitle] = useState('')
   const navigate = useNavigate()
-
-  useEffect(() => {
-    // axios
-    //   .get('/api/getAppTitle')
-    //   .then(response => setAppTitle(response.data))
-    //   .catch(error => console.log(error))
-  }, [])
 
   const dispatch = useDispatch()
   const { isLogin } = useSelector(state => state.loginState)

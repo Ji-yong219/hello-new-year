@@ -18,11 +18,6 @@ function CreateAccount() {
   const [passwordRepeat, setPasswordRepeat] = useState('')
 
   const dispath = useDispatch()
-  useEffect(() => {
-    // axios.get('/api/getAppTitle')
-    // .then(response => setAppTitle(response.data))
-    // .catch(error => console.log(error))
-  }, [])
 
   const handleIdChange = e => {
     setEmail(e.target.value)

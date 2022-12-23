@@ -13,13 +13,6 @@ import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
 
 function Login() {
-  useEffect(() => {
-    // axios
-    //   .get('/api/getAppTitle')
-    //   .then(response => setAppTitle(response.data))
-    //   .catch(error => console.log(error))
-  }, [])
-
   const navigate = useNavigate()
   const dispath = useDispatch()
 
