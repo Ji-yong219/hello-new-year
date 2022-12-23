@@ -3,6 +3,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './Main';
 import Login from './Login';
+import CreateAccount from './CreateAccount';
+import MailBox from './MailBox';
 
 function App() {
     return (
@@ -11,6 +13,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Main/>} />
             <Route path="/Login" element={<Login/>} />
+            <Route path="/CreateAccount" element={<CreateAccount/>} />
+            <Route path="/MailBox" element={<MailBox/>} />
           </Routes>
         </BrowserRouter>
       </>

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Login() {
+function CreateAccount() {
   const [appTitle, setAppTitle] = useState('')
 
   useEffect(() => {
@@ -24,10 +24,6 @@ function Login() {
     // }
     navigate('/MailBox');
   };
-  const goToCreateAccount = () => {
-    navigate('/CreateAccount');
-  };
-
 
   // 버튼 구현
   let [active, setActive] = useState(false);
@@ -56,6 +52,8 @@ function Login() {
             className="appTitle"
             onClick={goToMain}>{appTitle}
           </h1>
+
+          <h3>계정 생성</h3>
           
           <div className="idForm">
             <input
@@ -79,6 +77,17 @@ function Login() {
               onChange={handlePw}
             />
           </div>
+          <div className="passChkForm">
+            <input
+              type="password"
+              id="pwchk"
+              name="pwchk"
+              className="input-1"
+              placeholder="비밀번호 확인"
+              onKeyUp={ActiveIsPassedLogin}
+              onChange={handlePw}
+            />
+          </div>
           <button
             type="button"
             onClick={goToMailBox}
@@ -86,15 +95,12 @@ function Login() {
             className={active ? 'activeLoginBtn btn-1' : 'loginBtn btn-1'}
             disabled={idValue === '' || pwValue === '' ? true : false}
           >
-            로그인
+            생성
           </button>
-          <div
-            className="bottomText"
-            onClick={goToCreateAccount}>계정 생성</div>
         </form>
       </section>
     </>
   );
 }
 
-export default Login;
+export default CreateAccount;

@@ -2,52 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Main() {
+function MailBox() {
   const [appTitle, setAppTitle] = useState('')
+  const [mailboxTitle, setMailboxTitle] = useState('')
 
   useEffect(() => {
       axios.get('/api/getAppTitle')
       .then(response => setAppTitle(response.data))
+      .catch(error => console.log(error));
+
+      axios.get('/api/getMailboxTitle')
+      .then(response => setMailboxTitle(response.data))
       .catch(error => console.log(error))
   }, []);
 
   const navigate = useNavigate();
 
-  const goToLogin = () => {
-    navigate('/Login');
-  };
-  const goToCreateAccount = () => {
-    navigate('/CreateAccount');
+  const goToMain = () => {
+    navigate('/');
   };
   
-
   let [active, setActive] = useState(false);
 
   return (
     <>
       <h1
-        className="appTitle">{appTitle}
+        className="appTitle"
+        onClick={goToMain}>{appTitle}
       </h1>
 
       <button
         type="button"
-        onClick={goToLogin}
+        // onClick={goToLogin}
         name=""
         className={active ? 'activeLoginBtn btn-1' : 'loginBtn btn-1'}
       >
-        로그인
-      </button>
-      
-      <button
-        type="button"
-        onClick={goToCreateAccount}
-        name=""
-        className={active ? 'activeCreateAccountBtn btn-1' : 'createAccountBtn btn-1'}
-      >
-        계정 생성
+        {mailboxTitle}
       </button>
     </>
   );
 }
 
-export default (Main);
+export default (MailBox);
