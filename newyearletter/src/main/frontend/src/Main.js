@@ -26,13 +26,13 @@ function Main() {
 
   return (
     <>
-      <h1>{appTitle}</h1>
+      <h1 className="appTitle">{appTitle}</h1>
 
       <button
         type="button"
         onClick={goToLogin}
         name=""
-        className={active ? 'activeLoginBtn' : 'loginBtn'}
+        className={active ? 'activeLoginBtn btn-1' : 'loginBtn btn-1'}
       >
         로그인
       </button>
@@ -41,9 +41,9 @@ function Main() {
         type="button"
         onClick={goToCreateAccount}
         name=""
-        className={active ? 'activeCreateAccountBtn' : 'createAccountBtn'}
+        className={active ? 'activeCreateAccountBtn btn-1' : 'createAccountBtn btn-1'}
       >
-        계정 생성
+      <div className="bottomText">계정 생성</div>
       </button>
     </>
   );

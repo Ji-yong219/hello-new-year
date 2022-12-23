@@ -21,10 +21,14 @@ code {
   margin-bottom: 20px;
   font-size: 24px;
 }
-
 .btn-1 {
   width: 400px;
   height: 60px;
+  margin-bottom: 20px;
   font-size: 24px;
+  cursor: pointer;
+}
+.bottomText {
+  text-decoration: underline;
   cursor: pointer;
 }
