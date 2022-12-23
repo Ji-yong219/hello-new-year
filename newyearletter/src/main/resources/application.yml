@@ -16,4 +16,4 @@ spring:
 
 jwt:
   token:
-    secret: hello
+    secret: 
