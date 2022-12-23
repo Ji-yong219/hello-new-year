@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @SpringBootApplication
 @RestController
 public class NewyearletterController {
-	private String sAppTitle = "New Year Letter";
+	private String sAppTitle = "(가제)New Year Letter";
 	private String sMailboxTitle = "우체통";
 
 	public static void main(String[] args) {
