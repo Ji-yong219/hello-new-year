@@ -4,7 +4,7 @@ import App from './App'
 import './style.css'
 import reportWebVitals from './reportWebVitals'
 
-import loginState from './reducers/loginState'
+import loginState from './utils/reducers/loginState'
 
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 
