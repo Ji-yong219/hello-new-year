@@ -13,8 +13,18 @@ repositories {
 }
 
 dependencies {
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'mysql:mysql-connector-java:8.0.30'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.projectlombok:lombok:1.18.24'
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 }
 
 // tasks.named('test') {
@@ -22,43 +32,43 @@ dependencies {
 // }
 
 
-def frontendDir = "$projectDir/src/main/frontend"
-
-sourceSets {
-	main {
-		resources { srcDirs = ["$projectDir/src/main/resources"]
-		}
-	}
-}
-
-processResources { dependsOn "copyReactBuildFiles" }
-
-task installReact(type: Exec) {
-	workingDir "$frontendDir"
-	inputs.dir "$frontendDir"
-	group = BasePlugin.BUILD_GROUP
-	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-		commandLine "npm.cmd", "audit", "fix"
-		commandLine 'npm.cmd', 'install' }
-	else {
-		commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
-	}
-}
-
-task buildReact(type: Exec) {
-	dependsOn "installReact"
-	workingDir "$frontendDir"
-	inputs.dir "$frontendDir"
-	group = BasePlugin.BUILD_GROUP
-	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-		commandLine "npm.cmd", "run-script", "build"
-	} else {
-		commandLine "npm", "run-script", "build"
-	}
-}
-
-task copyReactBuildFiles(type: Copy) {
-	dependsOn "buildReact"
-	from "$frontendDir/build"
-	into "$projectDir/src/main/resources/static"
-}
+//def frontendDir = "$projectDir/src/main/frontend"
+//
+//sourceSets {
+//	main {
+//		resources { srcDirs = ["$projectDir/src/main/resources"]
+//		}
+//	}
+//}
+//
+//processResources { dependsOn "copyReactBuildFiles" }
+//
+//task installReact(type: Exec) {
+//	workingDir "$frontendDir"
+//	inputs.dir "$frontendDir"
+//	group = BasePlugin.BUILD_GROUP
+//	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//		commandLine "npm.cmd", "audit", "fix"
+//		commandLine 'npm.cmd', 'install' }
+//	else {
+//		commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
+//	}
+//}
+//
+//task buildReact(type: Exec) {
+//	dependsOn "installReact"
+//	workingDir "$frontendDir"
+//	inputs.dir "$frontendDir"
+//	group = BasePlugin.BUILD_GROUP
+//	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//		commandLine "npm.cmd", "run-script", "build"
+//	} else {
+//		commandLine "npm", "run-script", "build"
+//	}
+//}
+//
+//task copyReactBuildFiles(type: Copy) {
+//	dependsOn "buildReact"
+//	from "$frontendDir/build"
+//	into "$projectDir/src/main/resources/static"
+//}
