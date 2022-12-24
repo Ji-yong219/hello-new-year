@@ -11,6 +11,8 @@ import { BottomText, Input } from './Login'
 import { useDispatch } from 'react-redux'
 import { login } from '../utils/reducers/loginState'
 
+import axios from 'axios';
+
 function CreateAccount() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
@@ -18,7 +20,7 @@ function CreateAccount() {
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
 
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
 
   const handleIdChange = e => {
     setEmail(e.target.value)
@@ -45,8 +47,26 @@ function CreateAccount() {
       } else if (password !== passwordRepeat) {
         alert('입력하신 두 비밀번호가 다릅니다.')
       } else {
-        dispath(login())
-        navigate('/')
+        let body = {
+          email: email,
+          password: password,
+          nickname: nickname
+        }
+
+        axios.post('/api/users/join', body)
+        .then(res => {
+          console.log(`res : ${res}`)
+          const code = res.data.status;
+          if (code === 400) {
+            alert("???")
+          } else if (code === 409) {
+            alert(`회원가입 실패: ${res.message}`)
+          } else {
+            alert("회원가입 성공")
+            dispatch(login())
+            navigate('/')
+          }
+        })
       }
     },
     [email, password, passwordRepeat]

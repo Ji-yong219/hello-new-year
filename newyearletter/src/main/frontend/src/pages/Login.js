@@ -11,9 +11,11 @@ import { AppTitle, Container } from './Main'
 import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
 
+import axios from 'axios';
+
 function Login() {
   const navigate = useNavigate()
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
 
   // 버튼 구현
   const [email, setEmail] = useState('')
@@ -40,8 +42,25 @@ function Login() {
           password: password
         }
 
-        dispath(login(body))
-        navigate('/')
+        axios.post('/api/users/login', body)
+        .then(res => {
+          console.log(`res : ${res}`)
+          const code = res.data.status;
+          if (code === 400) {
+            alert("???")
+          } else if (code === 401) {
+            alert(`로그인 실패: ${res.message}`)
+          } else if (code === 402) {
+            alert(`로그인 실패: ${res.message}`)
+          } else {
+            alert("로그인 성공")
+            dispatch(login())
+            navigate('/')
+          }
+        })
+
+
+        // loginRequest(body)
       }
     },
     [email, password]
