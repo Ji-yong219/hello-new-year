@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import React, { useCallback, useEffect, useState } from 'react'
-import axios from 'axios'
 
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +10,6 @@ import { AppTitle, Container } from './Main'
 
 import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
-// import { loginRequest } from '../utils/reducers/loginRequest'
 
 function Login() {
   const navigate = useNavigate()
@@ -43,7 +41,6 @@ function Login() {
         }
 
         dispath(login(body))
-        // dispath(loginRequest(body))
         navigate('/')
       }
     },

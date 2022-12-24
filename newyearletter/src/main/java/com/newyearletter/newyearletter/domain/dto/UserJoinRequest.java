@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserJoinRequest {
-    private String userId;
+    private String email;
     private String password;
     private String nickName;
 
     public User toEntity(String url, String password) {
         return User.builder()
-                .userId(this.userId)
+                .email(this.email)
                 .password(password)
                 .nickName(this.nickName)
                 .url(url)
