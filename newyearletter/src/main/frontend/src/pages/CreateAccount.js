@@ -69,10 +69,6 @@ function CreateAccount() {
       />
 
       <ButtonItem onClick={handleSubmit}>회원가입</ButtonItem>
-
-      <BottomText>
-        <LinkItem target="/sign-up">계정 생성하기</LinkItem>
-      </BottomText>
     </Container>
   )
 }
