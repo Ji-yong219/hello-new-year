@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { AppTitle, Container } from './Main'
 import APP_TITLE from '../utils/AppTitle'
 

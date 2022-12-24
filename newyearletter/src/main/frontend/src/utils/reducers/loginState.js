@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const INIT_STATE = {
   isLogin: false,
 }
@@ -5,9 +7,13 @@ const INIT_STATE = {
 function loginState(state = INIT_STATE, action) {
   switch (action.type) {
     case 'LOGIN':
+      const request = axios.post('/api/users/login', action.dataToSubmit)
+          .then(response => response.data)
+
       return {
         ...state,
         isLogin: true,
+        payload: request
       }
     case 'LOGOUT':
       return {
@@ -19,7 +25,7 @@ function loginState(state = INIT_STATE, action) {
   }
 }
 
-export const login = () => ({ type: 'LOGIN' })
+export const login = (body) => ({ type: 'LOGIN', dataToSubmit: body })
 export const logout = () => ({ type: 'LOGOUT' })
 
 export default loginState

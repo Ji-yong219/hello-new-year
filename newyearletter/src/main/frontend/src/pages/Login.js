@@ -11,6 +11,7 @@ import { AppTitle, Container } from './Main'
 
 import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
+// import { loginRequest } from '../utils/reducers/loginRequest'
 
 function Login() {
   const navigate = useNavigate()
@@ -29,13 +30,20 @@ function Login() {
 
   const handleSubmit = useCallback(
     e => {
-      console.log(password)
+      e.preventDefault()
+
       if (email.indexOf('@') === -1) {
         alert('이메일 형식이 맞지 않습니다.')
       } else if (password.length === 0) {
         alert('비밀번호를 입력해 주세요.')
       } else {
-        dispath(login())
+        let body = {
+          email: email,
+          password: password
+        }
+
+        dispath(login(body))
+        // dispath(loginRequest(body))
         navigate('/')
       }
     },
@@ -48,7 +56,7 @@ function Login() {
       <Input
         type="text"
         name="email"
-        placeholder="닉네임"
+        placeholder="이메일"
         onChange={handleIdChange}
       />
       <Input

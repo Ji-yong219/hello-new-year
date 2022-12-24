@@ -14,6 +14,7 @@ import { login } from '../utils/reducers/loginState'
 function CreateAccount() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
+  const [nickname, setNickname] = useState('')
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
 
@@ -21,6 +22,9 @@ function CreateAccount() {
 
   const handleIdChange = e => {
     setEmail(e.target.value)
+  }
+  const handleNicknameChange = e => {
+    setNickname(e.target.value)
   }
   const handlePwChange = e => {
     setPassword(e.target.value)
@@ -34,6 +38,8 @@ function CreateAccount() {
     e => {
       if (email.indexOf('@') === -1) {
         alert('이메일 형식이 맞지 않습니다.')
+      } else if (!(4 <= nickname.length)) {
+        alert('닉네임은 4자 이상 이어야 합니다.')
       } else if (!(8 <= password.length && password.length <= 12)) {
         alert('비밀번호는 8자 이상 20자 이하여야 합니다.')
       } else if (password !== passwordRepeat) {
@@ -54,6 +60,12 @@ function CreateAccount() {
         name="email"
         placeholder="이메일"
         onChange={handleIdChange}
+      />
+      <Input
+        type="text"
+        name="nickname"
+        placeholder="닉네임"
+        onChange={handleNicknameChange}
       />
       <Input
         type="password"
