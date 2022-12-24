@@ -16,7 +16,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<CreateAccount />} />
           <Route path="/mail-box" element={<MailBox />} />
-          <Route path="/recive-mail" element={<ReceiveMail />} />
+          <Route path="/receive-mail" element={<ReceiveMail />} />
         </Routes>
       </BrowserRouter>
     </>
