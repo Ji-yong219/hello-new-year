@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -29,7 +31,7 @@ public class UserService {
 
 
         //랜덤 URL Token 생성
-        String url = "makeRandomToken";
+        String url = UUID.randomUUID().toString();
 
         User savedUser = userRepository.save(request.toEntity(url, encoder.encode(request.getPassword())));
 

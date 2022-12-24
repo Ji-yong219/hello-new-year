@@ -50,7 +50,7 @@ function CreateAccount() {
         let body = {
           email: email,
           password: password,
-          nickname: nickname
+          nickName: nickname
         }
 
         axios.post('/api/users/join', body)
