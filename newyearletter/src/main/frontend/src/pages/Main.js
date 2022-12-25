@@ -73,6 +73,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: max(2rem, 36px);
+
+  @media (max-height: 560px) {
+    height: auto;
+  }
 `
 
 export const AppTitle = styled.div`
