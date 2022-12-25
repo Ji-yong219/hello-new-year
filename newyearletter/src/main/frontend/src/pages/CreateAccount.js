@@ -36,7 +36,7 @@ function CreateAccount() {
     setPasswordRepeat(e.target.value)
   }
 
-  const attemptLogin = async (userID, password, nickName) => {
+  const attemptJoin = async (userID, password, nickName) => {
     try {
       const res = axios.post('/api/users/join', {
         userID: userID,
@@ -69,25 +69,17 @@ function CreateAccount() {
       } else if (password !== passwordRepeat) {
         alert('입력하신 두 비밀번호가 다릅니다.')
       } else {
-        let body = {}
-
-        axios.post('/api/users/join', body).then(res => {
-          const code = res.data.status
-          if (code === 400) {
-            alert('???')
-          } else if (code === 409) {
-            alert(`회원가입 실패: ${res.message}`)
-          } else {
-            alert('회원가입 성공')
-            dispatch(login())
-            navigate('/')
-          }
-        })
+        attemptJoin(userID, password, nickname)
       }
     },
-    [userID, password, passwordRepeat]
+    [userID, password, passwordRepeat, nickname]
   )
 
+  const onCheckEnter = e => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
   return (
     <Container>
       <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
@@ -96,24 +88,28 @@ function CreateAccount() {
         name="userID"
         placeholder="아이디"
         onChange={handleIdChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="text"
         name="nickname"
         placeholder="닉네임"
         onChange={handleNicknameChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="password"
         name="password"
         placeholder="비밀번호"
         onChange={handlePwChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="password"
         name="password"
         placeholder="비밀번호 확인"
         onChange={handlePwReChange}
+        onKeyDown={onCheckEnter}
       />
 
       <ButtonItem onClick={handleSubmit}>회원가입</ButtonItem>

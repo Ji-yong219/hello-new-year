@@ -51,8 +51,6 @@ function Login() {
 
   const handleSubmit = useCallback(
     e => {
-      e.preventDefault()
-
       if (!(4 <= userID.length)) {
         alert('아이디는 4자 이상 이어야 합니다.')
       } else if (password.length === 0) {
@@ -64,6 +62,12 @@ function Login() {
     [userID, password]
   )
 
+  const onCheckEnter = e => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+
   return (
     <Container>
       <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
@@ -72,12 +76,14 @@ function Login() {
         name="userID"
         placeholder="아이디"
         onChange={handleIdChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="password"
         name="password"
         placeholder="비밀번호"
         onChange={handlePwChange}
+        onKeyDown={onCheckEnter}
       />
 
       <ButtonItem onClick={handleSubmit}>로그인</ButtonItem>
