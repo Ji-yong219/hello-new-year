@@ -11,7 +11,7 @@ import { BottomText, Input } from './Login'
 import { useDispatch } from 'react-redux'
 import { login } from '../utils/reducers/loginState'
 
-import axios from 'axios';
+import axios from 'axios'
 
 function CreateAccount() {
   const navigate = useNavigate()
@@ -36,6 +36,28 @@ function CreateAccount() {
     setPasswordRepeat(e.target.value)
   }
 
+  const attemptLogin = async (userID, password, nickName) => {
+    try {
+      const res = axios.post('/api/users/join', {
+        userID: userID,
+        password: password,
+        nickName: nickname,
+      })
+
+      const code = res.data.status
+      if (code === 200) {
+        alert('회원가입 성공')
+        dispatch(login())
+        navigate('/')
+      } else {
+        alert(`회원가입: ${res.message}`)
+      }
+    } catch (error) {
+      alert('예상치 못한 에러가 발생했습니다. 다시 시도해주세요.')
+      window.location.reload()
+    }
+  }
+
   const handleSubmit = useCallback(
     e => {
       if (!(4 <= userID.length)) {
@@ -47,21 +69,16 @@ function CreateAccount() {
       } else if (password !== passwordRepeat) {
         alert('입력하신 두 비밀번호가 다릅니다.')
       } else {
-        let body = {
-          userID: userID,
-          password: password,
-          nickName: nickname
-        }
+        let body = {}
 
-        axios.post('/api/users/join', body)
-        .then(res => {
-          const code = res.data.status;
+        axios.post('/api/users/join', body).then(res => {
+          const code = res.data.status
           if (code === 400) {
-            alert("???")
+            alert('???')
           } else if (code === 409) {
             alert(`회원가입 실패: ${res.message}`)
           } else {
-            alert("회원가입 성공")
+            alert('회원가입 성공')
             dispatch(login())
             navigate('/')
           }
