@@ -24,9 +24,9 @@ public class UserService {
     private long expireTimeMs = 1000 * 60 * 60 * 5;
     public UserDto join(UserJoinRequest request) {
         //중복 id 확인
-        userRepository.findByEmail(request.getEmail())
+        userRepository.findByUserID(request.getUserID())
                 .ifPresent(user -> {
-                    throw new AppException(ErrorCode.DUPLICATED_EMAIL, request.getEmail()+"은 중복된 이메일입니다.");
+                    throw new AppException(ErrorCode.DUPLICATED_USER_ID, request.getUserID()+"은 중복된 아이디입니다.");
                 });
 
 
@@ -36,26 +36,26 @@ public class UserService {
         User savedUser = userRepository.save(request.toEntity(url, encoder.encode(request.getPassword())));
 
         return UserDto.builder()
-                .email(savedUser.getEmail())
+                .userID(savedUser.getUserID())
                 .password(savedUser.getPassword())
                 .nickName(savedUser.getNickName())
                 .url(savedUser.getUrl())
                 .build();
     }
 
-    public String login(String email, String password) {
-        //email 확인
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(()-> new AppException(ErrorCode.EMAIL_NOT_FOUND, email+"이 없습니다."));
+    public String login(String userID, String password) {
+        //userID 확인
+        User user = userRepository.findByUserID(userID)
+                .orElseThrow(()-> new AppException(ErrorCode.USER_ID_NOT_FOUND, userID+"이 없습니다."));
         //password 확인
         if(!encoder.matches(password,user.getPassword())){
             throw new AppException(ErrorCode.INVALID_PASSWORD,"password가 일치하지 않습니다.");
         }
-        return JwtTokenUtil.createToken(email, key, expireTimeMs);
+        return JwtTokenUtil.createToken(userID, key, expireTimeMs);
     }
 
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCode.EMAIL_NOT_FOUND,""));
+    public User getUserByUserID(String userID) {
+        return userRepository.findByUserID(userID)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_ID_NOT_FOUND,""));
     }
 }

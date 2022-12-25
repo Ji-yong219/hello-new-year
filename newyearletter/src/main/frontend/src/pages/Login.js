@@ -18,11 +18,11 @@ function Login() {
   const dispatch = useDispatch()
 
   // 버튼 구현
-  const [email, setEmail] = useState('')
+  const [userID, setUserID] = useState('')
   const [password, setPassword] = useState('')
 
   const handleIdChange = e => {
-    setEmail(e.target.value)
+    setUserID(e.target.value)
   }
   const handlePwChange = e => {
     setPassword(e.target.value)
@@ -32,13 +32,13 @@ function Login() {
     e => {
       e.preventDefault()
 
-      if (email.indexOf('@') === -1) {
-        alert('이메일 형식이 맞지 않습니다.')
+      if (!(4 <= userID.length)) {
+        alert('아이디는 4자 이상 이어야 합니다.')
       } else if (password.length === 0) {
         alert('비밀번호를 입력해 주세요.')
       } else {
         let body = {
-          email: email,
+          userID: userID,
           password: password
         }
 
@@ -58,12 +58,9 @@ function Login() {
             navigate('/')
           }
         })
-
-
-        // loginRequest(body)
       }
     },
-    [email, password]
+    [userID, password]
   )
 
   return (
@@ -71,8 +68,8 @@ function Login() {
       <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
       <Input
         type="text"
-        name="email"
-        placeholder="이메일"
+        name="userID"
+        placeholder="아이디"
         onChange={handleIdChange}
       />
       <Input
