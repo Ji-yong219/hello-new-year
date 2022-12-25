@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @Slf4j
 public class JwtTokenFilter extends OncePerRequestFilter {
@@ -57,15 +58,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         };
 
-        //userID 꺼내기
-        String userID = JwtTokenUtil.getUserID(token, secretKey);
-        log.info("userID:{}", userID);
+        //userName 꺼내기
+        String userName = JwtTokenUtil.getUserName(token, secretKey);
+        log.info("userName:{}", userName);
 
         //userDetail가져오기
-        User user = userService.getUserByUserID(userID);
+        User user = userService.getUserByUserID(userName);
 
         //권한여부경정
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userID, null, List.of(new SimpleGrantedAuthority("USER")));
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userName, null, List.of(new SimpleGrantedAuthority("USER")));
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);
