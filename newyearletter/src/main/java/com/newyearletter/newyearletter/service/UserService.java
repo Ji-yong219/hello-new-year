@@ -2,12 +2,14 @@ package com.newyearletter.newyearletter.service;
 
 import com.newyearletter.newyearletter.domain.dto.UserDto;
 import com.newyearletter.newyearletter.domain.dto.UserJoinRequest;
+import com.newyearletter.newyearletter.domain.dto.UserLoginResponse;
 import com.newyearletter.newyearletter.domain.entity.User;
 import com.newyearletter.newyearletter.exception.AppException;
 import com.newyearletter.newyearletter.exception.ErrorCode;
 import com.newyearletter.newyearletter.repository.UserRepository;
 import com.newyearletter.newyearletter.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,13 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
     @Value("${jwt.token.secret}")
     private String key;
-    private long expireTimeMs = 1000 * 60 * 60 * 5;
+    private long expireTimeMs = 1000 * 60 * 30;
     public UserDto join(UserJoinRequest request) {
         //중복 id 확인
         userRepository.findByUserID(request.getUserID())
@@ -43,7 +46,7 @@ public class UserService {
                 .build();
     }
 
-    public String login(String userID, String password) {
+    public UserLoginResponse login(String userID, String password) {
         //userID 확인
         User user = userRepository.findByUserID(userID)
                 .orElseThrow(()-> new AppException(ErrorCode.USER_ID_NOT_FOUND, userID+"이 없습니다."));
@@ -51,7 +54,10 @@ public class UserService {
         if(!encoder.matches(password,user.getPassword())){
             throw new AppException(ErrorCode.INVALID_PASSWORD,"password가 일치하지 않습니다.");
         }
-        return JwtTokenUtil.createToken(userID, key, expireTimeMs);
+        String token = JwtTokenUtil.createToken(userID, key, expireTimeMs);
+        log.info("token: {}",token);
+
+        return new UserLoginResponse(token, user.getUrl());
     }
 
     public User getUserByUserID(String userID) {

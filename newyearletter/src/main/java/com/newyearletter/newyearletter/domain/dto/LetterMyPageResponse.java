@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserLoginResponse {
-    private String jwt;
-    private String url;
+public class LetterMyPageResponse {
+    private String nickName;
+    private Integer money;
 }
