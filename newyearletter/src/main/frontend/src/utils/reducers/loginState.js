@@ -7,7 +7,7 @@ function loginState(state = INIT_STATE, action) {
     case 'LOGIN':
       return {
         ...state,
-        isLogin: true
+        isLogin: true,
       }
     case 'LOGOUT':
       return {

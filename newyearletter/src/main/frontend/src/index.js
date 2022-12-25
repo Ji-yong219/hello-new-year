@@ -4,29 +4,20 @@ import App from './App'
 import './style.css'
 import reportWebVitals from './reportWebVitals'
 
-import loginState from './utils/reducers/loginState'
-
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
-
-import { composeWithDevTools } from 'redux-devtools-extension'
-import logger from 'redux-logger'
 import { Provider } from 'react-redux'
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import store from './utils/reducers'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-const rootReducer = combineReducers({
-  loginState,
-})
 
-const enhancer =
-  process.env.NODE_ENV === 'production'
-    ? compose(applyMiddleware())
-    : composeWithDevTools(applyMiddleware(logger))
-
-const store = createStore(rootReducer, enhancer)
+const persistor = persistStore(store)
 
 root.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 )
 
