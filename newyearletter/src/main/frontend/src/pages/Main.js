@@ -14,7 +14,6 @@ function Main() {
   const dispatch = useDispatch()
   const { isLogin } = useSelector(state => state.loginState)
 
-  console.log(isLogin)
   return (
     <Container>
       <AppTitle>{APP_TITLE}</AppTitle>

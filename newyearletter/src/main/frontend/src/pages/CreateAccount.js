@@ -11,7 +11,7 @@ import { BottomText, Input } from './Login'
 import { useDispatch } from 'react-redux'
 import { login } from '../utils/reducers/loginState'
 
-import axios from 'axios';
+import axios from 'axios'
 
 function CreateAccount() {
   const navigate = useNavigate()
@@ -36,6 +36,28 @@ function CreateAccount() {
     setPasswordRepeat(e.target.value)
   }
 
+  const attemptJoin = async (userID, password, nickName) => {
+    try {
+      const res = axios.post('/api/users/join', {
+        userID: userID,
+        password: password,
+        nickName: nickname,
+      })
+
+      const code = res.data.status
+      if (code === 200) {
+        alert('회원가입 성공')
+        dispatch(login())
+        navigate('/')
+      } else {
+        alert(`회원가입: ${res.message}`)
+      }
+    } catch (error) {
+      alert('예상치 못한 에러가 발생했습니다. 다시 시도해주세요.')
+      window.location.reload()
+    }
+  }
+
   const handleSubmit = useCallback(
     e => {
       if (!(4 <= userID.length)) {
@@ -47,30 +69,17 @@ function CreateAccount() {
       } else if (password !== passwordRepeat) {
         alert('입력하신 두 비밀번호가 다릅니다.')
       } else {
-        let body = {
-          userID: userID,
-          password: password,
-          nickName: nickname
-        }
-
-        axios.post('/api/users/join', body)
-        .then(res => {
-          const code = res.data.status;
-          if (code === 400) {
-            alert("???")
-          } else if (code === 409) {
-            alert(`회원가입 실패: ${res.message}`)
-          } else {
-            alert("회원가입 성공")
-            dispatch(login())
-            navigate('/')
-          }
-        })
+        attemptJoin(userID, password, nickname)
       }
     },
-    [userID, password, passwordRepeat]
+    [userID, password, passwordRepeat, nickname]
   )
 
+  const onCheckEnter = e => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
   return (
     <Container>
       <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
@@ -79,24 +88,28 @@ function CreateAccount() {
         name="userID"
         placeholder="아이디"
         onChange={handleIdChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="text"
         name="nickname"
         placeholder="닉네임"
         onChange={handleNicknameChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="password"
         name="password"
         placeholder="비밀번호"
         onChange={handlePwChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="password"
         name="password"
         placeholder="비밀번호 확인"
         onChange={handlePwReChange}
+        onKeyDown={onCheckEnter}
       />
 
       <ButtonItem onClick={handleSubmit}>회원가입</ButtonItem>

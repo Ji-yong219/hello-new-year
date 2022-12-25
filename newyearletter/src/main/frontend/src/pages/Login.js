@@ -11,7 +11,7 @@ import { AppTitle, Container } from './Main'
 import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
 
-import axios from 'axios';
+import axios from 'axios'
 
 function Login() {
   const navigate = useNavigate()
@@ -28,40 +28,45 @@ function Login() {
     setPassword(e.target.value)
   }
 
+  const attemptLogin = async (userID, password) => {
+    try {
+      const res = axios.post('/api/users/login', {
+        userID: userID,
+        password: password,
+      })
+
+      const code = res.data.status
+      if (code === 200) {
+        alert('로그인 성공')
+        dispatch(login())
+        navigate('/')
+      } else {
+        alert(`로그인 실패: ${res.message}`)
+      }
+    } catch (error) {
+      alert('예상치 못한 에러가 발생했습니다. 다시 시도해주세요.')
+      window.location.reload()
+    }
+  }
+
   const handleSubmit = useCallback(
     e => {
-      e.preventDefault()
-
       if (!(4 <= userID.length)) {
         alert('아이디는 4자 이상 이어야 합니다.')
       } else if (password.length === 0) {
         alert('비밀번호를 입력해 주세요.')
       } else {
-        let body = {
-          userID: userID,
-          password: password
-        }
-
-        axios.post('/api/users/login', body)
-        .then(res => {
-          console.log(`res : ${res}`)
-          const code = res.data.status;
-          if (code === 400) {
-            alert("???")
-          } else if (code === 401) {
-            alert(`로그인 실패: ${res.message}`)
-          } else if (code === 402) {
-            alert(`로그인 실패: ${res.message}`)
-          } else {
-            alert("로그인 성공")
-            dispatch(login())
-            navigate('/')
-          }
-        })
+        attemptLogin(userID, password)
       }
     },
     [userID, password]
   )
+
+  const onCheckEnter = e => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
 
   return (
     <Container>
@@ -71,12 +76,14 @@ function Login() {
         name="userID"
         placeholder="아이디"
         onChange={handleIdChange}
+        onKeyDown={onCheckEnter}
       />
       <Input
         type="password"
         name="password"
         placeholder="비밀번호"
         onChange={handlePwChange}
+        onKeyDown={onCheckEnter}
       />
 
       <ButtonItem onClick={handleSubmit}>로그인</ButtonItem>

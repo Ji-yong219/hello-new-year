@@ -9,17 +9,15 @@ import ReceiveMail from './pages/ReceiveMail'
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<CreateAccount />} />
-          <Route path="/mail-box" element={<MailBox />} />
-          <Route path="/receive-mail" element={<ReceiveMail />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<CreateAccount />} />
+        <Route path="/mail-box" element={<MailBox />} />
+        <Route path="/receive-mail" element={<ReceiveMail />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
