@@ -40,10 +40,10 @@ function CreateAccount() {
     e => {
       if (!(4 <= userID.length)) {
         alert('아이디는 4자 이상 이어야 합니다.')
-      } else if (!(4 <= nickname.length)) {
-        alert('닉네임은 4자 이상 이어야 합니다.')
-      } else if (!(8 <= password.length && password.length <= 12)) {
-        alert('비밀번호는 8자 이상 20자 이하여야 합니다.')
+      } else if (!(2 <= nickname.length)) {
+        alert('닉네임은 2자 이상 이어야 합니다.')
+      } else if (!(4 <= password.length && password.length <= 20)) {
+        alert('비밀번호는 4자 이상 20자 이하여야 합니다.')
       } else if (password !== passwordRepeat) {
         alert('입력하신 두 비밀번호가 다릅니다.')
       } else {
