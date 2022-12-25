@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import React, { useCallback, useEffect, useState } from 'react'
-import axios from 'axios'
 
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,16 +11,18 @@ import { AppTitle, Container } from './Main'
 import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
 
+import axios from 'axios';
+
 function Login() {
   const navigate = useNavigate()
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
 
   // 버튼 구현
-  const [email, setEmail] = useState('')
+  const [userID, setUserID] = useState('')
   const [password, setPassword] = useState('')
 
   const handleIdChange = e => {
-    setEmail(e.target.value)
+    setUserID(e.target.value)
   }
   const handlePwChange = e => {
     setPassword(e.target.value)
@@ -29,17 +30,37 @@ function Login() {
 
   const handleSubmit = useCallback(
     e => {
-      console.log(password)
-      if (email.indexOf('@') === -1) {
-        alert('이메일 형식이 맞지 않습니다.')
+      e.preventDefault()
+
+      if (!(4 <= userID.length)) {
+        alert('아이디는 4자 이상 이어야 합니다.')
       } else if (password.length === 0) {
         alert('비밀번호를 입력해 주세요.')
       } else {
-        dispath(login())
-        navigate('/')
+        let body = {
+          userID: userID,
+          password: password
+        }
+
+        axios.post('/api/users/login', body)
+        .then(res => {
+          console.log(`res : ${res}`)
+          const code = res.data.status;
+          if (code === 400) {
+            alert("???")
+          } else if (code === 401) {
+            alert(`로그인 실패: ${res.message}`)
+          } else if (code === 402) {
+            alert(`로그인 실패: ${res.message}`)
+          } else {
+            alert("로그인 성공")
+            dispatch(login())
+            navigate('/')
+          }
+        })
       }
     },
-    [email, password]
+    [userID, password]
   )
 
   return (
@@ -47,8 +68,8 @@ function Login() {
       <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
       <Input
         type="text"
-        name="email"
-        placeholder="닉네임"
+        name="userID"
+        placeholder="아이디"
         onChange={handleIdChange}
       />
       <Input

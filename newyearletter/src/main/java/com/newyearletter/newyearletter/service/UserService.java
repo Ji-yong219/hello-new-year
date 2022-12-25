@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -22,38 +24,38 @@ public class UserService {
     private long expireTimeMs = 1000 * 60 * 60 * 5;
     public UserDto join(UserJoinRequest request) {
         //중복 id 확인
-        userRepository.findByUserId(request.getUserId())
+        userRepository.findByUserID(request.getUserID())
                 .ifPresent(user -> {
-                    throw new AppException(ErrorCode.DUPLICATED_USER_ID, request.getUserId()+"은 중복된 아이디입니다.");
+                    throw new AppException(ErrorCode.DUPLICATED_USER_ID, request.getUserID()+"은 중복된 아이디입니다.");
                 });
 
 
         //랜덤 URL Token 생성
-        String url = "makeRandomToken";
+        String url = UUID.randomUUID().toString();
 
         User savedUser = userRepository.save(request.toEntity(url, encoder.encode(request.getPassword())));
 
         return UserDto.builder()
-                .userId(savedUser.getUserId())
+                .userID(savedUser.getUserID())
                 .password(savedUser.getPassword())
                 .nickName(savedUser.getNickName())
                 .url(savedUser.getUrl())
                 .build();
     }
 
-    public String login(String userName, String password) {
-        //userName 확인
-        User user = userRepository.findByUserId(userName)
-                .orElseThrow(()-> new AppException(ErrorCode.USERNAME_NOT_FOUND, userName+"이 없습니다."));
+    public String login(String userID, String password) {
+        //userID 확인
+        User user = userRepository.findByUserID(userID)
+                .orElseThrow(()-> new AppException(ErrorCode.USER_ID_NOT_FOUND, userID+"이 없습니다."));
         //password 확인
         if(!encoder.matches(password,user.getPassword())){
             throw new AppException(ErrorCode.INVALID_PASSWORD,"password가 일치하지 않습니다.");
         }
-        return JwtTokenUtil.createToken(userName, key, expireTimeMs);
+        return JwtTokenUtil.createToken(userID, key, expireTimeMs);
     }
 
-    public User getUserByUserId(String userName) {
-        return userRepository.findByUserId(userName)
-                .orElseThrow(() -> new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
+    public User getUserByUserID(String userID) {
+        return userRepository.findByUserID(userID)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_ID_NOT_FOUND,""));
     }
 }

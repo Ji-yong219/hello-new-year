@@ -11,16 +11,22 @@ import { BottomText, Input } from './Login'
 import { useDispatch } from 'react-redux'
 import { login } from '../utils/reducers/loginState'
 
+import axios from 'axios';
+
 function CreateAccount() {
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
+  const [userID, setUserID] = useState('')
+  const [nickname, setNickname] = useState('')
   const [password, setPassword] = useState('')
   const [passwordRepeat, setPasswordRepeat] = useState('')
 
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
 
   const handleIdChange = e => {
-    setEmail(e.target.value)
+    setUserID(e.target.value)
+  }
+  const handleNicknameChange = e => {
+    setNickname(e.target.value)
   }
   const handlePwChange = e => {
     setPassword(e.target.value)
@@ -32,18 +38,37 @@ function CreateAccount() {
 
   const handleSubmit = useCallback(
     e => {
-      if (email.indexOf('@') === -1) {
-        alert('이메일 형식이 맞지 않습니다.')
-      } else if (!(8 <= password.length && password.length <= 12)) {
-        alert('비밀번호는 8자 이상 20자 이하여야 합니다.')
+      if (!(4 <= userID.length)) {
+        alert('아이디는 4자 이상 이어야 합니다.')
+      } else if (!(2 <= nickname.length)) {
+        alert('닉네임은 2자 이상 이어야 합니다.')
+      } else if (!(4 <= password.length && password.length <= 20)) {
+        alert('비밀번호는 4자 이상 20자 이하여야 합니다.')
       } else if (password !== passwordRepeat) {
         alert('입력하신 두 비밀번호가 다릅니다.')
       } else {
-        dispath(login())
-        navigate('/')
+        let body = {
+          userID: userID,
+          password: password,
+          nickName: nickname
+        }
+
+        axios.post('/api/users/join', body)
+        .then(res => {
+          const code = res.data.status;
+          if (code === 400) {
+            alert("???")
+          } else if (code === 409) {
+            alert(`회원가입 실패: ${res.message}`)
+          } else {
+            alert("회원가입 성공")
+            dispatch(login())
+            navigate('/')
+          }
+        })
       }
     },
-    [email, password, passwordRepeat]
+    [userID, password, passwordRepeat]
   )
 
   return (
@@ -51,9 +76,15 @@ function CreateAccount() {
       <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
       <Input
         type="text"
-        name="email"
-        placeholder="이메일"
+        name="userID"
+        placeholder="아이디"
         onChange={handleIdChange}
+      />
+      <Input
+        type="text"
+        name="nickname"
+        placeholder="닉네임"
+        onChange={handleNicknameChange}
       />
       <Input
         type="password"
@@ -69,10 +100,6 @@ function CreateAccount() {
       />
 
       <ButtonItem onClick={handleSubmit}>회원가입</ButtonItem>
-
-      <BottomText>
-        <LinkItem target="/sign-up">계정 생성하기</LinkItem>
-      </BottomText>
     </Container>
   )
 }

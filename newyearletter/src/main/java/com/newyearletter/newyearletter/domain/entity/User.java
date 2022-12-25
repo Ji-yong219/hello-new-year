@@ -18,8 +18,8 @@ public class User {
     @Column(name = "UserSeq")
     private Integer seq;
 
-    @Column(name = "ID")
-    private String userId;
+    @Column(name = "userID")
+    private String userID;
 
     @Column(name = "PassWord")
     private String password;
