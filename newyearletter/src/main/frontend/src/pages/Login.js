@@ -99,7 +99,7 @@ function Login() {
 }
 
 export const Input = styled.input`
-  width: max(20rem, 280px);
+  width: max(16rem, 280px);
   padding: max(1rem, 18px);
   color: var(--brown);
 
@@ -109,7 +109,7 @@ export const Input = styled.input`
   text-align: center;
 
   border: none;
-  border-radius: 2rem;
+  border-radius: max(0.5rem, 9px);
   filter: drop-shadow(3px 3px 2px var(--light-300));
 
   :focus {
