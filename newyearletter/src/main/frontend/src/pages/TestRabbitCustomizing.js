@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppTitle, Container } from './Main'
-import APP_TITLE from '../utils/AppTitle'
 
-import { ReactComponent as RabbitHead } from '../assets/test-svg/rabbit_head.svg';
+import { ReactComponent as Heart } from '../assets/test-svg/heart.svg';
+import { ReactComponent as Carrot } from '../assets/test-svg/cyberscooty-carrot.svg';
+
+import { Rabbit } from '../components/Rabbit';
 
 function TestRabbitCustomizing() {
   const navigate = useNavigate();
@@ -11,22 +13,20 @@ function TestRabbitCustomizing() {
   const goToMain = () => {
     navigate('/');
   };
-  let [active, setActive] = useState(false);
+
+  const [show, setShow] = useState();
+
+  // function to toggle the boolean value
+  function toggleShow() {
+    setShow(!show);
+  }
+  var buttonText = show ? "Hide Component" : "Show Component";
+  
 
   return (
     <>
       <Container>
-        <AppTitle>{APP_TITLE}</AppTitle>
-
-
-        
-        <div className="wrapper">
-          <RabbitHead />
-        </div>
-
-        
-
-        
+        <Rabbit />
       </Container>
     </>
   );
