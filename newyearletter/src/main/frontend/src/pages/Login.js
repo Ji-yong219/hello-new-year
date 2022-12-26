@@ -12,6 +12,7 @@ import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
 
 import axios from 'axios'
+import { API_ADDRESS } from '../utils/constant'
 
 function Login() {
   const navigate = useNavigate()
@@ -30,21 +31,19 @@ function Login() {
 
   const attemptLogin = async (userID, password) => {
     try {
-      const res = axios.post('/api/users/login', {
+      const res = await axios.post('/api/users/login', {
         userID: userID,
         password: password,
       })
-
-      const code = res.data.status
-      if (code === 200) {
-        alert('로그인 성공')
-        dispatch(login())
+      console.log(res)
+      if (res.status === 200) {
+        alert('로그인에 성공했습니다.')
+        dispatch(login(res.data.result.jwt))
         navigate('/')
-      } else {
-        alert(`로그인 실패: ${res.message}`)
       }
-    } catch (error) {
-      alert('예상치 못한 에러가 발생했습니다. 다시 시도해주세요.')
+    } catch (err) {
+      const res = err.response
+      alert(`로그인에 실패했습니다: ${res.data.result.message}`)
       window.location.reload()
     }
   }

@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../utils/reducers/loginState'
 
 import axios from 'axios'
+import { API_ADDRESS } from '../utils/constant'
 
 function CreateAccount() {
   const navigate = useNavigate()
@@ -38,22 +39,24 @@ function CreateAccount() {
 
   const attemptJoin = async (userID, password, nickName) => {
     try {
-      const res = axios.post('/api/users/join', {
+      const res = await axios.post('/api/users/join', {
         userID: userID,
         password: password,
-        nickName: nickname,
+        nickName: nickName,
       })
 
-      const code = res.data.status
+      const code = res.status
       if (code === 200) {
         alert('회원가입 성공')
         dispatch(login())
         navigate('/')
       } else {
-        alert(`회원가입: ${res.message}`)
+        alert(`회원가입에 실패했습니다: ${res.result.message}`)
+        window.location.reload()
       }
-    } catch (error) {
-      alert('예상치 못한 에러가 발생했습니다. 다시 시도해주세요.')
+    } catch (err) {
+      const res = err.response
+      alert(`회원가입에 실패했습니다: ${res.data.result.message}`)
       window.location.reload()
     }
   }

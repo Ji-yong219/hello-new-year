@@ -27,7 +27,7 @@ const Container = styled.div`
   align-items: center;
 
   width: max(20rem, 240px);
-  height: max(4rem, 60px);
+  height: max(4rem, 80px);
 
   font-family: score;
   font-weight: 500;
