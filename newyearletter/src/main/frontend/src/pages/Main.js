@@ -85,7 +85,7 @@ export const Wrapper = styled.div`
   gap: max(${({ gap = 1 }) => gap}rem, ${({ gap = 1 }) => gap * 18}px);
 `
 
-const SubTitle = styled.div`
+export const SubTitle = styled.div`
   font-family: nanumRound;
   font-weight: bold;
   font-size: max(1.2rem, 17px);
