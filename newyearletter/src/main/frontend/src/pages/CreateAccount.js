@@ -2,17 +2,16 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import LinkItem from '../components/LinkItem'
 import ButtonItem from '../components/ButtonItem'
-import { AppTitle, Container } from './Main'
+import { Container, SubTitle, Wrapper } from './Main'
 
-import APP_TITLE from '../utils/AppTitle'
 import { BottomText, Input } from './Login'
 import { useDispatch } from 'react-redux'
 import { login } from '../utils/reducers/loginState'
 
 import axios from 'axios'
-import { API_ADDRESS } from '../utils/constant'
+import Logo from '../components/Logo'
+import LinkItem from '../components/LinkItem'
 
 function CreateAccount() {
   const navigate = useNavigate()
@@ -85,37 +84,50 @@ function CreateAccount() {
   }
   return (
     <Container>
-      <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
-      <Input
-        type="text"
-        name="userID"
-        placeholder="아이디"
-        onChange={handleIdChange}
-        onKeyDown={onCheckEnter}
-      />
-      <Input
-        type="text"
-        name="nickname"
-        placeholder="닉네임"
-        onChange={handleNicknameChange}
-        onKeyDown={onCheckEnter}
-      />
-      <Input
-        type="password"
-        name="password"
-        placeholder="비밀번호"
-        onChange={handlePwChange}
-        onKeyDown={onCheckEnter}
-      />
-      <Input
-        type="password"
-        name="password"
-        placeholder="비밀번호 확인"
-        onChange={handlePwReChange}
-        onKeyDown={onCheckEnter}
-      />
-
-      <ButtonItem onClick={handleSubmit}>회원가입</ButtonItem>
+      <Wrapper gap={3}>
+        <Logo />
+        <Wrapper gap={1.2}>
+          <SubTitle>환영합니다!</SubTitle>
+          <Input
+            type="text"
+            name="userID"
+            placeholder="아이디"
+            autocomplete="off"
+            onChange={handleIdChange}
+            onKeyDown={onCheckEnter}
+          />
+          <Input
+            type="text"
+            name="nickname"
+            placeholder="닉네임"
+            autocomplete="off"
+            onChange={handleNicknameChange}
+            onKeyDown={onCheckEnter}
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            autocomplete="off"
+            onChange={handlePwChange}
+            onKeyDown={onCheckEnter}
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="비밀번호 확인"
+            autocomplete="off"
+            onChange={handlePwReChange}
+            onKeyDown={onCheckEnter}
+          />
+        </Wrapper>
+        <Wrapper>
+          <ButtonItem onClick={handleSubmit}>회원가입</ButtonItem>
+          <LinkItem target="/login">
+            <BottomText>계정이 있으신가요? 로그인</BottomText>
+          </LinkItem>
+        </Wrapper>
+      </Wrapper>
     </Container>
   )
 }
