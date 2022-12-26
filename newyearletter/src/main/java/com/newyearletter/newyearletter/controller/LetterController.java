@@ -24,7 +24,7 @@ public class LetterController {
         return this.sMailboxTitle;
     }
 
-    @GetMapping("/myPage/{uuid}")
+    @GetMapping("/mypage/{uuid}")
     public Response<LetterMyPageResponse> mypage(@PathVariable String uuid, Authentication authentication){
         String userID = authentication.getName();
         LetterMyPageResponse mypageResponse = letterService.mypage(uuid, userID);
