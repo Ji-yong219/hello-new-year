@@ -3,7 +3,7 @@ module.exports = function (app) {
   app.use(
     '/api/*',
     createProxyMiddleware({
-      target: 'http://203.252.240.74:8080',
+      target: 'https://newyearletter.site:8080',
       changeOrigin: true,
     })
   )
