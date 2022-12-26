@@ -7,6 +7,7 @@ import CreateAccount from './pages/CreateAccount'
 import MailBox from './pages/MailBox'
 import ReceiveMail from './pages/ReceiveMail'
 import MyPage from './pages/MyPage'
+import TestRabbitCustomizing from './pages/TestRabbitCustomizing'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/mail-box" element={<MailBox />} />
         <Route path="/receive-mail" element={<ReceiveMail />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/TestRabbitCustomizing" element={<TestRabbitCustomizing />} />
       </Routes>
     </BrowserRouter>
   )
