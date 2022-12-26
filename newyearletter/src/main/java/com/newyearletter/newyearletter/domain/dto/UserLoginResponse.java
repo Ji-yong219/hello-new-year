@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserLoginResponse {
     private String jwt;
-    private String url;
+    private String uuid;
 }

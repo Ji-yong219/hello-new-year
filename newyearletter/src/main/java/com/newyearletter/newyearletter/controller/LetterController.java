@@ -24,16 +24,16 @@ public class LetterController {
         return this.sMailboxTitle;
     }
 
-    @GetMapping("/myPage/{url}")
-    public Response<LetterMyPageResponse> mypage(@PathVariable String url, Authentication authentication){
+    @GetMapping("/myPage/{uuid}")
+    public Response<LetterMyPageResponse> mypage(@PathVariable String uuid, Authentication authentication){
         String userID = authentication.getName();
-        LetterMyPageResponse mypageResponse = letterService.mypage(url, userID);
+        LetterMyPageResponse mypageResponse = letterService.mypage(uuid, userID);
         return Response.success(mypageResponse);
     }
 
-    @GetMapping("/{url}")
-    public Response<LetterResponse> letters(@PathVariable String url){
-        LetterResponse letterResponse = letterService.letter(url);
+    @GetMapping("/{uuid}")
+    public Response<LetterResponse> letters(@PathVariable String uuid){
+        LetterResponse letterResponse = letterService.letter(uuid);
         return Response.success(letterResponse);
     }
 }

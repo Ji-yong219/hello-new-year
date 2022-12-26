@@ -13,5 +13,5 @@ public class UserDto {
     private String userID;
     private String password;
     private String nickName;
-    private String url;
+    private String uuid;
 }
