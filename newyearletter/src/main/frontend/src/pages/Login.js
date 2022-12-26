@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import LinkItem from '../components/LinkItem'
 import ButtonItem from '../components/ButtonItem'
-import { AppTitle, Container } from './Main'
+import { Container } from './Main'
 
 import APP_TITLE from '../utils/AppTitle'
 import { login } from '../utils/reducers/loginState'
 
 import axios from 'axios'
-import { API_ADDRESS } from '../utils/constant'
+import Logo from '../components/Logo'
 
 function Login() {
   const navigate = useNavigate()
@@ -68,7 +68,7 @@ function Login() {
 
   return (
     <Container>
-      <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
+      <Logo />
       <Input
         type="text"
         name="userID"

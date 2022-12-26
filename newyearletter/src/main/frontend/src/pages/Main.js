@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
-import APP_TITLE from '../utils/AppTitle'
 
 import ButtonItem from '../components/ButtonItem'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../utils/reducers/loginState'
+
+import background from '../assets/images/background.png'
+import Logo from '../components/Logo'
 
 function Main() {
   const navigate = useNavigate()
@@ -16,63 +18,39 @@ function Main() {
 
   return (
     <Container>
-      <AppTitle>{APP_TITLE}</AppTitle>
+      <Wrapper gap={2}>
+        <Logo />
+        <SubTitle>새해 멘트를 공유하고 응원의 편지를 받으세요!</SubTitle>
+      </Wrapper>
+      <Wrapper>
+        <ButtonItem
+          onClick={
+            isLogin
+              ? () => {
+                  dispatch(logout())
+                }
+              : () => {
+                  navigate('/login')
+                }
+          }
+        >
+          {isLogin ? '로그아웃' : '로그인'}
+        </ButtonItem>
 
-      <ButtonItem
-        onClick={
-          isLogin
-            ? () => {
-                dispatch(logout())
-              }
-            : () => {
-                navigate('/login')
-              }
-        }
-      >
-        {isLogin ? '로그아웃' : '로그인'}
-      </ButtonItem>
-
-      <ButtonItem
-        onClick={
-          isLogin
-            ? null
-            : () => {
-                navigate('/sign-up')
-              }
-        }
-        isActive={!isLogin}
-      >
-        회원가입
-      </ButtonItem>
-
-      <ButtonItem
-        onClick={
-          isLogin
-            ? () => {
-                navigate('/mypage')
-              }
-            : null
-        }
-        isActive={isLogin}
-      >
-        마이페이지
-      </ButtonItem>
-
-      <ButtonItem
-        onClick={() => {
-          navigate('/mail-box')
-        }}
-      >
-        우체통
-      </ButtonItem>
-
-      <ButtonItem
-        onClick={() => {
-          navigate('/receive-mail')
-        }}
-      >
-        받은 편지 확인하기
-      </ButtonItem>
+        <ButtonItem
+          background="--pink-100"
+          onClick={
+            isLogin
+              ? null
+              : () => {
+                  navigate('/sign-up')
+                }
+          }
+          isActive={!isLogin}
+        >
+          회원가입
+        </ButtonItem>
+      </Wrapper>
     </Container>
   )
 }
@@ -83,20 +61,38 @@ export const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+
+  padding: max(3rem, 54px) 0;
+
   align-items: center;
   gap: max(2rem, 36px);
+
+  background: url(${background});
+  background-size: cover;
+
+  color: var(--brown);
 
   @media (max-height: 560px) {
     height: auto;
   }
 `
 
-export const AppTitle = styled.div`
-  font-family: 'score';
-  font-weight: 600;
-  font-size: max(2.5rem, 36px);
-  cursor: pointer;
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: max(${({ gap = 1 }) => gap}rem, ${({ gap = 1 }) => gap * 18}px);
+`
+
+const SubTitle = styled.div`
+  font-family: nanumRound;
+  font-weight: bold;
+  font-size: max(1.2rem, 17px);
+
+  @media (max-width: 400px) {
+    font-size: 16px;
+  }
 `
 
 export default Main
