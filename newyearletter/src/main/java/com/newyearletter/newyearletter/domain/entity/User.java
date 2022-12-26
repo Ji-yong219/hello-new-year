@@ -27,6 +27,6 @@ public class User {
     @Column(name = "NickName")
     private String nickName;
 
-    @Column(name = "URL")
-    private String url;
+    @Column(name = "uuid")
+    private String uuid;
 }

@@ -14,12 +14,12 @@ public class UserJoinRequest {
     private String password;
     private String nickName;
 
-    public User toEntity(String url, String password) {
+    public User toEntity(String uuid, String password) {
         return User.builder()
                 .userID(this.userID)
                 .password(password)
                 .nickName(this.nickName)
-                .url(url)
+                .uuid(uuid)
                 .build();
     }
 }

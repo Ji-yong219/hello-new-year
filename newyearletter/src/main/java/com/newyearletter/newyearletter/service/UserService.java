@@ -34,15 +34,15 @@ public class UserService {
 
 
         //랜덤 URL Token 생성
-        String url = UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString();
 
-        User savedUser = userRepository.save(request.toEntity(url, encoder.encode(request.getPassword())));
+        User savedUser = userRepository.save(request.toEntity(uuid, encoder.encode(request.getPassword())));
 
         return UserDto.builder()
                 .userID(savedUser.getUserID())
                 .password(savedUser.getPassword())
                 .nickName(savedUser.getNickName())
-                .url(savedUser.getUrl())
+                .uuid(savedUser.getUuid())
                 .build();
     }
 
@@ -57,7 +57,7 @@ public class UserService {
         String token = JwtTokenUtil.createToken(userID, key, expireTimeMs);
         log.info("token: {}",token);
 
-        return new UserLoginResponse(token, user.getUrl());
+        return new UserLoginResponse(token, user.getUuid());
     }
 
     public User getUserByUserID(String userID) {

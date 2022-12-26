@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserJoinResponse {
     private String userID;
-    private String url;
+    private String uuid;
 }
