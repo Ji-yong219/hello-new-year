@@ -1,40 +1,37 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-function ButtonItem({ isActive = true, onClick, children }) {
+function ButtonItem({ background = '--pink-200', onClick, children }) {
   return (
-    <Container
-      style={
-        isActive
-          ? null
-          : { background: 'var(--light-700)', cursor: 'not-allowed' }
-      }
-      onClick={onClick}
-    >
+    <Container background={background} onClick={onClick}>
       {children}
     </Container>
   )
 }
 
 ButtonItem.propTypes = {
-  isActive: PropTypes.bool,
+  background: PropTypes.string,
   onClick: PropTypes.func,
 }
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: max(20rem, 240px);
-  height: max(4rem, 80px);
+  width: max(12rem, 220px);
+  height: max(3rem, 60px);
 
-  font-family: score;
-  font-weight: 500;
-  font-size: max(1.5rem, 21px);
+  border: 5px double var(--light-100);
+  border-radius: 9999px;
 
-  background: var(--primary);
-  color: white;
+  font-family: nanumRound;
+  font-weight: bold;
+  font-size: max(1rem, 17px);
+
+  background: var(${props => props.background});
+  color: var(--brown);
 
   cursor: pointer;
 `

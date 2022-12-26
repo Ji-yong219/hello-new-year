@@ -13,6 +13,7 @@ import { login } from '../utils/reducers/loginState'
 
 import axios from 'axios'
 import { API_ADDRESS } from '../utils/constant'
+import Logo from '../components/Logo'
 
 function CreateAccount() {
   const navigate = useNavigate()
@@ -85,7 +86,7 @@ function CreateAccount() {
   }
   return (
     <Container>
-      <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
+      <Logo />
       <Input
         type="text"
         name="userID"

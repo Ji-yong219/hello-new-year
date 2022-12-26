@@ -1,10 +1,9 @@
 import axios from 'axios'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import APP_TITLE from '../utils/AppTitle'
-import { AppTitle, Container } from './Main'
+import Logo from '../components/Logo'
+import { Container } from './Main'
 
 function MyPage() {
   const [info, setInfo] = React.useState({ nickName: '', moneny: 0 })
@@ -26,7 +25,7 @@ function MyPage() {
 
   return (
     <Container>
-      <AppTitle>{APP_TITLE}</AppTitle>
+      <Logo />
       <Info>닉네임: {info.nickName}</Info>
       <Info>남은돈: {info.money}원</Info>
     </Container>
