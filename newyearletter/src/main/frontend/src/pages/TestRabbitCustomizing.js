@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppTitle, Container } from './Main'
 
-import { ReactComponent as Heart } from '../assets/test-svg/heart.svg';
-import { ReactComponent as Carrot } from '../assets/test-svg/cyberscooty-carrot.svg';
-
 import { Rabbit } from '../components/Rabbit';
 
 function TestRabbitCustomizing() {
