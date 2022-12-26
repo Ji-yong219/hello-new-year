@@ -1,6 +1,7 @@
 package com.newyearletter.newyearletter.controller;
 
 import com.newyearletter.newyearletter.domain.dto.LetterMyPageResponse;
+import com.newyearletter.newyearletter.domain.dto.LetterResponse;
 import com.newyearletter.newyearletter.domain.dto.Response;
 import com.newyearletter.newyearletter.domain.entity.User;
 import com.newyearletter.newyearletter.service.LetterService;
@@ -28,5 +29,11 @@ public class LetterController {
         String userID = authentication.getName();
         LetterMyPageResponse mypageResponse = letterService.mypage(url, userID);
         return Response.success(mypageResponse);
+    }
+
+    @GetMapping("/{url}")
+    public Response<LetterResponse> letters(@PathVariable String url){
+        LetterResponse letterResponse = letterService.letter(url);
+        return Response.success(letterResponse);
     }
 }
