@@ -46,6 +46,19 @@ function Main() {
       </ButtonItem>
 
       <ButtonItem
+        onClick={
+          isLogin
+            ? () => {
+                navigate('/mypage')
+              }
+            : null
+        }
+        isActive={isLogin}
+      >
+        마이페이지
+      </ButtonItem>
+
+      <ButtonItem
         onClick={() => {
           navigate('/mail-box')
         }}

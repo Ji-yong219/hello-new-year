@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import MailBox from './pages/MailBox'
 import ReceiveMail from './pages/ReceiveMail'
+import MyPage from './pages/MyPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/sign-up" element={<CreateAccount />} />
         <Route path="/mail-box" element={<MailBox />} />
         <Route path="/receive-mail" element={<ReceiveMail />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   )

@@ -35,10 +35,9 @@ function Login() {
         userID: userID,
         password: password,
       })
-      console.log(res)
       if (res.status === 200) {
         alert('로그인에 성공했습니다.')
-        dispatch(login(res.data.result.jwt))
+        dispatch(login(res.data.result.jwt, res.data.result.url))
         navigate('/')
       }
     } catch (err) {
