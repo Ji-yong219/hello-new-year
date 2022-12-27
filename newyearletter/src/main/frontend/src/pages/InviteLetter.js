@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import ButtonItem from '../components/ButtonItem'
 import Container from '../components/Container'
@@ -9,29 +9,34 @@ import Promise from '../components/Promise'
 import { SubTitle, Wrapper } from './Main'
 import Rabbit from './Main/LoginMain/Rabbit'
 
-function Share() {
+function InviteLetter() {
   const { uuid } = useParams()
   const [nickName, setNickname] = React.useState('')
 
-  const attemptJoin = React.useCallback(async uuid => {
+  const fetch = React.useCallback(async uuid => {
     const resp = await axios.get(`/api/letter/${uuid}`, {})
-    console.log(resp)
     setNickname(resp.data.result.nickName)
   }, [])
 
   React.useEffect(() => {
-    attemptJoin(uuid)
+    fetch(uuid)
   }, [])
+
+  const navigate = useNavigate()
 
   return (
     <Container>
       <Wrapper gap={2}>
-        <Logo sx={2} />
-        <SmallText>{nickName}에게 응원의 편지를 적어주세요.</SmallText>
+        <Logo sx={2.5} />
+        <SmallText>{nickName}님에게 응원의 편지를 적어주세요.</SmallText>
         <Promise defaultText="착하게 살자" />
       </Wrapper>
+
       <Rabbit />
-      <ButtonItem>편지 작성하기</ButtonItem>
+
+      <ButtonItem onClick={() => navigate('send/', { state: nickName })}>
+        편지 작성하기
+      </ButtonItem>
     </Container>
   )
 }
@@ -43,4 +48,4 @@ export const SmallText = styled.div`
   color: var(--brown);
 `
 
-export default Share
+export default InviteLetter

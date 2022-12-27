@@ -34,7 +34,7 @@ function LoginMain() {
           <SmallButtonItem>내 화면 꾸미기</SmallButtonItem>
 
           <SmallButtonItem
-            background="--pink-100"
+            background="--pink-50"
             color="--pink-500"
             onClick={() => dispatch(logout())}
           >
