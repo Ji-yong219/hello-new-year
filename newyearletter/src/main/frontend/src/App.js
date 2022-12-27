@@ -9,7 +9,8 @@ import MyPage from './pages/MyPage'
 import TestRabbitCustomizing from './pages/TestRabbitCustomizing'
 import React from 'react'
 import LetterBox from './pages/LetterBox'
-import Share from './pages/Share'
+import InviteLetter from './pages/InviteLetter'
+import SendLetter from './pages/SendLetter'
 
 function App() {
   function setScreenSize() {
@@ -29,7 +30,8 @@ function App() {
         <Route path="/letter-box" element={<LetterBox />} />
         <Route path="/receive-mail" element={<ReceiveMail />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/:uuid" element={<Share />} />
+        <Route path="/:uuid" element={<InviteLetter />} />
+        <Route path="/:uuid/send" element={<SendLetter />} />
         <Route
           path="/TestRabbitCustomizing"
           element={<TestRabbitCustomizing />}
