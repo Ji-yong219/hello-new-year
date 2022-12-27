@@ -6,7 +6,7 @@ function Rabbit() {
 }
 
 const Container = styled.img`
-  width: 75%;
+  width: 70%;
 `
 
 export default Rabbit
