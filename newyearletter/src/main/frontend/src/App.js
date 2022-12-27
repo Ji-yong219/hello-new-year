@@ -6,8 +6,19 @@ import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import MailBox from './pages/MailBox'
 import ReceiveMail from './pages/ReceiveMail'
+import MyPage from './pages/MyPage'
+import TestRabbitCustomizing from './pages/TestRabbitCustomizing'
+import React from 'react'
 
 function App() {
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+  }
+  React.useEffect(() => {
+    setScreenSize()
+  })
+
   return (
     <BrowserRouter>
       <Routes>
@@ -16,6 +27,11 @@ function App() {
         <Route path="/sign-up" element={<CreateAccount />} />
         <Route path="/mail-box" element={<MailBox />} />
         <Route path="/receive-mail" element={<ReceiveMail />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route
+          path="/TestRabbitCustomizing"
+          element={<TestRabbitCustomizing />}
+        />
       </Routes>
     </BrowserRouter>
   )
