@@ -29,4 +29,18 @@ public class User {
 
     @Column(name = "uuid")
     private String uuid;
+
+    @Column(name = "money")
+    private Integer money;
+
+    @Column(name = "custom")
+    private String custom;
+
+    @Column(name = "wish")
+    private String wish;
+
+    public void update(String wish, String custom) {
+        this.wish = wish;
+        this.custom = custom;
+    }
 }

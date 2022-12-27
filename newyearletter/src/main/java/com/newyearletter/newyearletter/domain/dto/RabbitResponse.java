@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class LetterMyPageResponse {
+public class RabbitResponse {
     private String nickName;
-    private Integer money;
 }

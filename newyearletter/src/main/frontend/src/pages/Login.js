@@ -36,7 +36,7 @@ function Login() {
       })
       if (res.status === 200) {
         alert('로그인에 성공했습니다.')
-        dispatch(login(res.data.result.jwt, res.data.result.url))
+        dispatch(login(res.data.result.jwt, res.data.result.uuid))
         navigate('/')
       }
     } catch (err) {
