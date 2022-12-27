@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import ButtonItem from '../components/ButtonItem'
-import { Container, SubTitle, Wrapper } from './Main'
+import { SubTitle, Wrapper } from './Main'
 
 import { BottomText, Input } from './Login'
 import { useDispatch } from 'react-redux'
@@ -12,6 +12,7 @@ import { login } from '../utils/reducers/loginState'
 import axios from 'axios'
 import Logo from '../components/Logo'
 import LinkItem from '../components/LinkItem'
+import Container from '../components/Container'
 
 function CreateAccount() {
   const navigate = useNavigate()

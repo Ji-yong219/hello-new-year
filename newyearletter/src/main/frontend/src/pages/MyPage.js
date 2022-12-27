@@ -2,8 +2,8 @@ import axios from 'axios'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import Container from '../components/Container'
 import Logo from '../components/Logo'
-import { Container } from './Main'
 
 function MyPage() {
   const [info, setInfo] = React.useState({ nickName: '', moneny: 0 })

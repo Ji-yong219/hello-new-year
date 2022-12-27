@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Container } from './Main'
 import Logo from '../components/Logo'
+import Container from '../components/Container'
 
 function MailBox() {
   const [mailboxTitle, setMailboxTitle] = useState('')
