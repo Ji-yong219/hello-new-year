@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
 
 import $ from 'jquery';
-import { ReactComponent as RabbitHead } from '../assets/test-svg/rabbit_head.svg';
-import { ReactComponent as TestRabbit } from '../assets/test-svg/test_rabbit.svg';
-// import { ReactComponent as Ear1 } from '../assets/test-svg/rabbit_ear_1.svg';
-// import { ReactComponent as Ear2 } from '../assets/test-svg/rabbit_ear_2.svg';
 
-// function Rabbit() {
-//   return (
-//     <Container>
-//     </Container>
-//   )
-// }
+function importAll(type, r) {
+  let images = [];
+  r.keys().forEach((item, index) => {
+    images.push([item.replace("./", "").replace(`${type}_`, '#').replace('.png', ''), r(item)]);
+  });
+  return images
+}
+const rabbitList = importAll("rabbit", require.context('../assets/images/customize/rabbit', false, /\.(png|jpe?g|svg)$/));
+const accessoryList = importAll("accessory", require.context('../assets/images/customize/accessory', false, /\.(png|jpe?g|svg)$/));
 
-// const Container = styled.div`
-//   font-family: 'score';
-//   font-weight: 600;
-//   font-size: max(2.5rem, 36px);
-// `
+// const RabbitColor = 
+let RabbitColor = []
+let RabbitImg = []
+rabbitList.map(([name, image]) => {
+  RabbitColor.push( <td key={name}><button></button></td> )
+  RabbitImg.push( <img key={name} className="rabbit" style={{
+    position: "relative",
+    margin: "0 auto",
+    width: "80%",
+    display: "none",
+    zIndex: "5000"
+  }} src={image}/> )
+})
 
-// export default Rabbit
+let AccessoryImg = []
+let AccessoryThumbnail = []
+accessoryList.map(([name, image]) => {
+  // return <td key={name}><button>{name}</button></td>
+  AccessoryImg.push(<img key={name} id={name} className="accessory" style={{display: "none", zIndex: "5001"}}src={image} />)
+  AccessoryThumbnail.push(<td key={name}><img className="accessory-thumb" key={name} src={image} /></td>)
+})
 
-
+let EarThumbnail = []
 
 class Rabbit extends Component {
   constructor(props) {
@@ -31,115 +43,160 @@ class Rabbit extends Component {
   }
 
   componentDidMount() {
-    const colorList = [
-      ["#d81313", "#A90F0F", "#860C0C"],
-      ["#ed8900", "#C06E00", "#A25D00"],
-      ["#0f6a0b", "#0D5709", "#0A4507"],
-      ["#0f59d0", "#0D4EB7", "#0B4097"],
-      ["#6c1cd8", "#3D107A", "#2D0C58"],
-      ["#5d5f60", "#474849", "#434445"],
-      // ["#000000", "#2A2A2A", "#151515"],
-      ["#674019", "#543414", "#3D260F"],
-    ]
-    // c, e, g < d < b
-
-    const earStyleList = [
-      [
-        {
-          "style": "fill:none;stroke:#000000;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1",
-          "d": "m 118.68,183.24 c -0.12,0.6 -0.2,1.21 -0.36,1.8 -0.42,1.56 -1.12,3.23 -1.8,4.68 -0.45,0.97 -1.12,1.86 -1.44,2.88 -1.24,3.91 -2.17,7.92 -3.24,11.88 -0.49,1.8 -0.96,3.6 -1.44,5.4 -0.87,3.24 -1.09,3.84 -1.8,6.84 -1.17,4.9 -1.15,5.61 -2.88,10.8 -1.54,4.63 -2.37,5.83 -4.68,10.44 -0.84,1.68 -1.846,3.29 -2.52,5.04 -0.6,1.56 -1.053,3.19 -1.8,4.68 -0.377,0.75 -3.645,5.42 -4.32,6.12 -2.894,2.99 -5.974,5.79 -9,8.64 -1.175,1.11 -2.216,2.41 -3.6,3.24 -1.73,1.04 -4.494,2.57 -6.12,3.96 -3.316,2.84 -1.665,2.51 -5.76,4.68 -0.906,0.48 -1.936,0.68 -2.88,1.08 -2.177,0.92 -4.476,1.63 -6.48,2.88 -0.96,0.6 -1.867,1.29 -2.88,1.8 -0.679,0.34 -1.447,0.46 -2.16,0.72 -1.091,0.4 -1.81,0.79 -2.88,1.08 -4.466,1.22 -1.474,0.25 -3.96,1.08 -0.36,-0.12 -0.741,-0.19 -1.08,-0.36 -1.002,-0.5 -1.364,-1 -2.16,-1.8 -0.12,-0.36 -0.26,-0.71 -0.36,-1.08 -0.26,-0.95 -0.72,-2.88 -0.72,-2.88 0.12,-3.36 0.173,-6.72 0.36,-10.08 0.163,-2.94 0.257,-2.16 0.72,-4.32 0.256,-1.2 0.48,-2.4 0.72,-3.6 0.24,-2.64 0.473,-5.28 0.72,-7.92 0.254,-2.71 0.56,-5.19 0.72,-7.92 0.791,-13.44 -0.054,-2.74 0.72,-13.32 0.228,-3.12 0.46,-6.24 0.72,-9.36 0.1,-1.2 0.084,-2.43 0.36,-3.6 0.985,-4.19 2.585,-9.67 4.68,-13.68 2.083,-3.99 1.746,-2.4 4.32,-5.4 2.22,-2.59 4.32,-5.28 6.48,-7.92 1.08,-1.32 2.148,-2.65 3.24,-3.96 0.708,-0.85 1.546,-1.6 2.16,-2.52 0.48,-0.72 0.855,-1.52 1.44,-2.16 0.748,-0.82 1.738,-1.38 2.52,-2.16 0.663,-0.66 1.137,-1.5 1.8,-2.16 0.935,-0.93 1.739,-1.23 2.88,-1.8 0.48,-0.6 0.874,-1.28 1.44,-1.8 0.994,-0.91 2.842,-2.33 4.32,-2.88 0.463,-0.17 0.96,-0.24 1.44,-0.36 l 1.44,-1.44"
-        },
-        {
-          "style": "fill:none;stroke:#000000;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1",
-          "d": "m 164.88,183.24 c 0.12,0.6 0.2,1.21 0.36,1.8 0.42,1.56 1.12,3.23 1.8,4.68 0.45,0.97 1.12,1.86 1.44,2.88 1.24,3.91 2.17,7.92 3.24,11.88 0.49,1.8 0.96,3.6 1.44,5.4 0.87,3.24 1.09,3.84 1.8,6.84 1.17,4.9 1.15,5.61 2.88,10.8 1.54,4.63 2.37,5.83 4.68,10.44 0.84,1.68 1.85,3.29 2.52,5.04 0.6,1.56 1.05,3.19 1.8,4.68 0.38,0.75 3.65,5.42 4.32,6.12 2.89,2.99 5.97,5.79 9,8.64 1.17,1.11 2.22,2.41 3.6,3.24 1.73,1.04 4.49,2.57 6.12,3.96 3.32,2.84 1.67,2.51 5.76,4.68 0.91,0.48 1.94,0.68 2.88,1.08 2.18,0.92 4.48,1.63 6.48,2.88 0.96,0.6 1.87,1.29 2.88,1.8 0.68,0.34 1.45,0.46 2.16,0.72 1.09,0.4 1.81,0.79 2.88,1.08 4.47,1.22 1.47,0.25 3.96,1.08 0.36,-0.12 0.74,-0.19 1.08,-0.36 1,-0.5 1.36,-1 2.16,-1.8 0.12,-0.36 0.26,-0.71 0.36,-1.08 0.26,-0.95 0.72,-2.88 0.72,-2.88 -0.12,-3.36 -0.17,-6.72 -0.36,-10.08 -0.16,-2.94 -0.26,-2.16 -0.72,-4.32 -0.26,-1.2 -0.48,-2.4 -0.72,-3.6 -0.24,-2.64 -0.47,-5.28 -0.72,-7.92 -0.25,-2.71 -0.56,-5.19 -0.72,-7.92 -0.79,-13.44 0.05,-2.74 -0.72,-13.32 -0.23,-3.12 -0.46,-6.24 -0.72,-9.36 -0.1,-1.2 -0.08,-2.43 -0.36,-3.6 -0.99,-4.19 -2.59,-9.67 -4.68,-13.68 -2.08,-3.99 -1.75,-2.4 -4.32,-5.4 -2.22,-2.59 -4.32,-5.28 -6.48,-7.92 -1.08,-1.32 -2.15,-2.65 -3.24,-3.96 -0.71,-0.85 -1.55,-1.6 -2.16,-2.52 -0.48,-0.72 -0.86,-1.52 -1.44,-2.16 -0.75,-0.82 -1.74,-1.38 -2.52,-2.16 -0.66,-0.66 -1.14,-1.5 -1.8,-2.16 -0.93,-0.93 -1.74,-1.23 -2.88,-1.8 -0.48,-0.6 -0.87,-1.28 -1.44,-1.8 -0.99,-0.91 -2.84,-2.33 -4.32,-2.88 -0.46,-0.17 -0.96,-0.24 -1.44,-0.36 L 198,168.48"
-        }
-      ],
-      [
-        {
-          "style": "fill:none;stroke:#efaac2;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1",
-          "d": "m 118.68,183.24 c -0.12,0.6 -0.2,1.21 -0.36,1.8 -0.42,1.56 -1.12,3.23 -1.8,4.68 -0.45,0.97 -1.12,1.86 -1.44,2.88 -1.24,3.91 -2.17,7.92 -3.24,11.88 -0.49,1.8 -0.96,3.6 -1.44,5.4 -0.87,3.24 -1.09,3.84 -1.8,6.84 -1.17,4.9 -1.15,5.61 -2.88,10.8 -1.54,4.63 -2.37,5.83 -4.68,10.44 -0.84,1.68 -1.846,3.29 -2.52,5.04 -0.6,1.56 -1.053,3.19 -1.8,4.68 -0.377,0.75 -3.645,5.42 -4.32,6.12 -2.894,2.99 -5.974,5.79 -9,8.64 -1.175,1.11 -2.216,2.41 -3.6,3.24 -1.73,1.04 -4.494,2.57 -6.12,3.96 -3.316,2.84 -1.665,2.51 -5.76,4.68 -0.906,0.48 -1.936,0.68 -2.88,1.08 -2.177,0.92 -4.476,1.63 -6.48,2.88 -0.96,0.6 -1.867,1.29 -2.88,1.8 -0.679,0.34 -1.447,0.46 -2.16,0.72 -1.091,0.4 -1.81,0.79 -2.88,1.08 -4.466,1.22 -1.474,0.25 -3.96,1.08 -0.36,-0.12 -0.741,-0.19 -1.08,-0.36 -1.002,-0.5 -1.364,-1 -2.16,-1.8 -0.12,-0.36 -0.26,-0.71 -0.36,-1.08 -0.26,-0.95 -0.72,-2.88 -0.72,-2.88 0.12,-3.36 0.173,-6.72 0.36,-10.08 0.163,-2.94 0.257,-2.16 0.72,-4.32 0.256,-1.2 0.48,-2.4 0.72,-3.6 0.24,-2.64 0.473,-5.28 0.72,-7.92 0.254,-2.71 0.56,-5.19 0.72,-7.92 0.791,-13.44 -0.054,-2.74 0.72,-13.32 0.228,-3.12 0.46,-6.24 0.72,-9.36 0.1,-1.2 0.084,-2.43 0.36,-3.6 0.985,-4.19 2.585,-9.67 4.68,-13.68 2.083,-3.99 1.746,-2.4 4.32,-5.4 2.22,-2.59 4.32,-5.28 6.48,-7.92 1.08,-1.32 2.148,-2.65 3.24,-3.96 0.708,-0.85 1.546,-1.6 2.16,-2.52 0.48,-0.72 0.855,-1.52 1.44,-2.16 0.748,-0.82 1.738,-1.38 2.52,-2.16 0.663,-0.66 1.137,-1.5 1.8,-2.16 0.935,-0.93 1.739,-1.23 2.88,-1.8 0.48,-0.6 0.874,-1.28 1.44,-1.8 0.994,-0.91 2.842,-2.33 4.32,-2.88 0.463,-0.17 0.96,-0.24 1.44,-0.36 l 1.44,-1.44"
-        },
-        {
-          "style": "fill:none;stroke:#efaac2;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1",
-          "d": "m 166.68,184.92 c 0.63,3.17 0.12,0.45 0.72,4.32 0.11,0.72 0.18,1.45 0.36,2.16 0.18,0.74 0.48,1.44 0.72,2.16 0.12,0.84 0.18,1.69 0.36,2.52 0.37,1.71 0.93,3.03 1.44,4.68 0.26,0.83 0.43,1.7 0.72,2.52 0.43,1.22 1.03,2.37 1.44,3.6 0.67,2.02 1.16,4.09 1.8,6.12 2.26,7.18 3.67,11.36 5.76,17.64 l 3.24,9.72 c 0.84,2.88 1.47,5.83 2.52,8.64 0.36,0.96 0.76,1.91 1.08,2.88 0.4,1.19 0.67,2.42 1.08,3.6 0.43,1.22 1.01,2.38 1.44,3.6 0.76,2.13 -0.19,1.15 1.44,3.6 0.28,0.42 0.75,0.69 1.08,1.08 1.25,1.5 0.03,0.85 1.8,1.44 1.08,-0.12 2.23,0.03 3.24,-0.36 0.63,-0.24 0.94,-0.98 1.44,-1.44 0.82,-0.74 1.63,-1.5 2.52,-2.16 0.56,-0.42 1.25,-0.65 1.8,-1.08 0.54,-0.42 0.94,-0.98 1.44,-1.44 0.82,-0.74 1.71,-1.41 2.52,-2.16 0.75,-0.69 1.58,-1.32 2.16,-2.16 0.76,-1.11 1.06,-2.48 1.8,-3.6 0.24,-0.36 0.41,-0.77 0.72,-1.08 0.31,-0.31 0.68,-0.55 1.08,-0.72 0.45,-0.19 0.96,-0.24 1.44,-0.36 1.88,0.38 2.32,0.41 4.32,1.08 0.61,0.2 1.19,0.49 1.8,0.72 0.36,0.13 0.72,0.23 1.08,0.36 0.61,0.23 1.18,0.55 1.8,0.72 0.7,0.19 1.44,0.24 2.16,0.36 2.04,-0.24 4.19,0 6.12,-0.72 1.51,-0.56 9.03,-4.43 11.88,-6.84 2.68,-2.27 2.32,-2.66 4.68,-5.76 2.46,-3.23 5.28,-5.81 6.84,-9.72 3.25,-8.12 -0.5,0.95 3.24,-7.2 1.41,-3.08 2.33,-5.18 3.24,-8.28 1.09,-3.69 0.06,-1.89 1.44,-3.96 0.12,-0.96 0.11,-1.95 0.36,-2.88 0.11,-0.42 0.53,-0.69 0.72,-1.08 0.17,-0.34 0.24,-0.72 0.36,-1.08 -0.12,-0.48 0.06,-1.19 -0.36,-1.44 -0.42,-0.25 -0.95,0.36 -1.44,0.36 -0.73,0 -1.44,-0.24 -2.16,-0.36 -0.36,-0.24 -0.65,-0.69 -1.08,-0.72 -2.45,-0.15 -8.48,0.82 -10.44,1.8 -0.48,0.24 -0.98,0.44 -1.44,0.72 -0.74,0.45 -1.37,1.08 -2.16,1.44 -0.56,0.25 -1.21,0.19 -1.8,0.36 -1.09,0.31 -2.2,0.62 -3.24,1.08 -2.21,0.98 -4.24,2.34 -6.48,3.24 -0.6,0.24 -1.24,0.4 -1.8,0.72 -1.36,0.77 -2.71,1.58 -3.96,2.52 -0.48,0.36 -0.9,0.81 -1.44,1.08 -0.44,0.22 -0.96,0.24 -1.44,0.36 -0.48,0.36 -1.02,0.66 -1.44,1.08 -1.63,1.63 0.3,0.74 -1.8,1.44 -0.69,-2.75 -0.06,-0.07 -0.72,-3.6 -0.23,-1.2 -0.29,-2.45 -0.72,-3.6 -1.91,-5.09 -0.21,-0.86 -3.24,-7.2 -2.9,-6.07 -0.61,-1.88 -3.24,-6.48 -0.77,-3.1 0.35,0.34 -2.16,-3.24 -0.37,-0.53 -0.29,-1.32 -0.72,-1.8 -0.57,-0.65 -1.52,-0.86 -2.16,-1.44 -0.82,-0.75 -1.38,-1.74 -2.16,-2.52 -1.71,-1.71 -1.74,-1.45 -3.24,-2.52 -0.49,-0.35 -0.94,-0.75 -1.44,-1.08 -0.94,-0.63 -1.96,-1.14 -2.88,-1.8 -1.6,-1.14 -3.04,-2.51 -4.68,-3.6 -0.36,-0.24 -0.76,-0.43 -1.08,-0.72 -0.88,-0.79 -1.64,-1.73 -2.52,-2.52 -0.32,-0.29 -1.08,-0.72 -1.08,-0.72" 
-        }
-      ]
-    ]
-
     // Customizing
-    $(document)
-    .on("click", ".colorList button", (e) => {
-      const index = $(e.target).parent().index() - 1
-      
-      // $("#rabbit path").css({stroke: colorList[index]})
-      $("#rabbit path.c,#rabbit path.e,#rabbit path.g").css({fill: colorList[index][0]})
-      $("#rabbit path.d").css({fill: colorList[index][1]})
-      $("#rabbit path.b").css({fill: colorList[index][2]})
-    })
-    .on("click", ".earList button", (e) => {
-      const index = $(e.target).parent().index() - 1
-      
-      $("#rabbit #ear-left").attr("style", earStyleList[index][0].style)
-      $("#rabbit #ear-left").attr("d", earStyleList[index][0].d)
-      $("#rabbit #ear-right").attr("style", earStyleList[index][1].style)
-      $("#rabbit #ear-right").attr("d", earStyleList[index][1].d)
-    });
-
     $(() => {
-      $(".customizePicker button").css({
-        width: "50px",
-        height: "50px",
-        borderRadius: "25px",
+      $(".RabbitContainer").css({
+        position: "relative",
+        width: "360px",
+        height: "420px",
+        textAlign: "center",
+      })
+      $($(".rabbit")[0]).css({
+        display: "block",
+      })
+      $(".accessory").css({
+        position: "absolute",
+        flex: "1"
+      })
+
+      $("#Carrot").css({
+        width: "26%",
+        left: "49%",
+        top: "39%",
+        zIndex: "5002"
+      })
+      $("#Cushion").css({
+        width: "100%",
+        left: "50%",
+        transform: "translateX(-50%)",
+        top: "60%",
+        zIndex: "4999"
+      })
+      $("#Hanbok").css({
+        width: "72.5%",
+        left: "13%",
+        top: "40%",
+        zIndex: "5001"
+      })
+      $("#Hanbok2").css({
+        width: "70.9%",
+        left: "14%",
+        top: "40%",
+        zIndex: "5001"
+      })
+      $("#Pocket").css({
+        width: "23.5%",
+        left: "50%",
+        top: "40.5%",
+        zIndex: "5002"
+      })
+      $("#Ribbon").css({
+        width: "30%",
+        left: "36%",
+        top: "14%"
+      })
+      $("#Sunglasses").css({
+        width: "33%",
+        left: "39%",
+        top: "29%"
+      })
+      $("#flower").css({
+        width: "33.5%",
+        left: "26%",
+        top: "9.5%"
+      })
+
+
+
+
+
+
+
+      $(".customizePicker").css({
+        borderCollapse: "collapse"
+      })
+      $(".customizePicker tr").css({
+        borderBottom: "1px solid rgba(202, 191, 176, 0.5)",
+      })
+      $(".customizePicker th,.customizePicker td").css({
+        height: "40px",
+        color: "rgba(202, 191, 176, 0.5)",
+        textAlign: "left",
+        fontFamily: "nanumRound",
+        // #43341C
+        // #FF8778
+        // #694F2D 0.5
+      })
+      $(".customizePicker button,.customizePicker .accessory-thumb").css({
+        width: "20px",
+        height: "20px",
+        borderRadius: "50%",
+        border: "none",
         cursor: "pointer",
         marginLeft: "10px",
+      })
+      $(".customizePicker .accessory-thumb").css({
+        borderRadius: "0",
+        border: "none",
+        objectFit: "scale-down",
       })
       
       $(".customizePicker .colorList button").each((i, el) => {
         $(el).css({
-          background: colorList[i][0],
-          border: "none"
+          background: rabbitList[i][0],
+          border: "0.5px solid gray",
         })
       })
+      
+      $(document)
+      .on("click", ".colorList button", (e) => {
+        const index = $(e.target).parent().index() - 1
+        const rabbits = document.getElementsByClassName("rabbit")
 
-      $(".customizePicker .accessoryList button").each((i, el) => {
-        $(el).css({
-          // background: colorList[i][0],
-          // border: "none"
-        })
+        $(rabbits).css("display", "none")
+        rabbits[index].style.display = "block"
+        rabbits[index].style.width = "80%"
       })
+      .on("click", ".earList button", (e) => {
+        const index = $(e.target).parent().index() - 1
+      })
+      .on("click", ".accessoryList img", (e) => {
+        const index = $(e.target).parent().index() - 1
+        const accessorys = document.getElementsByClassName("accessory")
+
+        if (accessorys[index].style.display === "none") {
+          accessorys[index].style.display = "block";
+        } else {
+          accessorys[index].style.display = "none";
+        }
+      });
     });
   }
 
   render() {
       return(
           <>
-            <TestRabbit id="rabbit"/>
-            {/* <RabbitHead id="rabbit"/> */}
+            <div className="RabbitContainer" style={{width: "360px"}}>
+              {AccessoryImg}
+              {RabbitImg}
+            </div>
+
             <table className="customizePicker">
               <tbody>
                 <tr className="colorList">
                   <th>색상</th>
-                  <td><button></button></td>
-                  <td><button></button></td>
-                  <td><button></button></td>
-                  <td><button></button></td>
-                  <td><button></button></td>
-                  <td><button></button></td>
-                  <td><button></button></td>
+                  {RabbitColor}
                 </tr>
                 <tr className="earList">
                   <th>귀모양</th>
-                  <td><button>귀모양1</button></td>
-                  <td><button>귀모양2</button></td>
+                  {EarThumbnail}
                 </tr>
                 <tr className="accessoryList">
                   <th>악세사리</th>
+                  {AccessoryThumbnail}
                 </tr>
               </tbody>
             </table>
-
-            <div></div>
-            <div><br/></div>
           </>
       );
   }
