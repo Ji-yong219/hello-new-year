@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import ReceiveMail from './pages/ReceiveMail'
 import MyPage from './pages/MyPage'
-import TestRabbitCustomizing from './pages/TestRabbitCustomizing'
+import TestCustomizing from './pages/TestCustomizing'
 import React from 'react'
 import LetterBox from './pages/LetterBox'
 import InviteLetter from './pages/InviteLetter'
@@ -33,8 +33,8 @@ function App() {
         <Route path="/:uuid" element={<InviteLetter />} />
         <Route path="/:uuid/send" element={<SendLetter />} />
         <Route
-          path="/TestRabbitCustomizing"
-          element={<TestRabbitCustomizing />}
+          path="/TestCustomizing"
+          element={<TestCustomizing />}
         />
       </Routes>
     </BrowserRouter>

@@ -86,7 +86,7 @@ class Moon extends Component {
     $(document)
     .on("input", "#moon_slider", (e) => {
       const money = $(e.target).val()
-      $("#money").text(money+"원")
+      $("#money").text(money+"원 (50만원 부터 보름달)")
       setMoonRotation(money)
     })
   }
@@ -94,13 +94,13 @@ class Moon extends Component {
   render() {
       return(
           <>
-            <span type="text" id="money">{defaultMoney}원</span>
+            <span type="text" id="money">{defaultMoney}원 (50만원 부터 보름달)</span>
             <input
               id="moon_slider"
               type="range"
               defaultValue={defaultMoney}
               min="0"
-              max="500000"
+              max="750000"
             />
             <div className="sphere" style={SphereStyle}>
               <div className="light hemisphere" style={Object.assign({},HemisphereStyle, LightStyle)}></div>
@@ -115,4 +115,4 @@ class Moon extends Component {
       );
   }
 }
-export { Moon };
+export default Moon;

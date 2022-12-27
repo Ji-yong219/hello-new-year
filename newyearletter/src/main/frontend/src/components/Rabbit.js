@@ -36,7 +36,7 @@ accessoryList.map(([name, image]) => {
 
 let EarThumbnail = []
 
-class Rabbit extends Component {
+class TestRabbit extends Component {
   constructor(props) {
       super(props);
       this.state = {};
@@ -201,4 +201,4 @@ class Rabbit extends Component {
       );
   }
 }
-export { Rabbit };
+export default TestRabbit;
