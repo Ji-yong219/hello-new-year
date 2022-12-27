@@ -100,6 +100,13 @@ class Rabbit extends Component {
           border: "none"
         })
       })
+
+      $(".customizePicker .accessoryList button").each((i, el) => {
+        $(el).css({
+          // background: colorList[i][0],
+          // border: "none"
+        })
+      })
     });
   }
 
@@ -125,7 +132,7 @@ class Rabbit extends Component {
                   <td><button>귀모양1</button></td>
                   <td><button>귀모양2</button></td>
                 </tr>
-                <tr>
+                <tr className="accessoryList">
                   <th>악세사리</th>
                 </tr>
               </tbody>

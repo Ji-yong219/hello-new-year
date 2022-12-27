@@ -1,8 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.4d30289d.css",
-    "main.js": "/static/js/main.335e445b.js",
+    "main.css": "/static/css/main.78f9da96.css",
+    "main.js": "/static/js/main.090e0e55.js",
     "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
+    "static/media/background.png": "/static/media/background.d2b4a1e653f46f49a58d.png",
+    "static/media/NanumSquareRoundR.ttf": "/static/media/NanumSquareRoundR.f062cb52be3e9829834c.ttf",
+    "static/media/NanumSquareRoundB.ttf": "/static/media/NanumSquareRoundB.8ab117fc37409bd022e5.ttf",
+    "static/media/NanumSquareRoundEB.ttf": "/static/media/NanumSquareRoundEB.ef4043133d5b2d0febb4.ttf",
+    "static/media/NanumSquareRoundL.ttf": "/static/media/NanumSquareRoundL.34b53f3711c695552994.ttf",
     "static/media/SCDream8.otf": "/static/media/SCDream8.64217e4da7638066e57a.otf",
     "static/media/SCDream7.otf": "/static/media/SCDream7.a8d826f4cafb0e728051.otf",
     "static/media/SCDream6.otf": "/static/media/SCDream6.4df12ee03e70b6326c25.otf",
@@ -12,14 +17,19 @@
     "static/media/SCDream3.otf": "/static/media/SCDream3.1e55b77199a0afd0ed9a.otf",
     "static/media/SCDream5.otf": "/static/media/SCDream5.ae5ee4933db75a3ccb04.otf",
     "static/media/SCDream4.otf": "/static/media/SCDream4.64c9dc7c860af7a004ad.otf",
-    "static/media/rabbit_head.svg": "/static/media/rabbit_head.c7e898d48f24ef5e764b86e1a5b91e00.svg",
+    "static/media/rabbit.png": "/static/media/rabbit.424ef1749787865b5cdd.png",
+    "static/media/logo.png": "/static/media/logo.b5c91a324ade4c833d49.png",
+    "static/media/test_rabbit.svg": "/static/media/test_rabbit.a806b25e5796cfc7a2d802d0a3e076bb.svg",
+    "static/media/test_moon.png": "/static/media/test_moon.8b83406b6e163251c198.png",
+    "static/media/flower.png": "/static/media/flower.4cb34199a8ff27f7d9aa.png",
+    "static/media/rabbit_head.svg": "/static/media/rabbit_head.1b5a1f69aa99313b25ffc6c4bdbe3437.svg",
     "index.html": "/index.html",
-    "main.4d30289d.css.map": "/static/css/main.4d30289d.css.map",
-    "main.335e445b.js.map": "/static/js/main.335e445b.js.map",
+    "main.78f9da96.css.map": "/static/css/main.78f9da96.css.map",
+    "main.090e0e55.js.map": "/static/js/main.090e0e55.js.map",
     "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4d30289d.css",
-    "static/js/main.335e445b.js"
+    "static/css/main.78f9da96.css",
+    "static/js/main.090e0e55.js"
   ]
 }
