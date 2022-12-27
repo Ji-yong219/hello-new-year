@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppTitle, Container } from './Main'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Container from '../components/Container'
 
-import { Rabbit } from '../components/Rabbit';
+import { Rabbit } from '../components/Rabbit'
 
 function TestRabbitCustomizing() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const goToMain = () => {
-    navigate('/');
-  };
+    navigate('/')
+  }
 
-  const [show, setShow] = useState();
+  const [show, setShow] = useState()
 
   // function to toggle the boolean value
   function toggleShow() {
-    setShow(!show);
+    setShow(!show)
   }
-  var buttonText = show ? "Hide Component" : "Show Component";
-  
+  var buttonText = show ? 'Hide Component' : 'Show Component'
 
   return (
     <>
@@ -26,7 +25,7 @@ function TestRabbitCustomizing() {
         <Rabbit />
       </Container>
     </>
-  );
+  )
 }
 
-export default (TestRabbitCustomizing);
+export default TestRabbitCustomizing
