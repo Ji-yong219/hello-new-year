@@ -1,15 +1,10 @@
 package com.newyearletter.newyearletter.controller;
 
-import com.newyearletter.newyearletter.domain.dto.RabbitMyPageResponse;
-import com.newyearletter.newyearletter.domain.dto.RabbitResponse;
-import com.newyearletter.newyearletter.domain.dto.Response;
+import com.newyearletter.newyearletter.domain.dto.*;
 import com.newyearletter.newyearletter.service.RabbitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/rabbit")
@@ -17,16 +12,42 @@ import org.springframework.web.bind.annotation.RestController;
 public class RabbitController {
     private final RabbitService rabbitService;
 
+    /**
+     * 마이페이지 조회
+     */
     @GetMapping("/mypage/{uuid}")
-    public Response<RabbitMyPageResponse> mypage(@PathVariable String uuid, Authentication authentication){
+    public Response<RabbitMyPageResponse> myPage(@PathVariable String uuid, Authentication authentication){
         String userID = authentication.getName();
         RabbitMyPageResponse mypageResponse = rabbitService.mypage(uuid, userID);
         return Response.success(mypageResponse);
     }
 
+    /**
+     * 커스텀 페이지 조회
+     */
+    @GetMapping("/mypage/{uuid}/custom")
+    public Response<RabbitCustomDto> getCustom(@PathVariable String uuid, Authentication authentication){
+        String userID = authentication.getName();
+        RabbitCustomDto customDto = rabbitService.getCustom(uuid, userID);
+        return Response.success(customDto);
+    }
+
+    /**
+     * 커스텀 페이지 저장
+     */
+    @PostMapping("/mypage/{uuid}/custom")
+    public Response<RabbitCustomResponse> addCustom(@PathVariable String uuid,@RequestBody RabbitCustomDto request, Authentication authentication){
+        String userID = authentication.getName();
+        RabbitCustomResponse customResponse = rabbitService.saveCustom(uuid, userID, request);
+        return Response.success(customResponse);
+    }
+
+    /**
+     * 친구 페이지 조회
+     */
     @GetMapping("/{uuid}")
-    public Response<RabbitResponse> letters(@PathVariable String uuid){
-        RabbitResponse rabbitResponse = rabbitService.letter(uuid);
+    public Response<RabbitResponse> friendPage(@PathVariable String uuid){
+        RabbitResponse rabbitResponse = rabbitService.friendPage(uuid);
         return Response.success(rabbitResponse);
     }
 }
