@@ -29,8 +29,8 @@ const Flower = styled.img`
 const Content = styled.div`
   font-family: nanumRound;
   font-weight: 600;
-  font-size: max(0.9rem, 12px);
-  line-height: max(1.6rem, 22px);
+  font-size: max(0.6rem, 12px);
+  line-height: max(1.1rem, 22px);
   text-align: center;
 `
 

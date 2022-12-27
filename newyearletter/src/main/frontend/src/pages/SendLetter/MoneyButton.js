@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 function MoneyButton({ src, isActive, onClick }) {
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} style={{ cursor: 'pointer' }}>
       <img src={src} style={isActive ? null : { filter: 'grayscale(90%)' }} />
     </div>
   )

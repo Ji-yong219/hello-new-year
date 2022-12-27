@@ -57,10 +57,11 @@ function SendContent({ nickName, money, selectMoney, setSend }) {
 }
 
 export const SmallInput = styled(Input)`
-  width: max(0rem, 260px);
-  padding: max(0rem, 14px);
+  width: max(70%, 260px);
+  padding: 14px;
 
-  font-size: max(1rem, 16px);
+  font-weight: 800;
+  font-size: max(0.8rem, 14px);
 
   filter: none;
 `
