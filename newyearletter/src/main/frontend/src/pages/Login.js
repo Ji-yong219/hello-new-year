@@ -1,18 +1,17 @@
 import styled from 'styled-components'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import LinkItem from '../components/LinkItem'
 import ButtonItem from '../components/ButtonItem'
-import { AppTitle, Container } from './Main'
-
-import APP_TITLE from '../utils/AppTitle'
+import { SubTitle, Wrapper } from './Main'
 import { login } from '../utils/reducers/loginState'
 
 import axios from 'axios'
-import { API_ADDRESS } from '../utils/constant'
+import Logo from '../components/Logo'
+import Container from '../components/Container'
 
 function Login() {
   const navigate = useNavigate()
@@ -35,10 +34,9 @@ function Login() {
         userID: userID,
         password: password,
       })
-      console.log(res)
       if (res.status === 200) {
         alert('로그인에 성공했습니다.')
-        dispatch(login(res.data.result.jwt))
+        dispatch(login(res.data.result.jwt, res.data.result.url))
         navigate('/')
       }
     } catch (err) {
@@ -69,46 +67,66 @@ function Login() {
 
   return (
     <Container>
-      <AppTitle onClick={() => navigate('/')}>{APP_TITLE}</AppTitle>
-      <Input
-        type="text"
-        name="userID"
-        placeholder="아이디"
-        onChange={handleIdChange}
-        onKeyDown={onCheckEnter}
-      />
-      <Input
-        type="password"
-        name="password"
-        placeholder="비밀번호"
-        onChange={handlePwChange}
-        onKeyDown={onCheckEnter}
-      />
+      <Wrapper gap={4}>
+        <Logo />
+        <Wrapper gap={1.2}>
+          <SubTitle>환영합니다!</SubTitle>
+          <Input
+            type="text"
+            name="userID"
+            placeholder="아이디"
+            onChange={handleIdChange}
+            onKeyDown={onCheckEnter}
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            onChange={handlePwChange}
+            onKeyDown={onCheckEnter}
+          />
+        </Wrapper>
 
-      <ButtonItem onClick={handleSubmit}>로그인</ButtonItem>
+        <Wrapper>
+          <ButtonItem onClick={handleSubmit}>로그인</ButtonItem>
 
-      <BottomText>
-        <LinkItem target="/sign-up">계정 생성하기</LinkItem>
-      </BottomText>
+          <LinkItem target="/sign-up">
+            <BottomText>처음이신가요? 계정 생성하기</BottomText>
+          </LinkItem>
+        </Wrapper>
+      </Wrapper>
     </Container>
   )
 }
 
 export const Input = styled.input`
-  font-family: score;
-  font-weight: 300;
-  font-size: max(1.5rem, 21px);
-
-  width: max(20rem, 240px);
-  height: max(4rem, 60px);
-
+  width: max(16rem, 280px);
   padding: max(1rem, 18px);
+  color: var(--brown);
+
+  font-family: nanumRound;
+  font-weight: bold;
+  font-size: max(1rem, 16px);
+  text-align: center;
+
+  border: none;
+  border-radius: max(0.5rem, 9px);
+  filter: drop-shadow(3px 3px 2px var(--light-300));
+
+  :focus {
+    outline: 2px solid var(--pink-200);
+  }
+
+  ::placeholder {
+    text-align: center;
+    color: var(--brown-100);
+  }
 `
 
 export const BottomText = styled.div`
-  font-family: score;
-  font-weight: 300;
-  font-size: max(1rem, 18px);
+  font-family: nanumRound;
+  font-weight: 600;
+  font-size: max(1rem, 16px);
 `
 
 export default Login

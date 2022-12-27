@@ -1,16 +1,22 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-function ButtonItem({ background = '--pink-200', onClick, children }) {
+function SmallButtonItem({
+  background = '--pink-300',
+  color = '--white',
+  onClick,
+  children,
+}) {
   return (
-    <Container background={background} onClick={onClick}>
+    <Container background={background} color={color} onClick={onClick}>
       {children}
     </Container>
   )
 }
 
-ButtonItem.propTypes = {
+SmallButtonItem.propTypes = {
   background: PropTypes.string,
+  color: PropTypes.string,
   onClick: PropTypes.func,
 }
 
@@ -19,21 +25,21 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: max(0.5rem, 9px);
 
-  width: max(12rem, 220px);
-  height: max(3rem, 60px);
+  width: max(10rem, 100px);
+  height: max(2.5rem, 35px);
 
-  border: 5px double var(--light-100);
   border-radius: 9999px;
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(1rem, 17px);
+  font-size: max(0.8rem, 13px);
 
   background: var(${props => props.background});
-  color: var(--brown);
+  color: var(${({ color }) => color});
 
   cursor: pointer;
 `
 
-export default ButtonItem
+export default SmallButtonItem
