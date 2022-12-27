@@ -48,7 +48,7 @@ function CreateAccount() {
       const code = res.status
       if (code === 200) {
         alert('회원가입 성공')
-        dispatch(login())
+        dispatch(login(res.data.result.jwt, res.data.result.uuid))
         navigate('/')
       } else {
         alert(`회원가입에 실패했습니다: ${res.result.message}`)
