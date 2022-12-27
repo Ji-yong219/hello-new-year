@@ -42,7 +42,6 @@ class Rabbit extends Component {
       ["#674019", "#543414", "#3D260F"],
     ]
     // c, e, g < d < b
-    // 5d5f60, 474849, 434445
 
     const earStyleList = [
       [
@@ -66,11 +65,6 @@ class Rabbit extends Component {
         }
       ]
     ]
-    // Default
-    // $("#rabbit #ear-left").attr("style", earStyleList[0][0].style)
-    // $("#rabbit #ear-left").attr("d", earStyleList[0][0].d)
-    // $("#rabbit #ear-right").attr("style", earStyleList[0][1].style)
-    // $("#rabbit #ear-right").attr("d", earStyleList[0][1].d)
 
     // Customizing
     $(document)
