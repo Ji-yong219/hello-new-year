@@ -25,6 +25,10 @@ public class UserService {
     @Value("${jwt.token.secret}")
     private String key;
     private long expireTimeMs = 1000 * 60 * 30;
+
+    /**
+     * 회원가입
+     */
     public UserDto join(UserJoinRequest request) {
         //중복 id 확인
         userRepository.findByUserID(request.getUserID())
@@ -46,6 +50,9 @@ public class UserService {
                 .build();
     }
 
+    /**
+     * 로그인
+     */
     public UserLoginResponse login(String userID, String password) {
         //userID 확인
         User user = userRepository.findByUserID(userID)
@@ -60,6 +67,9 @@ public class UserService {
         return new UserLoginResponse(token, user.getUuid());
     }
 
+    /**
+     * SpringSecurity userID확인
+     */
     public User getUserByUserID(String userID) {
         return userRepository.findByUserID(userID)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_ID_NOT_FOUND,""));
