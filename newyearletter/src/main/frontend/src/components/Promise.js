@@ -40,7 +40,7 @@ const Container = styled.div`
 
     font-family: nanumRound;
     font-weight: bold;
-    font-size: max(1.2rem, 21px);
+    font-size: max(1.4rem, 24px);
   }
 
   input:focus {

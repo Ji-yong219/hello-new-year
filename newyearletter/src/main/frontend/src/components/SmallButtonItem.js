@@ -27,7 +27,7 @@ const Container = styled.div`
   align-items: center;
   gap: max(0.5rem, 9px);
 
-  width: max(10rem, 110px);
+  width: max(10rem, 100px);
   height: max(2.5rem, 35px);
 
   border-radius: 9999px;

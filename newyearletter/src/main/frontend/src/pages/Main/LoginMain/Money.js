@@ -26,11 +26,11 @@ Money.propTypes = {
 const Container = styled.div`
   display: flex;
   align-items: center;
-  gap: max(1.5rem, 24px);
+  gap: max(1.5rem, 27px);
 `
 
 const Flower = styled.img`
-  width: max(2rem, 28px);
+  width: max(2rem, 36px);
 `
 
 const Content = styled.div`
@@ -41,11 +41,11 @@ const Content = styled.div`
 
   font-family: nanumRound;
   font-weight: 600;
-  font-size: max(0.9rem, 14px);
+  font-size: max(0.9rem, 18px);
 
   .bold {
     font-weight: 800;
-    font-size: max(2rem, 30px);
+    font-size: max(2rem, 32px);
   }
 
   .focus {
