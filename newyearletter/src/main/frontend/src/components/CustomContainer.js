@@ -7,7 +7,7 @@ import Moon from '../components/Moon'
 const Container = styled.div`
   position: relative;
   width: 360px;
-  height: 640px;
+  height: 660px;
 
   animation: loading 0.6s 1 ease-out alternate;
 	background: black; /* For browsers that do not support gradients */
@@ -20,6 +20,7 @@ const MoonContainer = styled.div`
   position: absolute;
   left: 140px;
   top: 15px;
+  transform: rotate(200deg);
 `
 const RabbitContainer = styled.div`
   position: absolute;
@@ -27,24 +28,24 @@ const RabbitContainer = styled.div`
 `
 
 function CustomContainer({
-      money = 150000,
-      debug = false,
-      color=2,
-      accessory=0,
-      isCustom=true
-    }) {
+    money = 150000,
+    debug = false,
+    color=2,
+    accessory=0,
+    isCustom=true
+  }) {
 
-    return(
-      <>
-      <Container>
-        <MoonContainer>
-          <Moon money={money} debug={debug} />
-        </MoonContainer>
-        <RabbitContainer>
-          <CustomRabbit color={color} accessory={accessory} isCustom={isCustom}/>
-        </RabbitContainer>
-      </Container>
-      </>
-    )
+  return(
+    <>
+    <Container>
+      <MoonContainer>
+        <Moon money={money} debug={debug} />
+      </MoonContainer>
+      <RabbitContainer>
+        <CustomRabbit color={color} accessory={accessory} isCustom={isCustom}/>
+      </RabbitContainer>
+    </Container>
+    </>
+  )
 }
 export default CustomContainer;
