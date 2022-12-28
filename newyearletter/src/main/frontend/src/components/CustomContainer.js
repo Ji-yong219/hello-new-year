@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styled from 'styled-components'
-import $ from 'jquery';
 import CustomRabbit from '../components/Rabbit'
 import Moon from '../components/Moon'
 
@@ -9,9 +8,6 @@ const Container = styled.div`
   position: relative;
   width: 360px;
   height: 640px;
-  // background: #4d4d4d;
-  // border-radius: 20px;
-  // box-shadow: 0 0 20px 30px rgba(0,16,54,0.9);
 
   animation: loading 0.6s 1 ease-out alternate;
 	background: black; /* For browsers that do not support gradients */
@@ -36,25 +32,7 @@ function CustomContainer({
       color=2,
       accessory=0,
       isCustom=true
-                          }) {
-
-    
-    $(() => {
-      $(".CustomContainer").css({
-      })
-      $("#moonContainer").css({
-        position: "absolute",
-        right: "30px",
-        background: "#4d4d4d",
-        transform: "rotate(200deg)"
-      })
-      $("CustomRabbit").css({
-        position: "absolute",
-        right: "30px",
-        background: "#4d4d4d",
-        transform: "rotate(200deg)"
-      })
-    })
+    }) {
 
     return(
       <>
