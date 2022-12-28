@@ -5,9 +5,10 @@ import styled from 'styled-components'
 import Container from '../components/Container'
 import Logo from '../components/Logo'
 import Moon from '../components/Moon'
+import CustomRabbit from '../components/Rabbit'
 
 function MyPage() {
-  const [info, setInfo] = React.useState({ nickName: '', money: 0 })
+  const [info, setInfo] = React.useState({ nickName: '', money: 0, custom: '2;0;1'})
   const { token, uuid } = useSelector(state => state.loginState)
 
   const attemptJoin = React.useCallback(async (token, uuid) => {
@@ -29,7 +30,9 @@ function MyPage() {
       <Logo />
       <Info>닉네임: {info.nickName}</Info>
       <Info>내가 받은 용돈: {info.money}원</Info>
+      
       <Moon money={info.money}/>
+      <CustomRabbit color={info.custom.split(';')[0]} accessory={info.custom.split(';')[1]} isCustom={false}/>
     </Container>
   )
 }

@@ -19,20 +19,6 @@ function Moon({money = 150000, debug = false}) {
     
     $(() => {
       setMoonRotation(money)
-
-      $(".sky").css({
-        position: "relative",
-        width: "300px",
-        height: "420px",
-        background: "#4d4d4d",
-        textAlign: "center",
-        margin: "50px auto",
-        borderRadius: "50px 50px 0px 0px",
-        boxShadow: "0 0 30px 50px #4d4d4d"
-      })
-      $(".sky .moon-container").css({
-        margin: "0 auto",
-      })
     })
 
     $(document)
@@ -57,8 +43,6 @@ function Moon({money = 150000, debug = false}) {
         ) : (
           <></>
         )}
-        <div className='sky'>
-          
         <div className="moon-container" style={{
           width: "200px",
           height: "200px",
@@ -108,7 +92,6 @@ function Moon({money = 150000, debug = false}) {
               />
             </g>
           </svg>
-        </div>
         </div>
       </>
     )
