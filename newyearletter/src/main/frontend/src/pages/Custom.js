@@ -87,6 +87,7 @@ function Custom() {
             accessory={custom.split(';')[1]}
             isCustom={true}
           />
+          <SmallText>달 위상은 보유한 용돈만큼 늘어납니다!</SmallText>
         </Wrapper>
       </Wrapper>
       <ButtonItem> 커스텀</ButtonItem>

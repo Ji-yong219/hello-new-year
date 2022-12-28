@@ -122,10 +122,11 @@ const customizePickerStyle = {
       color: "rgba(202, 191, 176, 0.5)",
       textAlign: "left",
       fontFamily: "nanumRound",
+      fontSize: "18px"
     })
     $(".customizePicker button,.customizePicker .accessoryIcon").css({
-      width: "20px",
-      height: "20px",
+      width: "25px",
+      height: "25px",
       borderRadius: "50%",
       border: "none",
       cursor: "pointer",
@@ -177,7 +178,7 @@ const customizePickerStyle = {
           <table className="customizePicker" style={customizePickerStyle}>
             <tbody>
               <tr className="colorList">
-                <th>색상</th>
+                <th>토끼 색</th>
                 {RabbitColor}
               </tr>
               <tr className="accessoryList">
