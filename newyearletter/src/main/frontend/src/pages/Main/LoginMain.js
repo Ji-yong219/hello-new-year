@@ -83,7 +83,9 @@ function LoginMain() {
             <MaterialIcon iconName="link" color="--pink" /> 링크 복사
           </SmallButtonItem>
 
-          <SmallButtonItem>내 화면 꾸미기</SmallButtonItem>
+          <SmallButtonItem onClick={() => navigate(`/custom`)}>
+            내 화면 꾸미기
+          </SmallButtonItem>
 
           <SmallButtonItem
             background="--pink-50"
