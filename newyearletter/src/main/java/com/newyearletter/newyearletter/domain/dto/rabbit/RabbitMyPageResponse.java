@@ -8,4 +8,6 @@ import lombok.Getter;
 public class RabbitMyPageResponse {
     private String nickName;
     private Integer money;
+    private String custom;
+    private String wish;
 }

@@ -29,7 +29,7 @@ public class RabbitService {
             throw new AppException(ErrorCode.INVALID_PERMISSION, "접속 권한이 없습니다.");
         }
 
-        return new RabbitMyPageResponse(user.getNickName(), user.getMoney(), user.getWish());
+        return new RabbitMyPageResponse(user.getNickName(), user.getMoney(), user.getCustom(), user.getWish());
     }
 
     /**
