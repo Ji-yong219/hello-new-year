@@ -25,7 +25,7 @@ function LoginMain() {
 
   const [money, setMoney] = React.useState(0)
   const [wish, setWish] = React.useState(WISH_INIT_STATE)
-  const [custom, setCustom] = React.useState("2;1;0")
+  const [custom, setCustom] = React.useState("1;1;2;1;0")
 
   const fetch = React.useCallback(
     async (token, uuid) => {
