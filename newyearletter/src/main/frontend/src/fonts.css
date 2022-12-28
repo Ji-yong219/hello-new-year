@@ -1,58 +1,4 @@
 @font-face {
-  font-family: 'score';
-  font-weight: 100;
-  src: url('assets/fonts/SCDream1.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 200;
-  src: url('assets/fonts/SCDream2.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 300;
-  src: url('assets/fonts/SCDream3.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 400;
-  src: url('assets/fonts/SCDream4.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 500;
-  src: url('assets/fonts/SCDream5.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 600;
-  src: url('assets/fonts/SCDream6.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 700;
-  src: url('assets/fonts/SCDream7.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 800;
-  src: url('assets/fonts/SCDream8.otf') format('truetype');
-}
-
-@font-face {
-  font-family: 'score';
-  font-weight: 900;
-  src: url('assets/fonts/SCDream9.otf') format('truetype');
-}
-
-@font-face {
   font-family: 'nanumRound';
   font-weight: 200;
   src: url('assets/fonts/NanumSquareRoundL.ttf') format('truetype');
@@ -72,8 +18,20 @@
 
 @font-face {
   font-family: 'nanumRound';
-  font-weight: 800;
+  font-weight: 700;
   src: url('assets/fonts/NanumSquareRoundEB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'bingSamanco';
+  font-weight: 400;
+  src: url('assets/fonts/BinggraeSamanco.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'bingSamanco';
+  font-weight: 700;
+  src: url('assets/fonts/BinggraeSamanco-Bold.ttf') format('truetype');
 }
 
 @font-face {

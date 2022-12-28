@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../utils/reducers/loginState'
 
 import { Wrapper } from '../Main'
-import Money from './LoginMain/Money'
 
 import Logo from '../../components/Logo'
 import MaterialIcon from '../../components/MaterialIcon'
@@ -12,11 +11,64 @@ import SmallButtonItem from '../../components/SmallButtonItem'
 import Rabbit from './LoginMain/Rabbit'
 import Container from '../../components/Container'
 import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import axios from 'axios'
+import { ResponseError } from '../../utils/error'
+import MoneyInfo from './LoginMain/MoneyInfo'
+import { WISH_INIT_STATE } from '../../utils/constant'
 
 function LoginMain() {
   const dispatch = useDispatch()
 
-  const { uuid } = useSelector(state => state.loginState)
+  const { token, uuid } = useSelector(state => state.loginState)
+
+  const [money, setMoney] = React.useState(0)
+  const [wish, setWish] = React.useState(WISH_INIT_STATE)
+
+  const fetch = React.useCallback(
+    async (token, uuid) => {
+      try {
+        const res = await axios.get(`/api/rabbit/mypage/${uuid}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        switch (res.status) {
+          case 200:
+            setMoney(res.data.result.money)
+            setWish(res.data.result.wish)
+            break
+          default:
+            throw new ResponseError('잘못된 응답입니다.', res)
+        }
+      } catch (err) {
+        const res = err.ResponseError
+
+        switch (res.status) {
+          case 401:
+            alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+            dispatch(logout())
+            window.location.reload()
+            break
+          case 404:
+            alert(`${res.data.result.message}`)
+            dispatch(logout())
+            window.location.reload()
+            break
+          default:
+            alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+            navigate('/')
+        }
+      }
+    },
+    [setMoney, dispatch]
+  )
+
+  React.useEffect(() => {
+    fetch(token, uuid)
+  }, [])
+
   const navigate = useNavigate()
   return (
     <Container>
@@ -26,12 +78,14 @@ function LoginMain() {
           <SmallButtonItem
             background="--white"
             color="--pink"
-            onClick={() => navigate(`/${uuid}`)}
+            onClick={() => navigate(`/letter/${uuid}`)}
           >
             <MaterialIcon iconName="link" color="--pink" /> 링크 복사
           </SmallButtonItem>
 
-          <SmallButtonItem>내 화면 꾸미기</SmallButtonItem>
+          <SmallButtonItem onClick={() => navigate(`/custom`)}>
+            내 화면 꾸미기
+          </SmallButtonItem>
 
           <SmallButtonItem
             background="--pink-50"
@@ -42,9 +96,9 @@ function LoginMain() {
           </SmallButtonItem>
         </ButtonWrapper>
 
-        <Promise defaultText="올해는 운동 열심히 하자" />
+        <Promise defaultText={wish} />
 
-        <Money value={21000} />
+        <MoneyInfo value={money} />
       </Wrapper>
 
       <Rabbit />

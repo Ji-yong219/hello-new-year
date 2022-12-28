@@ -1,7 +1,5 @@
 import { SmallText } from '../InviteLetter'
 import { Wrapper } from '../Main'
-import MoneyButton from './MoneyButton'
-
 import Money50000 from '../../assets/images/money-50000.png'
 import Money10000 from '../../assets/images/money-10000.png'
 import Money5000 from '../../assets/images/money-5000.png'
@@ -11,6 +9,8 @@ import Letter from '../../components/Letter'
 import { Input } from '../Login'
 import ButtonItem from '../../components/ButtonItem'
 import Logo from '../../components/Logo'
+
+import MoneyButton from '../../components/MoneyButton'
 
 function SendContent({ nickName, money, selectMoney, setSend }) {
   return (
@@ -72,10 +72,6 @@ const MoneyWrapper = styled.div`
   gap: max(1rem, 18px);
   > div {
     position: relative;
-  }
-  img {
-    width: 100%;
-    object-fit: cover;
   }
 `
 export default SendContent

@@ -14,8 +14,9 @@ function Letter({ editable = false, defaultText }) {
           }
         }}
         contentEditable={editable ? true : false}
-        value={defaultText ? defaultText : null}
-      />
+      >
+        {defaultText ? defaultText : null}
+      </div>
       <img src={LetterBg} alt="" />
     </Container>
   )
@@ -56,7 +57,8 @@ const Container = styled.div`
 
     font-family: nanumRound;
     font-weight: bold;
-    font-size: max(1.4rem, 24px);
+    font-size: 18px;
+    line-height: 28px;
 
     padding: max(1rem, 18px);
     white-space: pre-wrap;

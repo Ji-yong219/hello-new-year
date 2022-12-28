@@ -3,10 +3,18 @@ import PropTypes from 'prop-types'
 
 import PromiseBg from '../assets/images/promise.png'
 
-function Promise({ editable = false, defaultText = '' }) {
+function Promise({ editable = false, defaultText, setValue }) {
   return (
     <Container>
-      <input disabled={editable ? false : true} value={defaultText} />
+      <input
+        disabled={editable ? false : true}
+        defaultValue={defaultText}
+        onChange={
+          setValue !== undefined
+            ? event => setValue(event.target.value)
+            : () => {}
+        }
+      />
       <img src={PromiseBg} alt="" />
     </Container>
   )
@@ -15,6 +23,7 @@ function Promise({ editable = false, defaultText = '' }) {
 Promise.propTypes = {
   editable: PropTypes.bool,
   defaultText: PropTypes.string,
+  value: PropTypes.func,
 }
 
 const Container = styled.div`
@@ -38,9 +47,11 @@ const Container = styled.div`
     color: var(--brown);
     text-align: center;
 
-    font-family: nanumRound;
+    font-family: bingSamanco;
     font-weight: bold;
-    font-size: max(1.4rem, 24px);
+    font-size: 28px;
+
+    padding: 12px;
   }
 
   input:focus {
