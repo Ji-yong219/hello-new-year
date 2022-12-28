@@ -11,7 +11,10 @@ function importAll(type, r) {
 }
 const rabbitList = importAll("rabbit", require.context('../assets/images/customize/rabbit', false, /\.(png|jpe?g|svg)$/));
 const accessoryList = importAll("accessory", require.context('../assets/images/customize/accessory', false, /\.(png|jpe?g|svg)$/));
+const accessoryIconList = importAll("accessoryIcon", require.context('../assets/images/customize/icon', false, /\.(png|jpe?g|svg)$/));
 
+console.log(accessoryList)
+console.log(accessoryIconList)
 // const RabbitColor = 
 let RabbitColor = []
 let RabbitImg = []
@@ -27,11 +30,14 @@ rabbitList.map(([name, image]) => {
 })
 
 let AccessoryImg = []
-let AccessoryThumbnail = []
+let AccessoryIcon = []
 accessoryList.map(([name, image]) => {
   AccessoryImg.push(<img key={name} id={name} className="accessory" style={{display: "none", zIndex: "5001"}}src={image} />)
-  AccessoryThumbnail.push(<td key={name}><img className="accessory-thumb" key={name} src={image} /></td>)
 })
+accessoryIconList.map(([name, image]) => {
+  AccessoryIcon.push(<td key={name}><img className="accessoryIcon" key={name} src={image} /></td>)
+})
+
 
 let EarThumbnail = []
 
@@ -71,6 +77,11 @@ class CustomRabbit extends Component {
         top: "60%",
         zIndex: "4999"
       })
+      $("#Flower").css({
+        width: "33.5%",
+        left: "26%",
+        top: "9.5%"
+      })
       $("#Hanbok").css({
         width: "72.5%",
         left: "13%",
@@ -99,11 +110,6 @@ class CustomRabbit extends Component {
         left: "39%",
         top: "29%"
       })
-      $("#flower").css({
-        width: "33.5%",
-        left: "26%",
-        top: "9.5%"
-      })
 
 
 
@@ -123,7 +129,7 @@ class CustomRabbit extends Component {
         textAlign: "left",
         fontFamily: "nanumRound",
       })
-      $(".customizePicker button,.customizePicker .accessory-thumb").css({
+      $(".customizePicker button,.customizePicker .accessoryIcon").css({
         width: "20px",
         height: "20px",
         borderRadius: "50%",
@@ -131,7 +137,7 @@ class CustomRabbit extends Component {
         cursor: "pointer",
         marginLeft: "10px",
       })
-      $(".customizePicker .accessory-thumb").css({
+      $(".customizePicker .accessoryIcon").css({
         borderRadius: "0",
         border: "none",
         objectFit: "scale-down",
@@ -158,6 +164,7 @@ class CustomRabbit extends Component {
       })
       .on("click", ".accessoryList img", (e) => {
         const index = $(e.target).parent().index() - 1
+        console.log($(e.target))
         const accessorys = document.getElementsByClassName("accessory")
 
         if (accessorys[index].style.display === "none") {
@@ -189,7 +196,7 @@ class CustomRabbit extends Component {
             </tr>
             <tr className="accessoryList">
               <th>악세사리</th>
-              {AccessoryThumbnail}
+              {AccessoryIcon}
             </tr>
           </tbody>
         </table>
