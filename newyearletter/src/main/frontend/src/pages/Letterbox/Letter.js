@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
 
-function Letter({ id, money, sender, content }) {
+function Letter({ id, money, author, content }) {
   const MONEY_ASSETS = {
     50000: Money50000,
     10000: Money10000,
@@ -26,7 +26,7 @@ function Letter({ id, money, sender, content }) {
       }}
     >
       <MoneyButton src={MONEY_ASSETS[money]} />
-      <Label>{sender}</Label>
+      <Label>{author}</Label>
     </Container>
   )
 }
@@ -34,12 +34,13 @@ function Letter({ id, money, sender, content }) {
 Letter.propTypes = {
   id: PropTypes.number.isRequired,
   money: PropTypes.number.isRequired,
-  sender: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
 }
 
 const Container = styled.div`
   position: relative;
+  max-width: min(20rem, 120px);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -48,17 +49,21 @@ const Container = styled.div`
 `
 
 const Label = styled.div`
-  width: 100%;
+  max-width: 100%;
   padding: 6px;
 
   font-family: nanumRound;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--brown);
 
   background: white;
   border-radius: 9999px;
   text-align: center;
+  border: 1px solid var(--pink-100);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export default Letter

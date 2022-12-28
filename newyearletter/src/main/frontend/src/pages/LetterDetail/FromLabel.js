@@ -3,13 +3,13 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import LetterInfoLabelBg from '../../assets/images/send.png'
 
-function LetterInfoLabel({ sender, money = 0 }) {
+function LetterInfoLabel({ author, money = 0 }) {
   return (
     <Container>
       <div>
-        <SenderInfo>
-          From. <span className="bold">{sender}</span>
-        </SenderInfo>
+        <AuthorInfo>
+          From. <span className="bold">{author}</span>
+        </AuthorInfo>
 
         <MoneyInfo>
           <span className="focus">{money.toLocaleString()}</span> 원과 함께
@@ -22,7 +22,7 @@ function LetterInfoLabel({ sender, money = 0 }) {
 }
 
 LetterInfoLabel.propTypes = {
-  sender: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
   money: PropTypes.number,
 }
 
@@ -58,7 +58,7 @@ const Container = styled.div`
   }
 `
 
-const SenderInfo = styled.div`
+const AuthorInfo = styled.div`
   font-size: 14px;
 
   .bold {

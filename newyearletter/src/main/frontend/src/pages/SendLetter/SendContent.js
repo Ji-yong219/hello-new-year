@@ -16,7 +16,7 @@ function SendContent({
   nickName,
   money,
   selectMoney,
-  setSender,
+  setAuthor,
   setContent,
   onClick,
 }) {
@@ -54,7 +54,7 @@ function SendContent({
       <SmallInput
         placeholder="보내시는 분의 이름을 적어주세요"
         onChange={event => {
-          setSender(event.target.value)
+          setAuthor(event.target.value)
         }}
       />
 

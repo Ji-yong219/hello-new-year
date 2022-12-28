@@ -5,49 +5,65 @@ import Container from '../components/Container'
 import ButtonItem from '../components/ButtonItem'
 import LetterInfoLabel from './LetterDetail/FromLabel'
 import Letter from '../components/Letter'
-
-const letterInfo = [
-  { id: 0, money: 50000, sender: '양희범', content: '테스트 메세지입니다1' },
-  { id: 1, money: 10000, sender: '박지용', content: '테스트 메세지입니다1' },
-  { id: 2, money: 5000, sender: '박수진', content: '테스트 메세지입니다1' },
-  { id: 3, money: 50000, sender: '구민구', content: '테스트 메세지입니다1' },
-  { id: 4, money: 1000, sender: '이현무', content: '테스트 메세지입니다1' },
-  { id: 5, money: 10000, sender: '박지용', content: '테스트 메세지입니다1' },
-  { id: 6, money: 50000, sender: '양희범', content: '테스트 메세지입니다1' },
-  { id: 7, money: 10000, sender: '박지용', content: '테스트 메세지입니다1' },
-  { id: 8, money: 5000, sender: '박수진', content: '테스트 메세지입니다1' },
-  { id: 9, money: 50000, sender: '구민구', content: '테스트 메세지입니다1' },
-  { id: 10, money: 50000, sender: '양희범', content: '테스트 메세지입니다1' },
-  { id: 11, money: 50000, sender: '양희범', content: '테스트 메세지입니다1' },
-  { id: 12, money: 10000, sender: '박지용', content: '테스트 메세지입니다1' },
-  { id: 13, money: 5000, sender: '박수진', content: '테스트 메세지입니다1' },
-  { id: 14, money: 50000, sender: '구민구', content: '테스트 메세지입니다1' },
-  { id: 15, money: 1000, sender: '이현무', content: '테스트 메세지입니다1' },
-  { id: 16, money: 10000, sender: '박지용', content: '테스트 메세지입니다1' },
-  { id: 17, money: 50000, sender: '양희범', content: '테스트 메세지입니다1' },
-  { id: 18, money: 10000, sender: '박지용', content: '테스트 메세지입니다1' },
-  { id: 19, money: 5000, sender: '박수진', content: '테스트 메세지입니다1' },
-  { id: 20, money: 50000, sender: '구민구', content: '테스트 메세지입니다1' },
-]
-
-const INFO_INIT_STATE = {
-  money: 0,
-  sender: '',
-  content: '',
-}
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { ResponseError } from '../utils/error'
+import { logout } from '../utils/reducers/loginState'
 
 function ReadLetter() {
-  const navigate = useNavigate()
-
   const { id } = useParams()
 
+  const [author, setAuthor] = React.useState('')
+  const [content, setContent] = React.useState('')
+  const [money, setMoney] = React.useState(50000)
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { uuid, token } = useSelector(state => state.loginState)
+
+  const fetch = React.useCallback(async () => {
+    try {
+      const res = await axios.get(`/api/letter/${uuid}/getLetter/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      switch (res.status) {
+        case 200:
+          setAuthor(res.data.result.author)
+          setContent(res.data.result.content)
+          setMoney(res.data.result.money)
+          break
+        default:
+          throw new ResponseError('잘못된 응답입니다.', res)
+      }
+    } catch (err) {
+      const res = err.response
+
+      switch (res.status) {
+        case 401:
+          alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+          dispatch(logout())
+          navigate('/login')
+          break
+        default:
+          alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+      }
+    }
+  }, [uuid, token])
+
+  React.useEffect(() => {
+    fetch()
+  }, [])
+
   // const [data, setData] = React.useState(INFO_INIT_STATE)
-  const data = letterInfo[id]
   return (
     <Container>
       <Logo sx={2.5} />
-      <LetterInfoLabel sender={data.sender} money={data.money} />
-      <Letter defaultText={data.content} />
+      <LetterInfoLabel author={author} money={money} />
+      <Letter defaultText={content} />
       <ButtonItem onClick={() => navigate('/letter-box')}>뒤로가기</ButtonItem>
     </Container>
   )
