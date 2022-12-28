@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../utils/reducers/loginState'
 
 import { Wrapper } from '../Main'
@@ -11,23 +11,30 @@ import Promise from '../../components/Promise'
 import SmallButtonItem from '../../components/SmallButtonItem'
 import Rabbit from './LoginMain/Rabbit'
 import Container from '../../components/Container'
+import { useNavigate } from 'react-router-dom'
 
 function LoginMain() {
   const dispatch = useDispatch()
 
+  const { uuid } = useSelector(state => state.loginState)
+  const navigate = useNavigate()
   return (
     <Container>
       <Logo sx={2.5} />
       <Wrapper>
         <ButtonWrapper>
-          <SmallButtonItem background="--white" color="--pink">
+          <SmallButtonItem
+            background="--white"
+            color="--pink"
+            onClick={() => navigate(`/${uuid}`)}
+          >
             <MaterialIcon iconName="link" color="--pink" /> 링크 복사
           </SmallButtonItem>
 
           <SmallButtonItem>내 화면 꾸미기</SmallButtonItem>
 
           <SmallButtonItem
-            background="--pink-100"
+            background="--pink-50"
             color="--pink-500"
             onClick={() => dispatch(logout())}
           >

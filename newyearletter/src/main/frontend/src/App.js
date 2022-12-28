@@ -4,11 +4,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
-import MailBox from './pages/MailBox'
 import ReceiveMail from './pages/ReceiveMail'
 import MyPage from './pages/MyPage'
-import TestRabbitCustomizing from './pages/TestRabbitCustomizing'
+import TestCustomizing from './pages/TestCustomizing'
 import React from 'react'
+import LetterBox from './pages/LetterBox'
+import InviteLetter from './pages/InviteLetter'
+import SendLetter from './pages/SendLetter'
 
 function App() {
   function setScreenSize() {
@@ -25,12 +27,14 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<CreateAccount />} />
-        <Route path="/mail-box" element={<MailBox />} />
+        <Route path="/letter-box" element={<LetterBox />} />
         <Route path="/receive-mail" element={<ReceiveMail />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/:uuid" element={<InviteLetter />} />
+        <Route path="/:uuid/send" element={<SendLetter />} />
         <Route
-          path="/TestRabbitCustomizing"
-          element={<TestRabbitCustomizing />}
+          path="/TestCustomizing"
+          element={<TestCustomizing />}
         />
       </Routes>
     </BrowserRouter>
