@@ -1,6 +1,7 @@
 package com.newyearletter.newyearletter.controller;
 
 import com.newyearletter.newyearletter.domain.dto.*;
+import com.newyearletter.newyearletter.domain.dto.user.*;
 import com.newyearletter.newyearletter.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

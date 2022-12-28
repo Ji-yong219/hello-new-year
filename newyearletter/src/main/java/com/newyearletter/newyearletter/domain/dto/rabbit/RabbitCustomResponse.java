@@ -1,4 +1,4 @@
-package com.newyearletter.newyearletter.domain.dto;
+package com.newyearletter.newyearletter.domain.dto.rabbit;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

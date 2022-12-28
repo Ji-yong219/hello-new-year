@@ -1,4 +1,4 @@
-package com.newyearletter.newyearletter.domain.dto;
+package com.newyearletter.newyearletter.domain.dto.user;
 
 
 import com.newyearletter.newyearletter.domain.entity.User;
