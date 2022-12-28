@@ -48,6 +48,7 @@ function Moon({money = 150000, debug = false}) {
           background: "#343434",
           borderRadius: "50%",
           boxShadow: "0 0 30px 30px #FFE05D",
+          transform: "rotate(200deg)"
         }}>
           <svg viewBox="0 0 200 200">
             <defs>
