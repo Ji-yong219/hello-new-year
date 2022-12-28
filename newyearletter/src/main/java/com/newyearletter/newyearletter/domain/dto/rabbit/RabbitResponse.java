@@ -9,4 +9,5 @@ public class RabbitResponse {
     private String nickName;
     private String wish;
     private Integer money;
+    private String custom;
 }
