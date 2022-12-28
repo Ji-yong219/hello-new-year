@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User extends BaseEntity{
 
     /**
      * persist 되기 전 실행
