@@ -26,6 +26,10 @@ import java.util.stream.Collectors;
 public class LetterService {
     private final UserRepository userRepository;
     private final LetterRepository letterRepository;
+
+    /**
+     * 편지 작성 페이지 확인
+     */
     public LetterPageResponse findUuid(String uuid) {
         //uuid가 올바른 주소인지 확인
         User user = userRepository.findByUuid(uuid)
@@ -34,6 +38,9 @@ public class LetterService {
         return new LetterPageResponse(user.getNickName(), user.getWish());
     }
 
+    /**
+     * 편지 저장
+     */
     public LetterAddResponse saveLetter(String uuid, LetterAddRequest request) {
         //uuid가 올바른 주소인지 확인
         User user = userRepository.findByUuid(uuid)
@@ -48,6 +55,9 @@ public class LetterService {
         return new LetterAddResponse("편지 전송 완료");
     }
 
+    /**
+     * 편지 전체 조회
+     */
     public PageImpl<LetterGetResponse> getAllLetter(Pageable pageable, String uuid, String userName) {
         //uuid가 올바른 주소인지 확인
         User user = userRepository.findByUuid(uuid)
@@ -63,5 +73,20 @@ public class LetterService {
                 .map(letter -> LetterGetResponse.fromEntity(letter)).collect(Collectors.toList());
 
         return new PageImpl<>(letterGetResponseList, pageable, letters.getTotalElements());
+    }
+
+    public LetterGetResponse getLetter(String uuid, Integer letterId, String userName) {
+        //uuid가 올바른 주소인지 확인
+        User user = userRepository.findByUuid(uuid)
+                .orElseThrow(() -> new AppException(ErrorCode.URL_NOT_FOUND, "해당 URL을 찾을 수 없습니다."));
+
+        //권한 확인, uuid 주소와 접속자 일치 확인
+        if(!user.getUserID().equals(userName)){
+            throw new AppException(ErrorCode.INVALID_PERMISSION, ErrorCode.INVALID_TOKEN.getMessage());
+        }
+
+        Letter letter = letterRepository.findById(letterId)
+                .orElseThrow(() -> new AppException(ErrorCode.LETTER_NOT_FOUND, ErrorCode.LETTER_NOT_FOUND.getMessage()));
+        return LetterGetResponse.fromEntity(letter);
     }
 }

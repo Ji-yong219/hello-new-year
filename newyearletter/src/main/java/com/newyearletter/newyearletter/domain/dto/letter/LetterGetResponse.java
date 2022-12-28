@@ -9,12 +9,14 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 public class LetterGetResponse {
+    private Integer id;
     private String author;
     private String content;
     private Integer money;
 
     public static LetterGetResponse fromEntity(Letter letter) {
         return LetterGetResponse.builder()
+                .id(letter.getId())
                 .author(letter.getAuthor())
                 .content(letter.getContent())
                 .money(letter.getMoney())

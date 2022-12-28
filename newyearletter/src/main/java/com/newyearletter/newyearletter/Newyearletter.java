@@ -2,6 +2,7 @@ package com.newyearletter.newyearletter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /*
  * 
@@ -13,6 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 2022. 12. 23.	박지용	최초 생성
  * 2022. 12. 23. 	박지용	getAppTitle(), getMailboxTitle 추가
  */
+
+@EnableJpaAuditing
 @SpringBootApplication
 public class Newyearletter {
 
