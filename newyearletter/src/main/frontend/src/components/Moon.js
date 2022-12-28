@@ -1,8 +1,7 @@
 import React from 'react';
 
 import $ from 'jquery';
-// import moon_image from '../assets/images/moon.png';
-import moon_image from '../assets/images/moon-noblur.png';
+import moon_image from '../assets/images/moon.png';
 
 function Moon({money = 150000, debug = false}) {
     const setMoonRotation = money => {
