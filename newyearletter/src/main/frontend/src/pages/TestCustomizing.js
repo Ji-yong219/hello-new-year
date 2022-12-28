@@ -16,7 +16,7 @@ function TestCustomizing() {
       </Wrapper>
 
       <CustomRabbit />
-      <Moon money={350000} />
+      <Moon money={350000} debug={true} />
     </Container>
     </>
   )

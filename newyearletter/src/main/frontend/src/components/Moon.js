@@ -4,7 +4,7 @@ import $ from 'jquery';
 // import moon_image from '../assets/images/moon.png';
 import moon_image from '../assets/images/moon-noblur.png';
 
-function Moon({money = 150000}) {
+function Moon({money = 150000, debug = false}) {
     const setMoonRotation = money => {
       let deg = money < 500000 ? money / 2500 : 200
 
@@ -28,14 +28,19 @@ function Moon({money = 150000}) {
 
     return(
       <>
-        <span type="text" id="money">{money}원 (50만원 부터 보름달)</span>
-        <input
-          id="moon_slider"
-          type="range"
-          defaultValue={money}
-          min="0"
-          max="750000"
-        />
+        {debug ? (
+          <>
+            <span type="text" id="money">{money}원 (50만원 부터 보름달)</span>
+            <input
+              id="moon_slider"
+              type="range"
+              defaultValue={money}
+              min="0"
+              max="750000" />
+          </>
+        ) : (
+          <></>
+        )}
         
         <div className="moon-container" style={{
           width: "200px",
