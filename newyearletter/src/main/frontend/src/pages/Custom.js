@@ -24,11 +24,11 @@ function Custom() {
         <Wrapper gap={2}>
           <SmallText>올해, 나만의 토끼를 꾸며보세요!</SmallText>
           <CustomContainer
-            money={info.money}
-            debug={false}
-            color={info.custom.split(';')[0]}
-            accessory={info.custom.split(';')[1]}
-            isCustom={false}
+          // money={info.money}
+          // debug={false}
+          // color={info.custom.split(';')[0]}
+          // accessory={info.custom.split(';')[1]}
+          // isCustom={false}
           />
         </Wrapper>
       </Wrapper>

@@ -12,7 +12,7 @@ function SendLetter() {
   const [money, setMoney] = React.useState(MONEY_INIT_STATE)
   const [isSended, setSend] = React.useState(false)
 
-  const [sender, setSender] = React.useState('')
+  const [author, setAuthor] = React.useState('')
   const [content, setContent] = React.useState('')
 
   const { state } = useLocation()
@@ -32,14 +32,14 @@ function SendLetter() {
     const selectedMoney = getSelectedMoney()
     if (selectedMoney === undefined) {
       alert('용돈을 선택해주세요.')
-    } else if (sender.length === 0) {
+    } else if (author.length === 0) {
       alert('보내시는 분의 이름을 적어주세요.')
     } else if (content.length < 5) {
       alert('내용을 적어도 5자 이상 써주세요.')
     } else {
       try {
         const res = await axios.post(`/api/letter/${uuid}`, {
-          author: sender,
+          author: author,
           content: content,
           money: selectedMoney,
         })
@@ -60,7 +60,7 @@ function SendLetter() {
         }
       }
     }
-  }, [sender, content])
+  }, [author, content, uuid, getSelectedMoney])
 
   return (
     <Container>
@@ -71,9 +71,9 @@ function SendLetter() {
           nickName={state}
           money={money}
           selectMoney={selectMoney}
-          onClick={attemptSend}
           setContent={setContent}
-          setSender={setSender}
+          setAuthor={setAuthor}
+          onClick={attemptSend}
         />
       )}
     </Container>
