@@ -22,7 +22,7 @@ public class User {
     @PrePersist
     public void prePersist(){
         this.money = this.money == null ? 0 : this.money;
-        this.custom = this.custom == null ? "2;1;0" : this.custom;
+        this.custom = this.custom == null ? "2;0;1" : this.custom;
         this.wish = this.wish == null ? "2023년은 행복한 일만 가득하길" : this.wish;
     }
     
