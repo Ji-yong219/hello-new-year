@@ -57,6 +57,7 @@ public class RabbitService {
         }
 
         RabbitCustomDto dto = RabbitCustomDto.builder()
+                .money(user.getMoney())
                 .custom(user.getCustom())
                 .wish(user.getWish())
                 .build();
