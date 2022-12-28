@@ -61,10 +61,10 @@ function CreateAccount() {
         if (res.status === 409) {
           alert(`회원가입에 실패했습니다: ${res.data.result.message}`)
           window.location.reload()
+        } else {
+          alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+          navigate('/')
         }
-
-        alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
-        navigate('/')
       }
     },
     [dispatch, navigate]

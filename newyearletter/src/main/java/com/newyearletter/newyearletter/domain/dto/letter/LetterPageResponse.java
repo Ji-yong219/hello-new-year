@@ -8,4 +8,5 @@ import lombok.Getter;
 public class LetterPageResponse {
     private String nickName;
     private String wish;
+
 }

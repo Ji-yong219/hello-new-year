@@ -12,6 +12,8 @@ import LetterBox from './pages/LetterBox'
 import InviteLetter from './pages/InviteLetter'
 import SendLetter from './pages/SendLetter'
 import ReadLetter from './pages/ReadLetter'
+import CustomRabbit from './components/Rabbit'
+import Custom from './pages/Custom'
 
 function App() {
   function setScreenSize() {
@@ -34,6 +36,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/letter/:uuid" element={<InviteLetter />} />
         <Route path="/letter/:uuid/send" element={<SendLetter />} />
+        <Route path="/custom" element={<Custom />} />
         <Route path="/TestCustomizing" element={<TestCustomizing />} />
       </Routes>
     </BrowserRouter>

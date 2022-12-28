@@ -3,11 +3,17 @@ package com.newyearletter.newyearletter.controller;
 import com.newyearletter.newyearletter.domain.dto.Response;
 import com.newyearletter.newyearletter.domain.dto.letter.LetterAddRequest;
 import com.newyearletter.newyearletter.domain.dto.letter.LetterAddResponse;
+import com.newyearletter.newyearletter.domain.dto.letter.LetterGetResponse;
 import com.newyearletter.newyearletter.domain.dto.letter.LetterPageResponse;
 import com.newyearletter.newyearletter.service.LetterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/letter")
@@ -31,8 +37,11 @@ public class LetterController {
     }
 
     @GetMapping("/{uuid}/getLetter")
-    public String getLetterList() {
-        return this.sMailboxTitle;
+    public Response<PageImpl<LetterGetResponse>> getLetterList(@PageableDefault(size=9, sort="id",direction = Sort.Direction.DESC) Pageable pageable, @PathVariable String uuid, Authentication authentication) {
+        String userName = authentication.getName();
+        PageImpl<LetterGetResponse> letterGetResponseList = letterService.getAllLetter(pageable, uuid, userName);
+        return Response.success(letterGetResponseList);
+
     }
 
 
