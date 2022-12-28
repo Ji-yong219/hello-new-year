@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Container from '../components/Container'
 import Logo from '../components/Logo'
+import Moon from '../components/Moon'
 
 function MyPage() {
-  const [info, setInfo] = React.useState({ nickName: '', moneny: 0 })
-  const { token, url } = useSelector(state => state.loginState)
+  const [info, setInfo] = React.useState({ nickName: '', money: 0 })
+  const { token, uuid } = useSelector(state => state.loginState)
 
-  const attemptJoin = React.useCallback(async (token, url) => {
-    const resp = await axios.get(`/api/letter/myPage/${url}`, {
+  const attemptJoin = React.useCallback(async (token, uuid) => {
+    const resp = await axios.get(`/api/rabbit/mypage/${uuid}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -20,14 +21,15 @@ function MyPage() {
   }, [])
 
   React.useEffect(() => {
-    attemptJoin(token, url)
+    attemptJoin(token, uuid)
   }, [])
 
   return (
     <Container>
       <Logo />
       <Info>닉네임: {info.nickName}</Info>
-      <Info>남은돈: {info.money}원</Info>
+      <Info>내가 받은 용돈: {info.money}원</Info>
+      <Moon money={info.money}/>
     </Container>
   )
 }

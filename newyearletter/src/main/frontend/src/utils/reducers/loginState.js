@@ -1,7 +1,7 @@
 const INIT_STATE = {
   isLogin: false,
   token: null,
-  url: null,
+  uuid: null,
 }
 
 function loginState(state = INIT_STATE, action) {
@@ -11,21 +11,25 @@ function loginState(state = INIT_STATE, action) {
         ...state,
         isLogin: true,
         token: action.token,
-        url: action.url,
+        uuid: action.uuid,
       }
     case 'LOGOUT':
       return {
         ...state,
         isLogin: false,
         token: null,
-        url: null,
+        uuid: null,
       }
     default:
       return state
   }
 }
 
-export const login = (token, url) => ({ type: 'LOGIN', token: token, url: url })
+export const login = (token, uuid) => ({
+  type: 'LOGIN',
+  token: token,
+  uuid: uuid,
+})
 export const logout = () => ({ type: 'LOGOUT' })
 
 export default loginState

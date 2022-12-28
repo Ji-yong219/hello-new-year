@@ -26,15 +26,15 @@ const Background = styled.div`
 `
 
 const Content = styled.div`
-  min-width: 300px;
-  max-width: 600px;
+  min-width: 250px;
+  max-width: 450px;
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  padding: max(3rem, 54px) max(2rem, 36px);
+  padding: max(3rem, 54px) max(1.5rem, 27px);
   align-items: center;
   gap: max(2rem, 36px);
 

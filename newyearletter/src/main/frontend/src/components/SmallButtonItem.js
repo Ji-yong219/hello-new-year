@@ -27,14 +27,14 @@ const Container = styled.div`
   align-items: center;
   gap: max(0.5rem, 9px);
 
-  width: max(10rem, 100px);
-  height: max(2.5rem, 35px);
+  width: max(6rem, 100px);
+  height: max(2rem, 35px);
 
   border-radius: 9999px;
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(0.8rem, 13px);
+  font-size: max(0.7rem, 12px);
 
   background: var(${props => props.background});
   color: var(${({ color }) => color});
