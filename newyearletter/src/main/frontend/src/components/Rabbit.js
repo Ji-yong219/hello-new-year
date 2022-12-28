@@ -13,8 +13,6 @@ const rabbitList = importAll("rabbit", require.context('../assets/images/customi
 const accessoryList = importAll("accessory", require.context('../assets/images/customize/accessory', false, /\.(png|jpe?g|svg)$/));
 const accessoryIconList = importAll("accessoryIcon", require.context('../assets/images/customize/icon', false, /\.(png|jpe?g|svg)$/));
 
-console.log(accessoryList)
-console.log(accessoryIconList)
 // const RabbitColor = 
 let RabbitColor = []
 let RabbitImg = []
@@ -38,8 +36,6 @@ accessoryIconList.map(([name, image]) => {
   AccessoryIcon.push(<td key={name}><img className="accessoryIcon" key={name} src={image} /></td>)
 })
 
-
-let EarThumbnail = []
 
 class CustomRabbit extends Component {
   constructor(props) {
@@ -159,9 +155,6 @@ class CustomRabbit extends Component {
         rabbits[index].style.display = "block"
         rabbits[index].style.width = "80%"
       })
-      .on("click", ".earList button", (e) => {
-        const index = $(e.target).parent().index() - 1
-      })
       .on("click", ".accessoryList img", (e) => {
         const index = $(e.target).parent().index() - 1
         console.log($(e.target))
@@ -189,10 +182,6 @@ class CustomRabbit extends Component {
             <tr className="colorList">
               <th>색상</th>
               {RabbitColor}
-            </tr>
-            <tr className="earList">
-              <th>귀모양</th>
-              {EarThumbnail}
             </tr>
             <tr className="accessoryList">
               <th>악세사리</th>

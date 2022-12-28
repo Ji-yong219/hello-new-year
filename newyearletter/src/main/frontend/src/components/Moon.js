@@ -17,7 +17,23 @@ function Moon({money = 150000, debug = false}) {
       }
     }
     
-    $(() => setMoonRotation(money))
+    $(() => {
+      setMoonRotation(money)
+
+      $(".sky").css({
+        position: "relative",
+        width: "300px",
+        height: "420px",
+        background: "#4d4d4d",
+        textAlign: "center",
+        margin: "50px auto",
+        borderRadius: "50px 50px 0px 0px",
+        boxShadow: "0 0 30px 50px #4d4d4d"
+      })
+      $(".sky .moon-container").css({
+        margin: "0 auto",
+      })
+    })
 
     $(document)
     .on("input", "#moon_slider", (e) => {
@@ -41,13 +57,15 @@ function Moon({money = 150000, debug = false}) {
         ) : (
           <></>
         )}
-        
+        <div className='sky'>
+          
         <div className="moon-container" style={{
           width: "200px",
           height: "200px",
           background: "#343434",
           borderRadius: "50%",
           boxShadow: "0 0 30px 30px #FFE05D",
+          transform: "rotate(200deg)"
         }}>
           <svg viewBox="0 0 200 200">
             <defs>
@@ -90,6 +108,7 @@ function Moon({money = 150000, debug = false}) {
               />
             </g>
           </svg>
+        </div>
         </div>
       </>
     )
