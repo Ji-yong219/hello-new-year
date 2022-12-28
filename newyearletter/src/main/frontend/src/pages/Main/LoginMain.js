@@ -107,8 +107,8 @@ function LoginMain() {
       <CustomContainer
         money={money}
         debug={false}
-        color={custom.split(';')[0]}
-        accessory={custom.split(';')[1]}
+        color={custom.split(';')[2]}
+        accessory={custom.split(';')[3]}
         isCustom={false}
       />
 

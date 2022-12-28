@@ -13,7 +13,7 @@ import { ResponseError } from '../utils/error'
 import { logout } from '../utils/reducers/loginState'
 import { useNavigate } from 'react-router-dom'
 
-const CUSTOM_INIT_STATE = '2;0;1'
+const CUSTOM_INIT_STATE = '1;1;2;0;1'
 
 function Custom() {
   const { uuid, token } = useSelector(state => state.loginState)
@@ -83,8 +83,8 @@ function Custom() {
           <CustomContainer
             money={money}
             debug={false}
-            color={custom.split(';')[0]}
-            accessory={custom.split(';')[1]}
+            color={custom.split(';')[2]}
+            accessory={custom.split(';')[3]}
             isCustom={true}
           />
           <SmallText>달 위상은 보유한 용돈만큼 늘어납니다!</SmallText>
