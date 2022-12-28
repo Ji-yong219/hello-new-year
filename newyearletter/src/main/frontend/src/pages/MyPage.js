@@ -7,7 +7,7 @@ import Logo from '../components/Logo'
 import CustomContainer from '../components/CustomContainer'
 
 function MyPage() {
-  const [info, setInfo] = React.useState({ nickName: '', money: 0, custom: '2;0;1'})
+  const [info, setInfo] = React.useState({ nickName: '', money: 0, custom: '1;1;2;1;0'})
   const { token, uuid } = useSelector(state => state.loginState)
 
   const attemptJoin = React.useCallback(async (token, uuid) => {

@@ -8,7 +8,7 @@ import Logo from '../components/Logo'
 import Promise from '../components/Promise'
 import { SubTitle, Wrapper } from './Main'
 import Rabbit from './Main/LoginMain/Rabbit'
-import Moon from '../components/Moon'
+import CustomContainer from '../components/CustomContainer'
 import { WISH_INIT_STATE } from '../utils/constant'
 import { ResponseError } from '../utils/error'
 
@@ -17,6 +17,7 @@ function InviteLetter() {
   const [nickName, setNickname] = React.useState('')
   const [wish, setWish] = React.useState(WISH_INIT_STATE)
   const [money, setMoney] = React.useState(350000)
+  const [custom, setCustom] = React.useState("1;1;2;1;0")
 
   const navigate = useNavigate()
 
@@ -27,8 +28,9 @@ function InviteLetter() {
       switch (res.status) {
         case 200:
           setNickname(res.data.result.nickName)
-          // setWish(res.data.result.wish)
-          // setMoney(res.data.result.money)
+          setWish(res.data.result.wish)
+          setMoney(res.data.result.money)
+          setCustom(res.data.result.custom)
           break
 
         default:
@@ -62,8 +64,13 @@ function InviteLetter() {
         <Promise defaultText={wish} />
       </Wrapper>
 
-      <Moon money={money} />
-      <Rabbit />
+      <CustomContainer
+        money={money}
+        debug={false}
+        color={custom.split(';')[2]}
+        accessory={custom.split(';')[3]}
+        isCustom={false}
+      />
 
       <ButtonItem onClick={() => navigate('send/', { state: nickName })}>
         편지 작성하기
