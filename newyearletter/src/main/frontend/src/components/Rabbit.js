@@ -54,7 +54,7 @@ class CustomRabbit extends Component {
         position: "relative",
         width: "360px",
         height: "420px",
-        textAlign: "center",
+        textAlign: "center", 
       })
       $($(".rabbit")[0]).css({
         display: "block",

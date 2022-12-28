@@ -7,6 +7,7 @@ function Moon({money = 150000, debug = false}) {
     const setMoonRotation = money => {
       let deg = money < 500000 ? money / 2500 : 200
 
+      $(".moon-container").css("boxShadow", `0 0 30px ${deg/6 -5}px #FFE05D`)
       if (deg < 100) {
         $('.moon-container #leftShadow').attr("d", `M 0 100 A 100 ${100-deg} 0 0 1 200 100 L 100 150 Z`)
         $('.moon-container #rightShadow').attr("rx", 0)
