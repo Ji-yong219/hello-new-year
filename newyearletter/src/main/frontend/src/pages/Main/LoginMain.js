@@ -9,6 +9,7 @@ import MaterialIcon from '../../components/MaterialIcon'
 import Promise from '../../components/Promise'
 import SmallButtonItem from '../../components/SmallButtonItem'
 import Rabbit from './LoginMain/Rabbit'
+import CustomContainer from '../../components/CustomContainer'
 import Container from '../../components/Container'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
@@ -24,6 +25,7 @@ function LoginMain() {
 
   const [money, setMoney] = React.useState(0)
   const [wish, setWish] = React.useState(WISH_INIT_STATE)
+  const [custom, setCustom] = React.useState("2;1;0")
 
   const fetch = React.useCallback(
     async (token, uuid) => {
@@ -38,6 +40,7 @@ function LoginMain() {
           case 200:
             setMoney(res.data.result.money)
             setWish(res.data.result.wish)
+            setCustom(res.data.result.custom)
             break
           default:
             throw new ResponseError('잘못된 응답입니다.', res)
@@ -101,7 +104,13 @@ function LoginMain() {
         <MoneyInfo value={money} />
       </Wrapper>
 
-      <Rabbit />
+      <CustomContainer
+        money={money}
+        debug={false}
+        color={custom.split(';')[0]}
+        accessory={custom.split(';')[1]}
+        isCustom={false}
+      />
 
       <Label>편지 공개까지 2일 3시간</Label>
     </Container>
