@@ -8,10 +8,12 @@ import Logo from '../components/Logo'
 import Promise from '../components/Promise'
 import { SubTitle, Wrapper } from './Main'
 import Rabbit from './Main/LoginMain/Rabbit'
+import Moon from '../components/Moon'
 
 function InviteLetter() {
   const { uuid } = useParams()
   const [nickName, setNickname] = React.useState('')
+  const money = 350000
 
   const fetch = React.useCallback(async uuid => {
     const resp = await axios.get(`/api/letter/${uuid}`, {})
@@ -32,6 +34,7 @@ function InviteLetter() {
         <Promise defaultText="착하게 살자" />
       </Wrapper>
 
+      <Moon money={money}/>
       <Rabbit />
 
       <ButtonItem onClick={() => navigate('send/', { state: nickName })}>
