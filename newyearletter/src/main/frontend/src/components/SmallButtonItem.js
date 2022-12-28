@@ -30,6 +30,7 @@ const Container = styled.div`
   width: max(6rem, 100px);
   height: max(2rem, 35px);
 
+  border: 1px solid var(${({ color }) => color});
   border-radius: 9999px;
 
   font-family: nanumRound;

@@ -11,6 +11,7 @@ import React from 'react'
 import LetterBox from './pages/LetterBox'
 import InviteLetter from './pages/InviteLetter'
 import SendLetter from './pages/SendLetter'
+import ReadLetter from './pages/ReadLetter'
 
 function App() {
   function setScreenSize() {
@@ -28,14 +29,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<CreateAccount />} />
         <Route path="/letter-box" element={<LetterBox />} />
+        <Route path="/letter-box/:id" element={<ReadLetter />} />
         <Route path="/receive-mail" element={<ReceiveMail />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/:uuid" element={<InviteLetter />} />
-        <Route path="/:uuid/send" element={<SendLetter />} />
-        <Route
-          path="/TestCustomizing"
-          element={<TestCustomizing />}
-        />
+        <Route path="/letter/:uuid" element={<InviteLetter />} />
+        <Route path="/letter/:uuid/send" element={<SendLetter />} />
+        <Route path="/TestCustomizing" element={<TestCustomizing />} />
       </Routes>
     </BrowserRouter>
   )

@@ -13,18 +13,28 @@ import Moon from '../components/Moon'
 function InviteLetter() {
   const { uuid } = useParams()
   const [nickName, setNickname] = React.useState('')
-  const money = 350000
+  const [money, setMoney] = React.useState(350000)
+
+  const navigate = useNavigate()
 
   const fetch = React.useCallback(async uuid => {
-    const resp = await axios.get(`/api/letter/${uuid}`, {})
-    setNickname(resp.data.result.nickName)
+    try {
+      const resp = await axios.get(`/api/rabbit/${uuid}`)
+      setNickname(resp.data.result.nickName)
+    } catch (err) {
+      if (err.response.status === 404) {
+        alert('해당 친구를 찾을 수 없습니다.')
+        navigate('/')
+      }
+
+      alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+      navigate('/')
+    }
   }, [])
 
   React.useEffect(() => {
     fetch(uuid)
   }, [])
-
-  const navigate = useNavigate()
 
   return (
     <Container>
@@ -34,7 +44,7 @@ function InviteLetter() {
         <Promise defaultText="착하게 살자" />
       </Wrapper>
 
-      <Moon money={money}/>
+      <Moon money={money} />
       <Rabbit />
 
       <ButtonItem onClick={() => navigate('send/', { state: nickName })}>

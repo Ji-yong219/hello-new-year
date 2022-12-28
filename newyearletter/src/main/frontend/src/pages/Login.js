@@ -12,6 +12,7 @@ import { login } from '../utils/reducers/loginState'
 import axios from 'axios'
 import Logo from '../components/Logo'
 import Container from '../components/Container'
+import { ResponseError } from '../utils/error'
 
 function Login() {
   const navigate = useNavigate()
@@ -34,15 +35,23 @@ function Login() {
         userID: userID,
         password: password,
       })
+
       if (res.status === 200) {
         alert('로그인에 성공했습니다.')
         dispatch(login(res.data.result.jwt, res.data.result.uuid))
         navigate('/')
+      } else {
+        throw new ResponseError('잘못된 응답입니다.', res)
       }
     } catch (err) {
       const res = err.response
-      alert(`로그인에 실패했습니다: ${res.data.result.message}`)
-      window.location.reload()
+      if (res.status === 401 || res.status === 404) {
+        alert(`로그인에 실패했습니다: ${res.data.result.message}`)
+        window.location.reload()
+      }
+
+      alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+      navigate('/')
     }
   }
 

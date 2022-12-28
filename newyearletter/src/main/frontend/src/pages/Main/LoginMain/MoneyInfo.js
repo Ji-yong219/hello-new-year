@@ -1,38 +1,25 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import FlowerImg from '../../../assets/images/flower.png'
+import FlowerText from '../../../components/FlowerText'
 
-function Money({ isFocus = false, value = 0 }) {
+function MoneyInfo({ isFocus = false, value = 0 }) {
   return (
-    <Container>
-      <Flower src={FlowerImg} />
+    <FlowerText>
       <Content>
         <div>내가 받은 용돈</div>
         <div className={isFocus ? 'bold focus' : 'bold'}>
           {value.toLocaleString()}
         </div>
       </Content>
-      <Flower src={FlowerImg} />
-    </Container>
+    </FlowerText>
   )
 }
 
-Money.propTypes = {
+MoneyInfo.propTypes = {
   isFocus: PropTypes.bool,
   value: PropTypes.number,
 }
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  gap: max(1.5rem, 27px);
-`
-
-const Flower = styled.img`
-  width: max(2rem, 36px);
-`
-
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,4 +40,4 @@ const Content = styled.div`
   }
 `
 
-export default Money
+export default MoneyInfo

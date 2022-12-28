@@ -13,6 +13,7 @@ import axios from 'axios'
 import Logo from '../components/Logo'
 import LinkItem from '../components/LinkItem'
 import Container from '../components/Container'
+import { ResponseError } from '../utils/error'
 
 function CreateAccount() {
   const navigate = useNavigate()
@@ -37,29 +38,37 @@ function CreateAccount() {
     setPasswordRepeat(e.target.value)
   }
 
-  const attemptJoin = async (userID, password, nickName) => {
-    try {
-      const res = await axios.post('/api/users/join', {
-        userID: userID,
-        password: password,
-        nickName: nickName,
-      })
+  const attemptJoin = React.useCallback(
+    async (userID, password, nickName) => {
+      try {
+        const res = await axios.post('/api/users/join', {
+          userID: userID,
+          password: password,
+          nickName: nickName,
+        })
 
-      const code = res.status
-      if (code === 200) {
-        alert('회원가입 성공')
-        dispatch(login(res.data.result.jwt, res.data.result.uuid))
+        const code = res.status
+        if (code === 200) {
+          alert('회원가입 성공')
+          dispatch(login(res.data.result.jwt, res.data.result.uuid))
+          navigate('/')
+        } else {
+          throw new ResponseError('잘못된 응답입니다.', res)
+        }
+      } catch (err) {
+        const res = err.response
+
+        if (res.status === 409) {
+          alert(`회원가입에 실패했습니다: ${res.data.result.message}`)
+          window.location.reload()
+        }
+
+        alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
         navigate('/')
-      } else {
-        alert(`회원가입에 실패했습니다: ${res.result.message}`)
-        window.location.reload()
       }
-    } catch (err) {
-      const res = err.response
-      alert(`회원가입에 실패했습니다: ${res.data.result.message}`)
-      window.location.reload()
-    }
-  }
+    },
+    [dispatch, navigate]
+  )
 
   const handleSubmit = useCallback(
     e => {
@@ -75,7 +84,7 @@ function CreateAccount() {
         attemptJoin(userID, password, nickname)
       }
     },
-    [userID, password, passwordRepeat, nickname]
+    [userID, password, passwordRepeat, nickname, attemptJoin]
   )
 
   const onCheckEnter = e => {

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../utils/reducers/loginState'
 
 import { Wrapper } from '../Main'
-import Money from './LoginMain/Money'
 
 import Logo from '../../components/Logo'
 import MaterialIcon from '../../components/MaterialIcon'
@@ -12,11 +11,49 @@ import SmallButtonItem from '../../components/SmallButtonItem'
 import Rabbit from './LoginMain/Rabbit'
 import Container from '../../components/Container'
 import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import axios from 'axios'
+import { ResponseError } from '../../utils/error'
+import MoneyInfo from './LoginMain/MoneyInfo'
 
 function LoginMain() {
   const dispatch = useDispatch()
 
-  const { uuid } = useSelector(state => state.loginState)
+  const { token, uuid } = useSelector(state => state.loginState)
+
+  const [money, setMoney] = React.useState(0)
+
+  const fetch = React.useCallback(
+    async (token, uuid) => {
+      try {
+        const res = await axios.get(`/api/rabbit/mypage/${uuid}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        if (res.status === 200) {
+          setMoney(res.data.result.money)
+        } else {
+          throw new ResponseError('잘못된 응답입니다.', res)
+        }
+      } catch (err) {
+        const res = err.response
+        console.log(res)
+        if (res.status === 401) {
+          alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+          dispatch(logout())
+          window.location.reload()
+        }
+      }
+    },
+    [setMoney, dispatch]
+  )
+
+  React.useEffect(() => {
+    fetch(token, uuid)
+  }, [])
+
   const navigate = useNavigate()
   return (
     <Container>
@@ -26,7 +63,7 @@ function LoginMain() {
           <SmallButtonItem
             background="--white"
             color="--pink"
-            onClick={() => navigate(`/${uuid}`)}
+            onClick={() => navigate(`/letter/${uuid}`)}
           >
             <MaterialIcon iconName="link" color="--pink" /> 링크 복사
           </SmallButtonItem>
@@ -44,7 +81,7 @@ function LoginMain() {
 
         <Promise defaultText="올해는 운동 열심히 하자" />
 
-        <Money value={21000} />
+        <MoneyInfo value={money} />
       </Wrapper>
 
       <Rabbit />
