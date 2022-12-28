@@ -1,11 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.3ea9cd0e.css",
-    "main.js": "/static/js/main.4daeee1f.js",
+    "main.css": "/static/css/main.4202cee2.css",
+    "main.js": "/static/js/main.fc5058e4.js",
     "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
     "static/media/BinggraeSamanco-Bold.ttf": "/static/media/BinggraeSamanco-Bold.8ad04db5f1d170cbf33e.ttf",
     "static/media/BinggraeSamanco.ttf": "/static/media/BinggraeSamanco.68cdbe164eaab2a44356.ttf",
+    "static/media/SF함박눈.ttf": "/static/media/SF함박눈.14ca71d7177c18e6f850.ttf",
+    "static/media/ChosunCentennial_ttf.ttf": "/static/media/ChosunCentennial_ttf.5a0298767b47f2acc2c9.ttf",
+    "static/media/MaruBuri-Bold.ttf": "/static/media/MaruBuri-Bold.26c2b20c37a806f884b9.ttf",
     "static/media/background.png": "/static/media/background.d2b4a1e653f46f49a58d.png",
+    "static/media/Cafe24Ssurround.ttf": "/static/media/Cafe24Ssurround.a5df3ce700ca6c98875c.ttf",
     "static/media/NanumSquareRoundR.ttf": "/static/media/NanumSquareRoundR.f062cb52be3e9829834c.ttf",
     "static/media/NanumSquareRoundB.ttf": "/static/media/NanumSquareRoundB.8ab117fc37409bd022e5.ttf",
     "static/media/NanumSquareRoundEB.ttf": "/static/media/NanumSquareRoundEB.ef4043133d5b2d0febb4.ttf",
@@ -34,12 +38,12 @@
     "static/media/flower.png": "/static/media/flower.4cb34199a8ff27f7d9aa.png",
     "static/media/letter.png": "/static/media/letter.cca4110c8f99ab94a414.png",
     "index.html": "/index.html",
-    "main.3ea9cd0e.css.map": "/static/css/main.3ea9cd0e.css.map",
-    "main.4daeee1f.js.map": "/static/js/main.4daeee1f.js.map",
+    "main.4202cee2.css.map": "/static/css/main.4202cee2.css.map",
+    "main.fc5058e4.js.map": "/static/js/main.fc5058e4.js.map",
     "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3ea9cd0e.css",
-    "static/js/main.4daeee1f.js"
+    "static/css/main.4202cee2.css",
+    "static/js/main.fc5058e4.js"
   ]
 }
