@@ -5,6 +5,8 @@ import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitCustomDto;
 import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitCustomResponse;
 import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitMyPageResponse;
 import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitResponse;
+import com.newyearletter.newyearletter.exception.AppException;
+import com.newyearletter.newyearletter.exception.ErrorCode;
 import com.newyearletter.newyearletter.service.RabbitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -21,7 +23,13 @@ public class RabbitController {
      */
     @GetMapping("/mypage/{uuid}")
     public Response<RabbitMyPageResponse> myPage(@PathVariable String uuid, Authentication authentication){
-        String userID = authentication.getName();
+
+        String userID = null;
+        try {
+            userID = authentication.getName();
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.INVALID_TOKEN, ErrorCode.INVALID_TOKEN.getMessage());
+        }
         RabbitMyPageResponse mypageResponse = rabbitService.mypage(uuid, userID);
         return Response.success(mypageResponse);
     }
