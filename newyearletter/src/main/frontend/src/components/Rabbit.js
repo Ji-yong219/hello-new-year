@@ -29,14 +29,13 @@ rabbitList.map(([name, image]) => {
 let AccessoryImg = []
 let AccessoryThumbnail = []
 accessoryList.map(([name, image]) => {
-  // return <td key={name}><button>{name}</button></td>
   AccessoryImg.push(<img key={name} id={name} className="accessory" style={{display: "none", zIndex: "5001"}}src={image} />)
   AccessoryThumbnail.push(<td key={name}><img className="accessory-thumb" key={name} src={image} /></td>)
 })
 
 let EarThumbnail = []
 
-class TestRabbit extends Component {
+class CustomRabbit extends Component {
   constructor(props) {
       super(props);
       this.state = {};
@@ -123,9 +122,6 @@ class TestRabbit extends Component {
         color: "rgba(202, 191, 176, 0.5)",
         textAlign: "left",
         fontFamily: "nanumRound",
-        // #43341C
-        // #FF8778
-        // #694F2D 0.5
       })
       $(".customizePicker button,.customizePicker .accessory-thumb").css({
         width: "20px",
@@ -201,4 +197,4 @@ class TestRabbit extends Component {
       );
   }
 }
-export default TestRabbit;
+export default CustomRabbit;

@@ -3,7 +3,7 @@ import Logo from '../components/Logo'
 import Promise from '../components/Promise'
 import { Wrapper } from './Main'
 
-import TestRabbit from '../components/Rabbit'
+import CustomRabbit from '../components/Rabbit'
 import Moon from '../components/Moon'
 
 function TestCustomizing() {
@@ -15,8 +15,8 @@ function TestCustomizing() {
         <Promise defaultText="커스터마이징 연구 중.." />
       </Wrapper>
 
-      <TestRabbit />
-        <Moon />
+      <CustomRabbit />
+      <Moon money={350000} />
     </Container>
     </>
   )
