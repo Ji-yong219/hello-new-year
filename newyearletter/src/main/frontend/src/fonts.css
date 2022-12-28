@@ -41,3 +41,28 @@
   src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v75/kJEhBvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oFsI.woff2)
     format('woff2');
 }
+
+
+@font-face {
+  font-family: 'Cafe24Surround';
+  font-weight: 700;
+  src: url('assets/fonts/Cafe24Ssurround.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ChosunCentennial';
+  font-weight: 700;
+  src: url('assets/fonts/ChosunCentennial_ttf.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  font-weight: 700;
+  src: url('assets/fonts/MaruBuri-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SF함박눈';
+  font-weight: 700;
+  src: url('assets/fonts/SF함박눈.ttf') format('truetype');
+}
