@@ -17,6 +17,8 @@ function SendLetter() {
     setMoney(copy)
   }
 
+  const attemptSend = React.useCallback((sender, content, money) => {}, [])
+
   return (
     <Container>
       {isSended ? (

@@ -33,4 +33,10 @@ export const SubTitle = styled.div`
   }
 `
 
+export const Contour = styled.div`
+  width: 100%;
+  height: 2px;
+
+  background: var(--brown-100);
+`
 export default Main

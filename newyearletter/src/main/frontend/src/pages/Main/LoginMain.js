@@ -15,6 +15,7 @@ import React from 'react'
 import axios from 'axios'
 import { ResponseError } from '../../utils/error'
 import MoneyInfo from './LoginMain/MoneyInfo'
+import { WISH_INIT_STATE } from '../../utils/constant'
 
 function LoginMain() {
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
 
   const [money, setMoney] = React.useState(0)
+  const [wish, setWish] = React.useState(WISH_INIT_STATE)
 
   const fetch = React.useCallback(
     async (token, uuid) => {
@@ -32,18 +34,31 @@ function LoginMain() {
           },
         })
 
-        if (res.status === 200) {
-          setMoney(res.data.result.money)
-        } else {
-          throw new ResponseError('잘못된 응답입니다.', res)
+        switch (res.status) {
+          case 200:
+            setMoney(res.data.result.money)
+            setWish(res.data.result.wish)
+            break
+          default:
+            throw new ResponseError('잘못된 응답입니다.', res)
         }
       } catch (err) {
-        const res = err.response
-        console.log(res)
-        if (res.status === 401) {
-          alert('세션이 만료되었습니다. 다시 로그인해주세요.')
-          dispatch(logout())
-          window.location.reload()
+        const res = err.ResponseError
+
+        switch (res.status) {
+          case 401:
+            alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+            dispatch(logout())
+            window.location.reload()
+            break
+          case 404:
+            alert(`${res.data.result.message}`)
+            dispatch(logout())
+            window.location.reload()
+            break
+          default:
+            alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+            navigate('/')
         }
       }
     },
@@ -79,7 +94,7 @@ function LoginMain() {
           </SmallButtonItem>
         </ButtonWrapper>
 
-        <Promise defaultText="올해는 운동 열심히 하자" />
+        <Promise defaultText={wish} />
 
         <MoneyInfo value={money} />
       </Wrapper>
