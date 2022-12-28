@@ -170,31 +170,31 @@ class CustomRabbit extends Component {
   }
 
   render() {
-      return(
-          <>
-            <div className="RabbitContainer" style={{width: "360px"}}>
-              {AccessoryImg}
-              {RabbitImg}
-            </div>
+    return(
+      <>
+        <div className="RabbitContainer" style={{width: "360px"}}>
+          {AccessoryImg}
+          {RabbitImg}
+        </div>
 
-            <table className="customizePicker">
-              <tbody>
-                <tr className="colorList">
-                  <th>색상</th>
-                  {RabbitColor}
-                </tr>
-                <tr className="earList">
-                  <th>귀모양</th>
-                  {EarThumbnail}
-                </tr>
-                <tr className="accessoryList">
-                  <th>악세사리</th>
-                  {AccessoryThumbnail}
-                </tr>
-              </tbody>
-            </table>
-          </>
-      );
+        <table className="customizePicker">
+          <tbody>
+            <tr className="colorList">
+              <th>색상</th>
+              {RabbitColor}
+            </tr>
+            <tr className="earList">
+              <th>귀모양</th>
+              {EarThumbnail}
+            </tr>
+            <tr className="accessoryList">
+              <th>악세사리</th>
+              {AccessoryThumbnail}
+            </tr>
+          </tbody>
+        </table>
+      </>
+    );
   }
 }
 export default CustomRabbit;

@@ -4,9 +4,10 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Container from '../components/Container'
 import Logo from '../components/Logo'
+import Moon from '../components/Moon'
 
 function MyPage() {
-  const [info, setInfo] = React.useState({ nickName: '', moneny: 0 })
+  const [info, setInfo] = React.useState({ nickName: '테스트 닉네임', money: 350000 })
   const { token, url } = useSelector(state => state.loginState)
 
   const attemptJoin = React.useCallback(async (token, url) => {
@@ -27,7 +28,8 @@ function MyPage() {
     <Container>
       <Logo />
       <Info>닉네임: {info.nickName}</Info>
-      <Info>남은돈: {info.money}원</Info>
+      <Info>내가 받은 용돈: {info.money}원</Info>
+      <Moon money={info.money}/>
     </Container>
   )
 }
