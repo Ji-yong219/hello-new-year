@@ -38,24 +38,6 @@ function CustomContainer({
       isCustom=true
                           }) {
 
-    
-    $(() => {
-      $(".CustomContainer").css({
-      })
-      $("#moonContainer").css({
-        position: "absolute",
-        right: "30px",
-        background: "#4d4d4d",
-        transform: "rotate(200deg)"
-      })
-      $("CustomRabbit").css({
-        position: "absolute",
-        right: "30px",
-        background: "#4d4d4d",
-        transform: "rotate(200deg)"
-      })
-    })
-
     return(
       <>
       <Container>
