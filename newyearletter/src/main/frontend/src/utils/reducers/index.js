@@ -1,5 +1,6 @@
 import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import storageSession from 'redux-persist/lib/storage/session'
+
 import loginState from './loginState'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 
@@ -8,7 +9,7 @@ import logger from 'redux-logger'
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: storageSession,
 }
 
 export const rootReducer = combineReducers({

@@ -16,6 +16,7 @@ const Background = styled.div`
   justify-content: center;
   align-items: center;
 
+  min-width: 380px;
   max-width: 100vw;
   min-height: 100vh;
   height: auto;
@@ -26,7 +27,7 @@ const Background = styled.div`
 `
 
 const Content = styled.div`
-  min-width: 250px;
+  min-width: 380px;
   max-width: 450px;
   min-height: 100vh;
 
