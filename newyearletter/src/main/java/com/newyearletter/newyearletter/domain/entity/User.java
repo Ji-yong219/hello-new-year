@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -45,8 +47,15 @@ public class User {
 
     private String wish;
 
+//    @OneToMany(mappedBy = "letter")
+//    private List<Letter> letters = new ArrayList<>();
+
     public void update(String wish, String custom) {
         this.wish = wish;
         this.custom = custom;
     }
+
+//    public void updateLetter(Letter letter) {
+//        this.letters.add(letter);
+//    }
 }

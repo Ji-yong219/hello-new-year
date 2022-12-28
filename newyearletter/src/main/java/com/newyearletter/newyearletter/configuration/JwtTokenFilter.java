@@ -1,6 +1,8 @@
 package com.newyearletter.newyearletter.configuration;
 
 import com.newyearletter.newyearletter.domain.entity.User;
+import com.newyearletter.newyearletter.exception.AppException;
+import com.newyearletter.newyearletter.exception.ErrorCode;
 import com.newyearletter.newyearletter.service.UserService;
 import com.newyearletter.newyearletter.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -36,42 +38,48 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("authorizationHeader:{}",authorizationHeader);
 
-        if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
-            log.error("헤더가 null이거나 잘못되었습니다.");
+        //토큰이 없는 경우
+        if(authorizationHeader == null) {
+            request.setAttribute("exception", ErrorCode.INVALID_PERMISSION.name());
             filterChain.doFilter(request, response);
             return;
         }
 
-        final String token;
-        //token분리
-        try{
+        //bearer로 시작하는 토큰이 아닌 경우
+        if(!authorizationHeader.startsWith("Bearer ")) {
+            request.setAttribute("exception", ErrorCode.INVALID_TOKEN.name());
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        //bearer 이후 문자열 token 분리 성공 실패
+        String token;
+
+        try {
             token = authorizationHeader.split(" ")[1];
-        }catch(Exception e){
-            log.error("token 추출 실패");
+
+            //만료된 토큰일 경우
+            if(JwtTokenUtil.isExpired(token, secretKey)) {
+                request.setAttribute("exception", ErrorCode.INVALID_TOKEN.name());
+                filterChain.doFilter(request, response);
+                return;
+            };
+
+            // Token에서 UserName꺼내기 (JwtTokenUtil에서 Claim에서 꺼냄)
+            String userName = JwtTokenUtil.getUserName(token, secretKey);
+            User user = userService.getUserByUserID(userName);
+
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserID(), null
+                    , List.of(new SimpleGrantedAuthority("USER")));
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); //권한 부여
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             filterChain.doFilter(request,response);
-            return;
-        }
 
-        //token만료 체크
-        if(JwtTokenUtil.isExpired(token, secretKey)){
+
+        } catch (Exception e) {
+            request.setAttribute("exception", ErrorCode.INVALID_TOKEN.name());
             filterChain.doFilter(request, response);
-            return;
-        };
-
-        //userName 꺼내기
-        String userName = JwtTokenUtil.getUserName(token, secretKey);
-        log.info("userName:{}", userName);
-
-        //userDetail가져오기
-        User user = userService.getUserByUserID(userName);
-
-        //권한여부경정
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userName, null, List.of(new SimpleGrantedAuthority("USER")));
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        filterChain.doFilter(request, response);
+        }
 
     }
 }
-
-
