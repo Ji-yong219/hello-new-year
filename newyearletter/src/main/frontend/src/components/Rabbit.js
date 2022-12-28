@@ -36,6 +36,12 @@ accessoryIconList.map(([name, image]) => {
   AccessoryIcon.push(<td key={name}><img className="accessoryIcon" key={name} src={image} /></td>)
 })
 
+const customizePickerStyle = {
+  position: "relative",
+  borderCollapse: "collapse",
+  margin: "60px auto",
+  height: "fit-content"
+}
 
   function CustomRabbit({color, accessory, isCustom = false}) {
     // Customizing
@@ -108,9 +114,6 @@ accessoryIconList.map(([name, image]) => {
 
 
 
-    $(".customizePicker").css({
-      borderCollapse: "collapse"
-    })
     $(".customizePicker tr").css({
       borderBottom: "1px solid rgba(202, 191, 176, 0.5)",
     })
@@ -171,7 +174,7 @@ accessoryIconList.map(([name, image]) => {
 
       {isCustom ? (
           <>
-          <table className="customizePicker">
+          <table className="customizePicker" style={customizePickerStyle}>
             <tbody>
               <tr className="colorList">
                 <th>색상</th>

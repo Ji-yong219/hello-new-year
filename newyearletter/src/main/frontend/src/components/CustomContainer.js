@@ -7,7 +7,8 @@ import Moon from '../components/Moon'
 const Container = styled.div`
   position: relative;
   width: 360px;
-  height: 660px;
+  min-height: 700px;
+  margin-bottom: 100px;
 
   animation: loading 0.6s 1 ease-out alternate;
 	background: black; /* For browsers that do not support gradients */
@@ -18,13 +19,13 @@ const Container = styled.div`
 `
 const MoonContainer = styled.div`
   position: absolute;
-  left: 140px;
-  top: 15px;
-  transform: rotate(200deg);
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%) rotate(200deg);
 `
 const RabbitContainer = styled.div`
   position: absolute;
-  top: 230px;
+  top: 250px;
 `
 
 function CustomContainer({
