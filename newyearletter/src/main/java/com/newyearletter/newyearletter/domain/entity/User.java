@@ -13,6 +13,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+
+    /**
+     * persist 되기 전 실행
+     */
+    @PrePersist
+    public void prePersist(){
+        this.money = this.money == null ? 0 : this.money;
+        this.custom = this.custom == null ? "2;1;0" : this.custom;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserSeq")
@@ -27,16 +36,12 @@ public class User {
     @Column(name = "NickName")
     private String nickName;
 
-    @Column(name = "uuid")
     private String uuid;
 
-    @Column(name = "money")
     private Integer money;
 
-    @Column(name = "custom")
     private String custom;
 
-    @Column(name = "wish")
     private String wish;
 
     public void update(String wish, String custom) {
