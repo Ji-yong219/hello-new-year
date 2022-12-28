@@ -48,11 +48,20 @@ public class LetterService {
         return new LetterAddResponse("편지 전송 완료");
     }
 
-    public PageImpl<LetterGetResponse> getAllLetter(Pageable pageable) {
+    public PageImpl<LetterGetResponse> getAllLetter(Pageable pageable, String uuid, String userName) {
+        //uuid가 올바른 주소인지 확인
+        User user = userRepository.findByUuid(uuid)
+                .orElseThrow(() -> new AppException(ErrorCode.URL_NOT_FOUND, "해당 URL을 찾을 수 없습니다."));
+
+        //권한 확인, uuid 주소와 접속자 일치 확인
+        if(!user.getUserID().equals(userName)){
+            throw new AppException(ErrorCode.INVALID_PERMISSION, ErrorCode.INVALID_TOKEN.getMessage());
+        }
+
         Page<Letter> letters = letterRepository.findAll(pageable);
         List<LetterGetResponse> letterGetResponseList = letters.stream()
                 .map(letter -> LetterGetResponse.fromEntity(letter)).collect(Collectors.toList());
 
-        return new PageImpl<LetterGetResponse>(letterGetResponseList, pageable, letters.getTotalElements());
+        return new PageImpl<>(letterGetResponseList, pageable, letters.getTotalElements());
     }
 }
