@@ -11,6 +11,8 @@ import com.newyearletter.newyearletter.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class RabbitService {
@@ -28,8 +30,9 @@ public class RabbitService {
         if(!user.getUserID().equals(userId)){
             throw new AppException(ErrorCode.INVALID_PERMISSION, "접속 권한이 없습니다.");
         }
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
-        return new RabbitMyPageResponse(user.getNickName(), user.getMoney(), user.getCustom(), user.getWish());
+        return new RabbitMyPageResponse(user.getNickName(), user.getMoney(), user.getCustom(), user.getWish(), currentDateTime);
     }
 
     /**
