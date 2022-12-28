@@ -53,6 +53,7 @@ function Custom() {
           navigate('/login')
           break
         case 404:
+          console.log(res.data)
           alert(`${res.data.result.message}`)
           navigate('/')
           break
