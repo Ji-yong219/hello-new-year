@@ -23,6 +23,7 @@ public class User {
     public void prePersist(){
         this.money = this.money == null ? 0 : this.money;
         this.custom = this.custom == null ? "2;1;0" : this.custom;
+        this.wish = this.wish == null ? "" : this.wish;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,15 +47,16 @@ public class User {
 
     private String wish;
 
-//    @OneToMany(mappedBy = "letter")
-//    private List<Letter> letters = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Letter> letters = new ArrayList<>();
 
     public void update(String wish, String custom) {
         this.wish = wish;
         this.custom = custom;
     }
 
-//    public void updateLetter(Letter letter) {
-//        this.letters.add(letter);
-//    }
+    public void updateLetter(Letter letter, Integer money) {
+        this.letters.add(letter);
+        this.money += money;
+    }
 }

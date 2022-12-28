@@ -33,6 +33,7 @@ public class SecurityConfig {
                 // 경로지정 맵핑
                 .antMatchers("/api/users/join", "/api/users/login").permitAll() // join, login은 언제나 가능
                 .antMatchers(HttpMethod.GET,"/api/rabbit/mypage/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/api/letter/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/**").authenticated()
                 .and()
