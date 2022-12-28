@@ -10,4 +10,5 @@ import lombok.Getter;
 public class RabbitCustomDto {
     private String wish;
     private String custom;
+    private Integer money;
 }
