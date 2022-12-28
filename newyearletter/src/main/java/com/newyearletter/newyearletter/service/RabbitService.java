@@ -40,7 +40,7 @@ public class RabbitService {
         User user = userRepository.findByUuid(uuid)
                 .orElseThrow(() -> new AppException(ErrorCode.URL_NOT_FOUND, "해당 URL을 찾을 수 없습니다."));
 
-        return new RabbitResponse(user.getNickName());
+        return new RabbitResponse(user.getNickName(), user.getWish(), user.getMoney());
     }
 
     /**

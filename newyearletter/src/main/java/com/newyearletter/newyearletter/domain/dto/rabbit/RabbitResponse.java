@@ -7,4 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class RabbitResponse {
     private String nickName;
+    private String wish;
+    private Integer money;
 }
