@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -21,7 +23,9 @@ public class User {
     public void prePersist(){
         this.money = this.money == null ? 0 : this.money;
         this.custom = this.custom == null ? "2;1;0" : this.custom;
+        this.wish = this.wish == null ? "2023년은 행복한 일만 가득하길" : this.wish;
     }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserSeq")
@@ -44,8 +48,16 @@ public class User {
 
     private String wish;
 
+    @OneToMany(mappedBy = "user")
+    private List<Letter> letters = new ArrayList<>();
+
     public void update(String wish, String custom) {
         this.wish = wish;
         this.custom = custom;
+    }
+
+    public void updateLetter(Letter letter, Integer money) {
+        this.letters.add(letter);
+        this.money += money;
     }
 }
