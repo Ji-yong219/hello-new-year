@@ -2,6 +2,7 @@ package com.newyearletter.newyearletter.service;
 
 import com.newyearletter.newyearletter.domain.dto.letter.LetterAddRequest;
 import com.newyearletter.newyearletter.domain.dto.letter.LetterAddResponse;
+import com.newyearletter.newyearletter.domain.dto.letter.LetterGetResponse;
 import com.newyearletter.newyearletter.domain.dto.letter.LetterPageResponse;
 import com.newyearletter.newyearletter.domain.entity.Letter;
 import com.newyearletter.newyearletter.domain.entity.User;
@@ -11,7 +12,13 @@ import com.newyearletter.newyearletter.repository.LetterRepository;
 import com.newyearletter.newyearletter.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +46,13 @@ public class LetterService {
         letterRepository.save(letter);
         userRepository.save(user);
         return new LetterAddResponse("편지 전송 완료");
+    }
+
+    public PageImpl<LetterGetResponse> getAllLetter(Pageable pageable) {
+        Page<Letter> letters = letterRepository.findAll(pageable);
+        List<LetterGetResponse> letterGetResponseList = letters.stream()
+                .map(letter -> LetterGetResponse.fromEntity(letter)).collect(Collectors.toList());
+
+        return new PageImpl<LetterGetResponse>(letterGetResponseList, pageable, letters.getTotalElements());
     }
 }
