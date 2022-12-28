@@ -12,7 +12,14 @@ import Logo from '../../components/Logo'
 
 import MoneyButton from '../../components/MoneyButton'
 
-function SendContent({ nickName, money, selectMoney, setSend }) {
+function SendContent({
+  nickName,
+  money,
+  selectMoney,
+  setSender,
+  setContent,
+  onClick,
+}) {
   return (
     <>
       <Wrapper gap={2}>
@@ -45,13 +52,15 @@ function SendContent({ nickName, money, selectMoney, setSend }) {
       </Wrapper>
 
       <SmallInput
-        style={{ borderRadius: '9999px' }}
         placeholder="보내시는 분의 이름을 적어주세요"
+        onChange={event => {
+          setSender(event.target.value)
+        }}
       />
 
-      <Letter editable={true} />
+      <Letter editable={true} setValue={setContent} />
 
-      <ButtonItem onClick={() => setSend(true)}>보내기</ButtonItem>
+      <ButtonItem onClick={() => onClick()}>보내기</ButtonItem>
     </>
   )
 }
@@ -62,7 +71,7 @@ export const SmallInput = styled(Input)`
 
   font-weight: 800;
   font-size: max(0.8rem, 14px);
-
+  borderRadius: 9999px
   filter: none;
 `
 
