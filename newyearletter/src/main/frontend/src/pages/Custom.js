@@ -85,7 +85,7 @@ function Custom() {
             debug={false}
             color={custom.split(';')[0]}
             accessory={custom.split(';')[1]}
-            isCustom={false}
+            isCustom={true}
           />
         </Wrapper>
       </Wrapper>

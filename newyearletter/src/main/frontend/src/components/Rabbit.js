@@ -53,7 +53,7 @@ accessoryIconList.map(([name, image]) => {
       position: "absolute",
       flex: "1"
     })
-    if({accessory} > 0){
+    if({accessory} != 0){
       $($(".accessory")[accessory-1]).css({
         display: "block",
       })
