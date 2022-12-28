@@ -37,13 +37,7 @@ accessoryIconList.map(([name, image]) => {
 })
 
 
-class CustomRabbit extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {};
-  }
-
-  componentDidMount() {
+  function CustomRabbit({color = 2, accessory = 0, isCustom = false}) {
     // Customizing
     $(() => {
       $(".RabbitContainer").css({
@@ -52,13 +46,18 @@ class CustomRabbit extends Component {
         height: "420px",
         textAlign: "center", 
       })
-      $($(".rabbit")[0]).css({
+      $($(".rabbit")[color-1]).css({
         display: "block",
       })
       $(".accessory").css({
         position: "absolute",
         flex: "1"
       })
+      if({accessory} != 0){
+        $($(".accessory")[accessory-1]).css({
+          display: "block",
+        })
+      }
 
       $("#Carrot").css({
         width: "26%",
@@ -109,10 +108,6 @@ class CustomRabbit extends Component {
 
 
 
-
-
-
-
       $(".customizePicker").css({
         borderCollapse: "collapse"
       })
@@ -157,9 +152,9 @@ class CustomRabbit extends Component {
       })
       .on("click", ".accessoryList img", (e) => {
         const index = $(e.target).parent().index() - 1
-        console.log($(e.target))
         const accessorys = document.getElementsByClassName("accessory")
 
+        $(accessorys).css("display", "none")
         if (accessorys[index].style.display === "none") {
           accessorys[index].style.display = "block";
         } else {
@@ -167,30 +162,33 @@ class CustomRabbit extends Component {
         }
       });
     });
-  }
 
-  render() {
-    return(
-      <>
-        <div className="RabbitContainer" style={{width: "360px"}}>
-          {AccessoryImg}
-          {RabbitImg}
-        </div>
+  return(
+    <>
+      <div className="RabbitContainer" style={{width: "360px"}}>
+        {AccessoryImg}
+        {RabbitImg}
+      </div>
 
-        <table className="customizePicker">
-          <tbody>
-            <tr className="colorList">
-              <th>색상</th>
-              {RabbitColor}
-            </tr>
-            <tr className="accessoryList">
-              <th>악세사리</th>
-              {AccessoryIcon}
-            </tr>
-          </tbody>
-        </table>
-      </>
-    );
-  }
+      {isCustom ? (
+          <>
+          <table className="customizePicker">
+            <tbody>
+              <tr className="colorList">
+                <th>색상</th>
+                {RabbitColor}
+              </tr>
+              <tr className="accessoryList">
+                <th>악세사리</th>
+                {AccessoryIcon}
+              </tr>
+            </tbody>
+          </table>
+          </>
+        ) : (
+          <></>
+        )}
+    </>
+  );
 }
 export default CustomRabbit;

@@ -2,16 +2,21 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import LetterBg from '../assets/images/letter.png'
+import { event } from 'jquery'
 
-function Letter({ editable = false, defaultText }) {
+function Letter({ editable = false, defaultText, setValue }) {
   return (
     <Container>
       <div
+        id="letter-content"
         onKeyDown={event => {
           if (event.key === 'Enter') {
             document.execCommand('insertLineBreak')
             event.preventDefault()
           }
+        }}
+        onInput={event => {
+          setValue(event.target.outerText)
         }}
         contentEditable={editable ? true : false}
       >
@@ -25,6 +30,7 @@ function Letter({ editable = false, defaultText }) {
 Letter.propTypes = {
   editable: PropTypes.bool,
   defaultText: PropTypes.string,
+  setValue: PropTypes.func,
 }
 
 const Container = styled.div`
@@ -39,7 +45,7 @@ const Container = styled.div`
     object-fit: cover;
   }
 
-  div {
+  > div {
     position: absolute;
     width: 100%;
     height: 100%;
