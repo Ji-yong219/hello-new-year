@@ -17,12 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    /**
+     * 로그인 페이지
+     */
     @PostMapping("/join")
     public Response<UserJoinResponse> join(@RequestBody UserJoinRequest request){
         UserDto user = userService.join(request);
         return Response.success(new UserJoinResponse(user.getNickName(), user.getUuid()));
     }
 
+    /**
+     * 회원가입 페이지
+     */
     @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest request){
         UserLoginResponse response = userService.login(request.getUserID(), request.getPassword());

@@ -24,23 +24,43 @@ public class LetterController {
     private final LetterService letterService;
     private final String sMailboxTitle = "우체통";
 
+    /**
+     * 편지 작성 페이지 조회
+     */
     @GetMapping("/{uuid}")
     public Response<LetterPageResponse> letterPage(@PathVariable String uuid){
         LetterPageResponse letterPageResponse = letterService.findUuid(uuid);
         return Response.success(letterPageResponse);
     }
 
+    /**
+     * 편지 등록 페이지 조회
+     */
     @PostMapping("/{uuid}")
     public Response<LetterAddResponse> saveLetter(@PathVariable String uuid, @RequestBody LetterAddRequest request){
         LetterAddResponse letterAddResponse = letterService.saveLetter(uuid, request);
         return Response.success(letterAddResponse);
     }
 
+    /**
+     * 편지 전체 조회 페이지
+     */
     @GetMapping("/{uuid}/getLetter")
     public Response<PageImpl<LetterGetResponse>> getLetterList(@PageableDefault(size=9, sort="id",direction = Sort.Direction.DESC) Pageable pageable, @PathVariable String uuid, Authentication authentication) {
         String userName = authentication.getName();
         PageImpl<LetterGetResponse> letterGetResponseList = letterService.getAllLetter(pageable, uuid, userName);
         return Response.success(letterGetResponseList);
+
+    }
+
+    /**
+     * 편지 전체 상세 조회 페이지
+     */
+    @GetMapping("/{uuid}/getLetter/{id}")
+    public Response<LetterGetResponse> getLetterList(@PathVariable String uuid, @PathVariable Integer id, Authentication authentication) {
+        String userName = authentication.getName();
+        LetterGetResponse letterGetResponse = letterService.getLetter(uuid, id, userName);
+        return Response.success(letterGetResponse);
 
     }
 
