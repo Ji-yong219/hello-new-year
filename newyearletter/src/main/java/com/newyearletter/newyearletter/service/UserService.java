@@ -1,8 +1,8 @@
 package com.newyearletter.newyearletter.service;
 
-import com.newyearletter.newyearletter.domain.dto.UserDto;
-import com.newyearletter.newyearletter.domain.dto.UserJoinRequest;
-import com.newyearletter.newyearletter.domain.dto.UserLoginResponse;
+import com.newyearletter.newyearletter.domain.dto.user.UserDto;
+import com.newyearletter.newyearletter.domain.dto.user.UserJoinRequest;
+import com.newyearletter.newyearletter.domain.dto.user.UserLoginResponse;
 import com.newyearletter.newyearletter.domain.entity.User;
 import com.newyearletter.newyearletter.exception.AppException;
 import com.newyearletter.newyearletter.exception.ErrorCode;

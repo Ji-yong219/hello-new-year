@@ -1,9 +1,9 @@
 package com.newyearletter.newyearletter.service;
 
-import com.newyearletter.newyearletter.domain.dto.RabbitCustomDto;
-import com.newyearletter.newyearletter.domain.dto.RabbitCustomResponse;
-import com.newyearletter.newyearletter.domain.dto.RabbitMyPageResponse;
-import com.newyearletter.newyearletter.domain.dto.RabbitResponse;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitCustomDto;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitCustomResponse;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitMyPageResponse;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitResponse;
 import com.newyearletter.newyearletter.domain.entity.User;
 import com.newyearletter.newyearletter.exception.AppException;
 import com.newyearletter.newyearletter.exception.ErrorCode;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RabbitService {
     private final UserRepository userRepository;
-    private final Integer money = 0;
 
     /**
      * 마이페이지 조회
@@ -30,7 +29,7 @@ public class RabbitService {
             throw new AppException(ErrorCode.INVALID_PERMISSION, "접속 권한이 없습니다.");
         }
 
-        return new RabbitMyPageResponse(user.getNickName(), money);
+        return new RabbitMyPageResponse(user.getNickName(), user.getMoney());
     }
 
     /**

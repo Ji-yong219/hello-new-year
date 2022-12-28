@@ -1,6 +1,10 @@
 package com.newyearletter.newyearletter.controller;
 
 import com.newyearletter.newyearletter.domain.dto.*;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitCustomDto;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitCustomResponse;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitMyPageResponse;
+import com.newyearletter.newyearletter.domain.dto.rabbit.RabbitResponse;
 import com.newyearletter.newyearletter.service.RabbitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -36,7 +40,7 @@ public class RabbitController {
      * 커스텀 페이지 저장
      */
     @PostMapping("/mypage/{uuid}/custom")
-    public Response<RabbitCustomResponse> addCustom(@PathVariable String uuid,@RequestBody RabbitCustomDto request, Authentication authentication){
+    public Response<RabbitCustomResponse> addCustom(@PathVariable String uuid, @RequestBody RabbitCustomDto request, Authentication authentication){
         String userID = authentication.getName();
         RabbitCustomResponse customResponse = rabbitService.saveCustom(uuid, userID, request);
         return Response.success(customResponse);
