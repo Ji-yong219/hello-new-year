@@ -5,9 +5,15 @@ import Container from '../../components/Container'
 import Logo from '../../components/Logo'
 import { SubTitle, Wrapper } from '../Main'
 import Rabbit from '../../assets/images/main.png'
+import React from 'react'
+import setMetaTags from '../../utils/meta'
 
 function LogoutMain() {
   const navigate = useNavigate()
+
+  React.useEffect(() => {
+    setMetaTags()
+  }, [])
   return (
     <Container>
       <Wrapper gap={2}>

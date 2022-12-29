@@ -17,14 +17,13 @@ import MoneyInfo from './LoginMain/MoneyInfo'
 import { setInfo } from '../../utils/reducers/infoState'
 import MyRabbit from '../../components/MyRabbit'
 import setMetaTags from '../../utils/meta'
-
+import { useLocation } from 'react-router-dom'
 function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
   const [time, setTime] = React.useState(new Date())
   const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
 
   const dispatch = useDispatch()
-
   const getTImeDiff = React.useCallback(() => {
     const newYear = new Date('2023-01-01')
     setTimeDiff(formatTimeDIff(newYear.getTime() - time.getTime()))
@@ -83,9 +82,19 @@ function LoginMain() {
     return [arr[0], arr[1]]
   }
 
+  const handleCopyClipBoard = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `${window.location.href}letter/${uuid}`
+      )
+      alert('클립보드에 링크가 복사되었습니다.')
+    } catch (e) {
+      alert('복사에 실패하였습니다')
+    }
+  }
+
   React.useEffect(() => {
     fetch(token, uuid)
-    setMetaTags()
 
     setTime(prev => new Date(prev.getTime() + 1000))
     getTImeDiff()
@@ -109,7 +118,8 @@ function LoginMain() {
           <SmallButtonItem
             background="--white"
             color="--pink"
-            onClick={() => navigate(`/letter/${uuid}`)}
+            onClick={() => handleCopyClipBoard()}
+            // onClick={() => navigate(`/letter/${uuid}`)}
           >
             <MaterialIcon iconName="link" color="--pink" /> 링크 복사
           </SmallButtonItem>
