@@ -102,7 +102,7 @@ function LoginMain() {
   return (
     <Container alt>
       <Logo sx={2.5} />
-      <Wrapper>
+      <Wrapper gap={2}>
         <ButtonWrapper>
           <CopyToClipboard
             text={`${window.location.href}letter/${uuid}`}
