@@ -58,6 +58,8 @@ function SendContent({
         }}
       />
 
+      <SmallText>편지 내용은 최대 100자까지 작성해주세요!</SmallText>
+
       <Letter editable={true} setValue={setContent} />
 
       <ButtonItem onClick={() => onClick()}>보내기</ButtonItem>

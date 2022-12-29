@@ -42,6 +42,8 @@ function SendLetter() {
       alert('보내시는 분의 이름을 적어주세요.')
     } else if (content.length < 5) {
       alert('내용을 적어도 5자 이상 써주세요.')
+    } else if (content.length > 100) {
+      alert('편지는 최대 100자까지 쓸 수 있습니다.')
     } else {
       try {
         const res = await axios.post(`/api/letter/${uuid}`, {
