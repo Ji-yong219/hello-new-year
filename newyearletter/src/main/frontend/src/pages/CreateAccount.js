@@ -53,8 +53,7 @@ function CreateAccount() {
       switch (res.status) {
         case 200:
           dispatch(login(res.data.result.jwt, res.data.result.uuid))
-          navigate('/')
-          break
+          return
         default:
           throw new ResponseError('잘못된 응답입니다.', res)
       }
@@ -83,11 +82,10 @@ function CreateAccount() {
         })
 
         const code = res.status
-        console.log(res.data.result)
         if (code === 200) {
           alert('회원가입 성공')
           attemptLogin(userID, password)
-          navigate('/')
+          navigate('/', { state: { isFirst: true } })
         } else {
           throw new ResponseError('잘못된 응답입니다.', res)
         }

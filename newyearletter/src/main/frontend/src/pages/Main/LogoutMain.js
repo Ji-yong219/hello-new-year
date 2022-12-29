@@ -6,6 +6,7 @@ import Logo from '../../components/Logo'
 import { SubTitle, Wrapper } from '../Main'
 import Rabbit from '../../assets/images/main.png'
 import React from 'react'
+import { Copyright } from './LoginMain'
 
 function LogoutMain() {
   const navigate = useNavigate()
@@ -26,6 +27,11 @@ function LogoutMain() {
           >
             회원가입
           </ButtonItem>
+
+          <Copyright>
+            Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
+            김수아 all rights reserved. contact: corleone@kakao.com
+          </Copyright>
         </Wrapper>
       </Wrapper>
     </Container>
