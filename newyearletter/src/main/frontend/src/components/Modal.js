@@ -30,7 +30,7 @@ const ModalContainer = styled.div`
   z-index: 999;
 
   position: absolute;
-  top: 400px;
+  top: 50vh;
   left: 50%;
   transform: translate(-50%, -50%);
 

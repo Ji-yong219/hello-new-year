@@ -19,15 +19,16 @@ function LogoutMain() {
       </Wrapper>
       <Wrapper gap={4}>
         <RabbitContainer src={Rabbit} />
-        <Wrapper>
-          <ButtonItem onClick={() => navigate('/login')}>로그인</ButtonItem>
-          <ButtonItem
-            background="--pink-100"
-            onClick={() => navigate('/sign-up')}
-          >
-            회원가입
-          </ButtonItem>
-
+        <Wrapper gap={1.5}>
+          <Wrapper>
+            <ButtonItem onClick={() => navigate('/login')}>로그인</ButtonItem>
+            <ButtonItem
+              background="--pink-100"
+              onClick={() => navigate('/sign-up')}
+            >
+              회원가입
+            </ButtonItem>
+          </Wrapper>
           <Copyright>
             Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
             김수아 all rights reserved. contact: corleone@kakao.com
