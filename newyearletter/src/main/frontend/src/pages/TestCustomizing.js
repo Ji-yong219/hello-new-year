@@ -15,7 +15,7 @@ function TestCustomizing() {
         <Promise defaultText="커스터마이징 연구 중.." />
       </Wrapper>
 
-      <CustomRabbit color={2} accessory={0} isCustom={true}/>
+      {/* <CustomRabbit color={2} accessory={0} isCustom={true}/> */}
       <Moon money={350000} debug={true} />
     </Container>
     </>
