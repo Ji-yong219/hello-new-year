@@ -24,10 +24,17 @@ function LoginMain() {
   const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
 
   const dispatch = useDispatch()
+
   const getTImeDiff = React.useCallback(() => {
-    const newYear = new Date('2023-01-01')
+    const newYear = new Date('2023-01-01 00:00:00')
     setTimeDiff(formatTimeDIff(newYear.getTime() - time.getTime()))
   }, [time])
+
+  const formatTimeDIff = timeDiff => {
+    const diff = Math.floor(timeDiff / 1000 / 60)
+    const day = Math.floor(diff / (24 * 60))
+    return [day, Math.floor((diff / 60) % 24), Math.floor(diff % 60)]
+  }
 
   const fetch = React.useCallback(
     async (token, uuid) => {
@@ -37,7 +44,6 @@ function LoginMain() {
             Authorization: `Bearer ${token}`,
           },
         })
-
         switch (res.status) {
           case 200:
             dispatch(
@@ -74,14 +80,6 @@ function LoginMain() {
     [dispatch]
   )
 
-  const formatTimeDIff = timeDiff => {
-    const arr = (Math.floor((timeDiff / 1000 / 3600 / 24) * 10) / 10)
-      .toString()
-      .split('.')
-    console.log(arr)
-    return [arr[0], arr[1]]
-  }
-
   const handleCopyClipBoard = async () => {
     try {
       await navigator.clipboard.writeText(
@@ -96,18 +94,18 @@ function LoginMain() {
   React.useEffect(() => {
     fetch(token, uuid)
 
-    setTime(prev => new Date(prev.getTime() + 1000))
-    getTImeDiff()
-
     const timer = setInterval(() => {
       setTime(prev => new Date(prev.getTime() + 1000))
-      getTImeDiff()
-    }, 60000)
+    }, 1000)
 
     return () => {
       clearInterval(timer)
     }
   }, [])
+
+  React.useEffect(() => {
+    getTImeDiff()
+  }, [time])
 
   const navigate = useNavigate()
   return (
@@ -145,7 +143,7 @@ function LoginMain() {
       <MyRabbit />
 
       <Label>
-        편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간
+        편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
       </Label>
     </Container>
   )
