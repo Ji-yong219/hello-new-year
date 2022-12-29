@@ -146,7 +146,7 @@ function Custom() {
   }, [])
 
   return (
-    <Container>
+    <Container alt>
       <Wrapper gap={4}>
         <Logo sx={2.5} />
         <Wrapper gap={1.5}>
