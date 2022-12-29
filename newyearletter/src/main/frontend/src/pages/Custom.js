@@ -13,7 +13,6 @@ import {
 } from '../utils/constant'
 import { SmallText } from './InviteLetter'
 import { Wrapper } from './Main'
-import CustomContainer from '../components/CustomContainer'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { ResponseError } from '../utils/error'
@@ -23,7 +22,6 @@ import styled from 'styled-components'
 
 import { setInfo } from '../utils/reducers/infoState'
 import MyRabbit from '../components/MyRabbit'
-import Moon from '../components/Moon'
 import setMetaTags from '../utils/meta'
 
 function Custom() {
@@ -210,7 +208,10 @@ function Custom() {
         </Wrapper>
 
         <Wrapper gap={2}>
-          <SmallText>올해, 나만의 토끼를 꾸며보세요!</SmallText>
+          <SmallText>
+            올해, 나만의 토끼를 꾸며보세요!
+            <br />달 위상은 보유한 용돈만큼 늘어납니다!
+          </SmallText>
 
           <MyRabbit
             customRabbitColor={rabbitColorValue}
@@ -241,8 +242,6 @@ function Custom() {
               ))}
             </OptionWrapper>
           </Option>
-
-          <SmallText>달 위상은 보유한 용돈만큼 늘어납니다!</SmallText>
         </Wrapper>
       </Wrapper>
       <ButtonItem onClick={() => submit()}> 커스텀</ButtonItem>
@@ -279,13 +278,13 @@ const OptionWrapper = styled.div`
 `
 
 const IconOption = styled.img`
-  width: 42px;
+  width: 32px;
   object-fit: cover;
 `
 
 const ColorOption = styled.div`
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   border-radius: 9999px;
   background-color: ${({ color }) => color};
   border: 1px solid var(--pink-100);

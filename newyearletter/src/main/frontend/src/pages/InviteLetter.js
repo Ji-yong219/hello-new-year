@@ -84,8 +84,10 @@ function InviteLetter() {
 export const SmallText = styled.div`
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(0.9rem, 16px);
+  font-size: 16px;
+  line-height: 24px;
   color: var(--brown);
+  text-align: center;
 `
 
 export default InviteLetter
