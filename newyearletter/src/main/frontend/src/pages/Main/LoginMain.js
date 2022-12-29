@@ -19,11 +19,18 @@ import MyRabbit from '../../components/MyRabbit'
 import setMetaTags from '../../utils/meta'
 import { useLocation } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import Modal, { Content, SmallContent } from '../../components/Modal'
 
 function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
+  const { state } = useLocation()
+  console.log(state)
   const [time, setTime] = React.useState(new Date())
   const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
+
+  const [helpOpen, setHelpOpen] = React.useState(
+    state !== null ? state.isFirst : false
+  )
 
   const dispatch = useDispatch()
 
@@ -101,6 +108,7 @@ function LoginMain() {
   const navigate = useNavigate()
   return (
     <Container alt>
+      {helpOpen ? <Modal setModalOpen={setHelpOpen} /> : null}
       <Logo sx={1.75} />
       <Wrapper gap={2}>
         <ButtonWrapper>
@@ -126,22 +134,27 @@ function LoginMain() {
           </SmallButtonItem>
         </ButtonWrapper>
 
-        <Promise />
+        <Wrapper gap={0.5}>
+          <Promise />
+          <SmallTextButton onClick={() => setHelpOpen(true)}>
+            혹시 설명이 필요하신가요? <Focus>도움말 열기</Focus>
+          </SmallTextButton>
+        </Wrapper>
 
         <MoneyInfo />
-      </Wrapper>
 
-      <MyRabbit />
+        <MyRabbit />
 
-      <Wrapper gap={2}>
-        <Label>
-          편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
-        </Label>
+        <Wrapper gap={2}>
+          <Label>
+            편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
+          </Label>
 
-        <Copyright>
-          Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
-          김수아 all rights reserved. contact: corleone@kakao.com
-        </Copyright>
+          <Copyright>
+            Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
+            김수아 all rights reserved. contact: corleone@kakao.com
+          </Copyright>
+        </Wrapper>
       </Wrapper>
     </Container>
   )
@@ -170,13 +183,23 @@ const Label = styled.div`
   padding: 18px;
 `
 
-const Copyright = styled.div`
+export const Copyright = styled.div`
   font-family: nanumRound;
-  font-size: 6px;
-  line-height: 12px;
+  font-size: 11px;
+  line-height: 15px;
   text-align: center;
   color: var(--brown-100);
   white-space: keep-all;
 `
 
+const SmallTextButton = styled(Content)`
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+`
+
+const Focus = styled.span`
+  color: var(--pink);
+  font-weight: 700;
+`
 export default LoginMain

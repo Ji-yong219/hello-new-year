@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import LinkItem from '../components/LinkItem'
 import ButtonItem from '../components/ButtonItem'
-import { SubTitle, Wrapper } from './Main'
+import { Wrapper } from './Main'
 import { login } from '../utils/reducers/loginState'
 
 import axios from 'axios'
@@ -147,6 +147,17 @@ export const BottomText = styled.div`
   font-family: nanumRound;
   font-weight: 600;
   font-size: 16px;
+`
+const SubTitle = styled.div`
+  font-family: nanumRound;
+  font-weight: bold;
+  font-size: 18px;
+
+  white-space: nowrap;
+
+  @media (max-width: 400px) {
+    font-size: 16px;
+  }
 `
 
 export default Login
