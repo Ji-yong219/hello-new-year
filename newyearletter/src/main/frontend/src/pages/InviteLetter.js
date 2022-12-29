@@ -65,7 +65,7 @@ function InviteLetter() {
   }, [])
 
   return (
-    <Container>
+    <Container alt>
       <Wrapper gap={2}>
         <Logo sx={2.5} />
         <SmallText>{nickName}님에게 응원의 편지를 적어주세요.</SmallText>

@@ -1,16 +1,19 @@
 import styled from 'styled-components'
 
-import background from '../assets/images/background.png'
+import Background from '../assets/images/background.png'
+import BackgroundAlt from '../assets/images/background_old.png'
 
-function Container({ children }) {
+function Container({ alt, children }) {
   return (
-    <Background>
+    <BackgroundContainer
+      background={alt !== undefined ? BackgroundAlt : Background}
+    >
       <Content>{children}</Content>
-    </Background>
+    </BackgroundContainer>
   )
 }
 
-const Background = styled.div`
+const BackgroundContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -21,7 +24,7 @@ const Background = styled.div`
   min-height: 100vh;
   height: auto;
 
-  background: url(${background});
+  background: url(${({ background }) => background});
   background-size: cover;
   background-repeat: repeat;
 `

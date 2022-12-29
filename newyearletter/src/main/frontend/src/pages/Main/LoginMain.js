@@ -22,9 +22,6 @@ function LoginMain() {
   const dispatch = useDispatch()
 
   const { token, uuid } = useSelector(state => state.loginState)
-  const { money, rabbitAcc, rabbitColor } = useSelector(
-    state => state.infoState
-  )
   const fetch = React.useCallback(
     async (token, uuid) => {
       try {
@@ -76,7 +73,7 @@ function LoginMain() {
 
   const navigate = useNavigate()
   return (
-    <Container>
+    <Container alt>
       <Logo sx={2.5} />
       <Wrapper>
         <ButtonWrapper>
@@ -103,7 +100,7 @@ function LoginMain() {
 
         <Promise />
 
-        <MoneyInfo value={money} />
+        <MoneyInfo />
       </Wrapper>
 
       <MyRabbit />
