@@ -6,8 +6,14 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import LogoutMain from './Main/LogoutMain'
 import LoginMain from './Main/LoginMain'
+import { SITE_NAME } from '../utils/constant'
+import setMetaTags from '../utils/meta'
 
 function Main() {
+  React.useEffect(() => {
+    setMetaTags(`메인 - ${SITE_NAME}`)
+  }, [])
+
   const { isLogin } = useSelector(state => state.loginState)
 
   return isLogin ? <LoginMain /> : <LogoutMain />

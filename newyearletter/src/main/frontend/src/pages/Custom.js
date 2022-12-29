@@ -9,6 +9,7 @@ import {
   FONT_OPTION,
   FONT_TYPO_OPTION,
   RABBIT_COLOR_OPTION,
+  SITE_NAME,
 } from '../utils/constant'
 import { SmallText } from './InviteLetter'
 import { Wrapper } from './Main'
@@ -23,8 +24,13 @@ import styled from 'styled-components'
 import { setInfo } from '../utils/reducers/infoState'
 import MyRabbit from '../components/MyRabbit'
 import Moon from '../components/Moon'
+import setMetaTags from '../utils/meta'
 
 function Custom() {
+  React.useEffect(() => {
+    setMetaTags(`내 화면 꾸미기 - ${SITE_NAME}`)
+  }, [])
+
   const { uuid, token } = useSelector(state => state.loginState)
 
   const { wish, wishFont, wishColor, rabbitAcc, rabbitColor, background } =

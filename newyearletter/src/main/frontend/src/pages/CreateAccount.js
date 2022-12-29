@@ -14,8 +14,13 @@ import Logo from '../components/Logo'
 import LinkItem from '../components/LinkItem'
 import Container from '../components/Container'
 import { ResponseError } from '../utils/error'
+import setMetaTags from '../utils/meta'
+import { SITE_NAME } from '../utils/constant'
 
 function CreateAccount() {
+  React.useEffect(() => {
+    setMetaTags(`회원가입 - ${SITE_NAME}`)
+  }, [])
   const navigate = useNavigate()
   const [userID, setUserID] = useState('')
   const [nickname, setNickname] = useState('')

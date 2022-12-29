@@ -9,9 +9,15 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { ResponseError } from '../utils/error'
 import { logout } from '../utils/reducers/loginState'
+import setMetaTags from '../utils/meta'
+import { SITE_NAME } from '../utils/constant'
 
 function ReadLetter() {
   const { id } = useParams()
+
+  React.useEffect(() => {
+    setMetaTags(`${author}님의 편지 - ${SITE_NAME}`)
+  }, [author])
 
   const [author, setAuthor] = React.useState('')
   const [content, setContent] = React.useState('')

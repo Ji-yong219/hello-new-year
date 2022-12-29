@@ -7,6 +7,8 @@ import SendComplete from './SendLetter/SendComplete'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { ResponseError } from '../utils/error'
+import setMetaTags from '../utils/meta'
+import { SITE_NAME } from '../utils/constant'
 
 function SendLetter() {
   const [money, setMoney] = React.useState(MONEY_INIT_STATE)
@@ -23,6 +25,10 @@ function SendLetter() {
     copy[moneyAmount] = true
     setMoney(copy)
   }
+
+  React.useEffect(() => {
+    setMetaTags(`${state}님에게 편지쓰기 - ${SITE_NAME}`)
+  }, [])
 
   const getSelectedMoney = () => {
     return Object.keys(money).find(key => money[key] === true)

@@ -11,6 +11,8 @@ import { ResponseError } from '../utils/error'
 import { useDispatch, useSelector } from 'react-redux'
 import { setInfo } from '../utils/reducers/infoState'
 import MyRabbit from '../components/MyRabbit'
+import setMetaTags from '../utils/meta'
+import { SITE_NAME } from '../utils/constant'
 
 function InviteLetter() {
   const { uuid } = useParams()
@@ -57,6 +59,10 @@ function InviteLetter() {
   React.useEffect(() => {
     fetch(uuid)
   }, [])
+
+  React.useEffect(() => {
+    setMetaTags(`${nickName}님의 편지함 - ${SITE_NAME}`)
+  }, [nickName])
 
   return (
     <Container alt>

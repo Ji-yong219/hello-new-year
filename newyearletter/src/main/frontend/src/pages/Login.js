@@ -13,8 +13,14 @@ import axios from 'axios'
 import Logo from '../components/Logo'
 import Container from '../components/Container'
 import { ResponseError } from '../utils/error'
+import setMetaTags from '../utils/meta'
+import { SITE_NAME } from '../utils/constant'
 
 function Login() {
+  React.useEffect(() => {
+    setMetaTags(`로그인 - ${SITE_NAME}`)
+  }, [])
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
