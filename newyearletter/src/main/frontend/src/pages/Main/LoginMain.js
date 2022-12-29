@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../../utils/reducers/loginState'
+import { logout, setState } from '../../utils/reducers/loginState'
 
 import { Wrapper } from '../Main'
 
@@ -8,7 +8,6 @@ import Logo from '../../components/Logo'
 import MaterialIcon from '../../components/MaterialIcon'
 import Promise from '../../components/Promise'
 import SmallButtonItem from '../../components/SmallButtonItem'
-import Rabbit from './LoginMain/Rabbit'
 import CustomContainer from '../../components/CustomContainer'
 import Container from '../../components/Container'
 import { useNavigate } from 'react-router-dom'
@@ -16,17 +15,15 @@ import React from 'react'
 import axios from 'axios'
 import { ResponseError } from '../../utils/error'
 import MoneyInfo from './LoginMain/MoneyInfo'
-import { WISH_INIT_STATE } from '../../utils/constant'
+import { setInfo } from '../../utils/reducers/infoState'
 
 function LoginMain() {
   const dispatch = useDispatch()
 
   const { token, uuid } = useSelector(state => state.loginState)
-
-  const [money, setMoney] = React.useState(0)
-  const [wish, setWish] = React.useState(WISH_INIT_STATE)
-  const [custom, setCustom] = React.useState("2;1;0")
-
+  const { money, rabbitAcc, rabbitColor } = useSelector(
+    state => state.infoState
+  )
   const fetch = React.useCallback(
     async (token, uuid) => {
       try {
@@ -38,9 +35,13 @@ function LoginMain() {
 
         switch (res.status) {
           case 200:
-            setMoney(res.data.result.money)
-            setWish(res.data.result.wish)
-            setCustom(res.data.result.custom)
+            dispatch(
+              setInfo(
+                res.data.result.wish,
+                res.data.result.money,
+                res.data.result.custom
+              )
+            )
             break
           default:
             throw new ResponseError('잘못된 응답입니다.', res)
@@ -65,7 +66,7 @@ function LoginMain() {
         }
       }
     },
-    [setMoney, dispatch]
+    [dispatch]
   )
 
   React.useEffect(() => {
@@ -99,7 +100,7 @@ function LoginMain() {
           </SmallButtonItem>
         </ButtonWrapper>
 
-        <Promise defaultText={wish} />
+        <Promise />
 
         <MoneyInfo value={money} />
       </Wrapper>
@@ -107,8 +108,8 @@ function LoginMain() {
       <CustomContainer
         money={money}
         debug={false}
-        color={custom.split(';')[2]}
-        accessory={custom.split(';')[3]}
+        color={rabbitColor}
+        accessory={rabbitAcc}
         isCustom={false}
       />
 

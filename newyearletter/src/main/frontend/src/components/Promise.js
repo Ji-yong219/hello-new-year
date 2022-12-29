@@ -2,13 +2,18 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import PromiseBg from '../assets/images/promise.png'
+import { useSelector } from 'react-redux'
 
-function Promise({ editable = false, defaultText, setValue }) {
+function Promise({ editable = false, font, color, setValue }) {
+  const { wish, wishFont, wishColor } = useSelector(state => state.infoState)
   return (
-    <Container>
+    <Container
+      font={font !== undefined ? font : wishFont}
+      color={color !== undefined ? color : wishColor}
+    >
       <input
         disabled={editable ? false : true}
-        defaultValue={defaultText}
+        defaultValue={wish}
         onChange={
           setValue !== undefined
             ? event => setValue(event.target.value)
@@ -22,8 +27,9 @@ function Promise({ editable = false, defaultText, setValue }) {
 
 Promise.propTypes = {
   editable: PropTypes.bool,
-  defaultText: PropTypes.string,
   value: PropTypes.func,
+  fontOption: PropTypes.number,
+  colorOption: PropTypes.number,
 }
 
 const Container = styled.div`
@@ -44,12 +50,12 @@ const Container = styled.div`
 
     background: none;
     border: none;
-    color: var(--brown);
+    color: ${({ color }) => color};
     text-align: center;
 
-    font-family: bingSamanco;
+    font-family: ${({ font }) => font};
     font-weight: bold;
-    font-size: 28px;
+    font-size: 21px;
 
     padding: 12px;
   }

@@ -1,3 +1,5 @@
+import { freeInfo } from './infoState'
+
 const INIT_STATE = {
   isLogin: false,
   token: null,
@@ -14,12 +16,7 @@ function loginState(state = INIT_STATE, action) {
         uuid: action.uuid,
       }
     case 'LOGOUT':
-      return {
-        ...state,
-        isLogin: false,
-        token: null,
-        uuid: null,
-      }
+      return INIT_STATE
     default:
       return state
   }

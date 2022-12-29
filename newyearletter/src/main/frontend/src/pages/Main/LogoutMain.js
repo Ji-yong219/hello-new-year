@@ -10,7 +10,7 @@ function LogoutMain() {
     <Container>
       <Wrapper gap={2}>
         <Logo />
-        <SubTitle>새해 멘트를 공유하고 응원의 편지를 받으세요!</SubTitle>
+        <SubTitle>2023년, 흑토끼의 묘한 편지함을 찾아오세요</SubTitle>
       </Wrapper>
       <Wrapper>
         <ButtonItem onClick={() => navigate('/login')}>로그인</ButtonItem>
