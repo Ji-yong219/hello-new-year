@@ -133,9 +133,16 @@ function LoginMain() {
 
       <MyRabbit />
 
-      <Label>
-        편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
-      </Label>
+      <Wrapper gap={2}>
+        <Label>
+          편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
+        </Label>
+
+        <Copyright>
+          Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
+          김수아 all rights reserved. contact: corleone@kakao.com
+        </Copyright>
+      </Wrapper>
     </Container>
   )
 }
@@ -161,6 +168,15 @@ const Label = styled.div`
   background: white;
   color: var(--brown);
   padding: 18px;
+`
+
+const Copyright = styled.div`
+  font-family: nanumRound;
+  font-size: 6px;
+  line-height: 12px;
+  text-align: center;
+  color: var(--brown-100);
+  white-space: keep-all;
 `
 
 export default LoginMain
