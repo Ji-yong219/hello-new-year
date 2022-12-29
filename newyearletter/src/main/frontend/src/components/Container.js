@@ -61,6 +61,7 @@ const Content = styled.div`
   }
 
   @media (max-width: 500px) {
+    width: 100%;
     padding: 54px 27px;
   }
 `

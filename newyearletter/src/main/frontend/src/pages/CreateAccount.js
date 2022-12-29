@@ -43,6 +43,36 @@ function CreateAccount() {
     setPasswordRepeat(e.target.value)
   }
 
+  const attemptLogin = async (userID, password) => {
+    try {
+      const res = await axios.post('/api/users/login', {
+        userID: userID,
+        password: password,
+      })
+
+      switch (res.status) {
+        case 200:
+          dispatch(login(res.data.result.jwt, res.data.result.uuid))
+          navigate('/')
+          break
+        default:
+          throw new ResponseError('잘못된 응답입니다.', res)
+      }
+    } catch (err) {
+      const res = err.response
+      switch (res.status) {
+        case 401:
+        case 404:
+          alert(`로그인에 실패했습니다: ${res.data.result.message}`)
+          window.location.reload()
+          break
+        default:
+          alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+          navigate('/')
+      }
+    }
+  }
+
   const attemptJoin = React.useCallback(
     async (userID, password, nickName) => {
       try {
@@ -53,9 +83,10 @@ function CreateAccount() {
         })
 
         const code = res.status
+        console.log(res.data.result)
         if (code === 200) {
           alert('회원가입 성공')
-          dispatch(login(res.data.result.jwt, res.data.result.uuid))
+          attemptLogin(userID, password)
           navigate('/')
         } else {
           throw new ResponseError('잘못된 응답입니다.', res)

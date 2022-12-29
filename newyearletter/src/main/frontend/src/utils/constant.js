@@ -90,7 +90,7 @@ export const ACCESSORY_OPTION = [
   <Accessory src={Pocket} width="30%" top="48%" left="50%" />,
   <Accessory src={Ribbon} width="40%" top="18%" left="30%" />,
   <Accessory src={Sunglasses} width="40%" top="35%" left="37%" />,
-  <Accessory src={Flower} width="40%" top="48%" left="45%" />,
+  <Accessory src={Flower} width="40%" top="14%" left="21%" />,
 ]
 
 export const ACCESSORY_ICON_OPTION = [
