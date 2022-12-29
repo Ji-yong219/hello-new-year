@@ -7,9 +7,9 @@ function SendCompleteText() {
     <Container>
       <Flower src={FlowerImg} />
       <Content>
-        묘한 편지를 통해 새해 다짐을 공유하고 응원을 받아보세요.
+        함께 새해 다짐을 공유하고 응원을 받아보세요.
         <br />
-        2023년, 토끼가 전달한 묘한 내용을 읽어볼 수 있답니다.
+        2023년, 토끼가 모두의 마음을 전달해드립니다.
       </Content>
       <Flower src={FlowerImg} />
     </Container>

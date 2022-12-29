@@ -29,7 +29,7 @@ const Container = styled.div`
 
     background: none;
     border: none;
-    color: var(--brown);
+    color: var(--brown-100);
     text-align: center;
 
     font-family: nanumRound;
