@@ -59,5 +59,9 @@ const Content = styled.div`
   @media (min-width: 500px) {
     width: 500px;
   }
+
+  @media (max-width: 500px) {
+    padding: 54px 27px;
+  }
 `
 export default Container
