@@ -49,6 +49,7 @@ rabbitList.map(([name, image]) => {
   RabbitImg.push(
     <img
       key={name}
+      alt=""
       className="rabbit"
       style={{
         position: 'relative',
@@ -78,17 +79,10 @@ accessoryList.map(([name, image]) => {
 accessoryIconList.map(([name, image]) => {
   AccessoryIcon.push(
     <td key={name}>
-      <img className="accessoryIcon" key={name} src={image} />
+      <img className="accessoryIcon" key={name} src={image} alt={name} />
     </td>
   )
 })
-
-const customizePickerStyle = {
-  position: 'relative',
-  borderCollapse: 'collapse',
-  margin: '60px auto',
-  height: 'fit-content',
-}
 
 function CustomRabbit({ color, accessory, isCustom = false }) {
   // Customizing
@@ -190,52 +184,36 @@ function CustomRabbit({ color, accessory, isCustom = false }) {
     })
   })
 
-  $(document)
-    .on('click', '.colorList button', e => {
-      const index = $(e.target).parent().index() - 1
-      const rabbits = document.getElementsByClassName('rabbit')
+  const swichOption = React.useCallback(() => {
+    const rabbits = document.getElementsByClassName('rabbit')
+    const accessorys = document.getElementsByClassName('accessory')
 
-      $(rabbits).css('display', 'none')
-      rabbits[index].style.display = 'block'
-      rabbits[index].style.width = '80%'
-    })
-    .on('click', '.accessoryList img', e => {
-      const index = $(e.target).parent().index() - 1
-      const accessorys = document.getElementsByClassName('accessory')
+    $(rabbits).css('display', 'none')
+    rabbits[color].style.display = 'block'
+    rabbits[color].style.width = '80%'
 
-      $(accessorys).css('display', 'none')
-      if (accessorys[index].style.display === 'none') {
-        accessorys[index].style.display = 'block'
-      } else {
-        accessorys[index].style.display = 'none'
-      }
-    })
+    $(accessorys).css('display', 'none')
+    if (accessorys[accessory].style.display === 'none') {
+      accessorys[accessory].style.display = 'block'
+    } else {
+      accessorys[accessory].style.display = 'none'
+    }
+  }, [accessory, color])
 
+  React.useEffect(() => {
+    swichOption()
+  }, [color, accessory])
+
+  React.useEffect(() => {
+    const rabbits = document.getElementsByClassName('rabbit')
+    $(rabbits).css('display', 'none')
+  }, [])
   return (
     <>
       <div className="RabbitContainer" style={{ width: '360px' }}>
         {AccessoryImg}
         {RabbitImg}
       </div>
-
-      {isCustom ? (
-        <>
-          <table className="customizePicker" style={customizePickerStyle}>
-            <tbody>
-              <tr className="colorList">
-                <th>토끼 색</th>
-                {RabbitColor}
-              </tr>
-              <tr className="accessoryList">
-                <th>악세사리</th>
-                {AccessoryIcon}
-              </tr>
-            </tbody>
-          </table>
-        </>
-      ) : (
-        <></>
-      )}
     </>
   )
 }

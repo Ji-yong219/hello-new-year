@@ -16,9 +16,7 @@ function loginState(state = INIT_STATE, action) {
         uuid: action.uuid,
       }
     case 'LOGOUT':
-      return {
-        ...state,
-      }
+      return INIT_STATE
     default:
       return state
   }
@@ -29,9 +27,6 @@ export const login = (token, uuid) => ({
   token: token,
   uuid: uuid,
 })
-export const logout = () => {
-  loginState({ type: 'LOGOUT' })
-  freeInfo()
-}
+export const logout = () => ({ type: 'LOGOUT' })
 
 export default loginState

@@ -4,9 +4,11 @@ import Container from '../components/Container'
 import Logo from '../components/Logo'
 import Promise from '../components/Promise'
 import {
-  COLOR_OPTION,
-  WISH_INIT_STATE,
-  CUSTOM_INIT_STATE,
+  ACCESSORY_OPTION,
+  FONT_COLOR_OPTION,
+  FONT_OPTION,
+  FONT_TYPO_OPTION,
+  RABBIT_COLOR_OPTION,
 } from '../utils/constant'
 import { SmallText } from './InviteLetter'
 import { Wrapper } from './Main'
@@ -18,10 +20,6 @@ import { logout } from '../utils/reducers/loginState'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import cafeTypo from '../assets/images/typo_icon_cafe.png'
-import chosunTypo from '../assets/images/typo_icon_chosun.png'
-import maruTypo from '../assets/images/typo_icon_maru.png'
-import SFTypo from '../assets/images/typo_icon_SF.png'
 import { setInfo } from '../utils/reducers/infoState'
 
 function Custom() {
@@ -31,11 +29,16 @@ function Custom() {
     useSelector(state => state.infoState)
 
   const [wishValue, setWish] = React.useState('')
-  const [fontOption, setFont] = React.useState(0)
-  const [colorOption, setColor] = React.useState(0)
+
+  const [rabbitColorValue, setRabbitColor] = React.useState(2)
+  const [rabbitAccValue, setRabbitAcc] = React.useState(0)
+
+  const [fontValue, setFont] = React.useState(0)
+  const [fontColorValue, setFontColor] = React.useState(0)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const fetch = React.useCallback(async () => {
     try {
       const res = await axios.get(`/api/rabbit/mypage/${uuid}/custom`, {
@@ -56,7 +59,9 @@ function Custom() {
             )
           )
           setFont(wishFont)
-          setColor(wishColor)
+          setFontColor(wishColor)
+          setRabbitColor(rabbitColor)
+          setRabbitAcc(rabbitAcc)
           break
         default:
           throw new ResponseError('잘못된 응답입니다.', res)
@@ -84,9 +89,7 @@ function Custom() {
   React.useEffect(() => {
     fetch()
   }, [])
-  React.useEffect(() => {
-    console.log(wishValue)
-  }, [wishValue])
+
   return (
     <Container>
       <Wrapper gap={4}>
@@ -96,30 +99,34 @@ function Custom() {
           <Promise
             editable={true}
             setValue={setWish}
-            colorOption={colorOption}
-            fontOption={fontOption}
+            color={FONT_COLOR_OPTION[fontColorValue]}
+            font={FONT_OPTION[fontValue]}
           />
 
           <Wrapper gap={1}>
             <Option>
               <OptionLabel>폰트</OptionLabel>
               <OptionWrapper>
-                <FontOption src={cafeTypo} onClick={() => setFont(0)} />
-                <FontOption src={chosunTypo} onClick={() => setFont(1)} />
-                <FontOption src={maruTypo} onClick={() => setFont(2)} />
-                <FontOption src={SFTypo} onClick={() => setFont(3)} />
+                {FONT_TYPO_OPTION.map((typo, index) => (
+                  <IconOption
+                    key={index}
+                    src={typo}
+                    onClick={() => setFont(index)}
+                  />
+                ))}
               </OptionWrapper>
             </Option>
 
             <Option>
               <OptionLabel>색상</OptionLabel>
               <OptionWrapper>
-                <ColorOption colorOption={0} onClick={() => setColor(0)} />
-                <ColorOption colorOption={1} onClick={() => setColor(1)} />
-                <ColorOption colorOption={2} onClick={() => setColor(2)} />
-                <ColorOption colorOption={3} onClick={() => setColor(3)} />
-                <ColorOption colorOption={4} onClick={() => setColor(4)} />
-                <ColorOption colorOption={5} onClick={() => setColor(5)} />
+                {FONT_COLOR_OPTION.map((color, index) => (
+                  <ColorOption
+                    key={index}
+                    color={color}
+                    onClick={() => setFontColor(index)}
+                  />
+                ))}
               </OptionWrapper>
             </Option>
           </Wrapper>
@@ -130,10 +137,36 @@ function Custom() {
           <CustomContainer
             money={money}
             debug={false}
-            color={rabbitColor}
-            accessory={rabbitAcc}
+            color={rabbitColorValue}
+            accessory={rabbitAccValue}
             isCustom={true}
           />
+
+          <Option>
+            <OptionLabel>색상</OptionLabel>
+            <OptionWrapper>
+              {RABBIT_COLOR_OPTION.map((color, index) => (
+                <ColorOption
+                  key={index}
+                  color={color}
+                  onClick={() => setRabbitColor(index)}
+                />
+              ))}
+            </OptionWrapper>
+          </Option>
+          <Option>
+            <OptionLabel>악세서리</OptionLabel>
+            <OptionWrapper>
+              {ACCESSORY_OPTION.map((icon, index) => (
+                <IconOption
+                  key={index}
+                  src={icon}
+                  onClick={() => setRabbitAcc(index)}
+                />
+              ))}
+            </OptionWrapper>
+          </Option>
+
           <SmallText>달 위상은 보유한 용돈만큼 늘어납니다!</SmallText>
         </Wrapper>
       </Wrapper>
@@ -146,6 +179,7 @@ const Option = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 32px;
   align-items: flex-end;
   padding-bottom: 12px;
   border-bottom: 2px solid var(--brown-100);
@@ -158,7 +192,9 @@ const OptionLabel = styled.div`
 `
 
 const OptionWrapper = styled.div`
+  flex: 1;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 12px;
 
@@ -167,17 +203,17 @@ const OptionWrapper = styled.div`
   }
 `
 
-const FontOption = styled.img`
-  width: 32px;
-  height: auto;
+const IconOption = styled.img`
+  width: 42px;
   object-fit: cover;
 `
 
 const ColorOption = styled.div`
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   border-radius: 9999px;
-  background-color: ${({ colorOption }) => COLOR_OPTION[colorOption]};
+  background-color: ${({ color }) => color};
+  border: 1px solid var(--pink-100);
 `
 
 export default Custom

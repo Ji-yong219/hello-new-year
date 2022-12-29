@@ -2,22 +2,14 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import PromiseBg from '../assets/images/promise.png'
-import { COLOR_OPTION } from '../utils/constant'
 import { useSelector } from 'react-redux'
 
-const FONT_OPTION = [
-  'Cafe24Surround',
-  'ChosunCentennial',
-  'MaruBuri',
-  'SF함박눈',
-]
-
-function Promise({ editable = false, fontOption, colorOption, setValue }) {
+function Promise({ editable = false, font, color, setValue }) {
   const { wish, wishFont, wishColor } = useSelector(state => state.infoState)
   return (
     <Container
-      fontOption={fontOption !== undefined ? fontOption : wishFont}
-      colorOption={colorOption !== undefined ? colorOption : wishColor}
+      font={font !== undefined ? font : wishFont}
+      color={color !== undefined ? color : wishColor}
     >
       <input
         disabled={editable ? false : true}
@@ -58,10 +50,10 @@ const Container = styled.div`
 
     background: none;
     border: none;
-    color: ${({ colorOption }) => COLOR_OPTION[colorOption]};
+    color: ${({ color }) => color};
     text-align: center;
 
-    font-family: ${({ fontOption }) => FONT_OPTION[fontOption]};
+    font-family: ${({ font }) => font};
     font-weight: bold;
     font-size: 21px;
 
