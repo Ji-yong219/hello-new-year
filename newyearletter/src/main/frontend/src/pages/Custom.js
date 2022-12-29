@@ -27,7 +27,7 @@ import Moon from '../components/Moon'
 function Custom() {
   const { uuid, token } = useSelector(state => state.loginState)
 
-  const { wish, money, wishFont, wishColor, rabbitAcc, rabbitColor } =
+  const { wish, wishFont, wishColor, rabbitAcc, rabbitColor, background } =
     useSelector(state => state.infoState)
 
   const [wishValue, setWish] = React.useState('')
@@ -37,6 +37,8 @@ function Custom() {
 
   const [fontValue, setFont] = React.useState(0)
   const [fontColorValue, setFontColor] = React.useState(0)
+
+  const [backgroundValue, setBackground] = React.useState(0)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -49,6 +51,7 @@ function Custom() {
         },
       })
 
+      console.log(res)
       switch (res.status) {
         case 200:
           dispatch(
@@ -63,6 +66,7 @@ function Custom() {
           setFontColor(wishColor)
           setRabbitColor(rabbitColor)
           setRabbitAcc(rabbitAcc)
+          setBackground(background)
           break
         default:
           throw new ResponseError('잘못된 응답입니다.', res)
@@ -94,7 +98,7 @@ function Custom() {
         `/api/rabbit/mypage/${uuid}/custom`,
         {
           wish: wishValue,
-          custom: `${fontValue};${fontColorValue};${rabbitColorValue};${rabbitAccValue};1`,
+          custom: `${fontValue};${fontColorValue};${rabbitColorValue};${rabbitAccValue};${backgroundValue}`,
         },
         {
           headers: {
@@ -137,6 +141,7 @@ function Custom() {
     fontColorValue,
     rabbitAccValue,
     rabbitColorValue,
+    backgroundValue,
     token,
     uuid,
   ])
@@ -146,9 +151,20 @@ function Custom() {
   }, [])
 
   return (
-    <Container alt>
+    <Container customBg={backgroundValue}>
       <Wrapper gap={4}>
         <Logo sx={2.5} />
+        <Option>
+          <OptionLabel>배경화면</OptionLabel>
+          <OptionWrapper>
+            <NumberOption color="var(--white)" onClick={() => setBackground(0)}>
+              1
+            </NumberOption>
+            <NumberOption color="var(--white)" onClick={() => setBackground(1)}>
+              2
+            </NumberOption>
+          </OptionWrapper>
+        </Option>
         <Wrapper gap={1.5}>
           <SmallText>2023년 새해 소망을 적어보세요!</SmallText>
           <Promise
@@ -267,6 +283,15 @@ const ColorOption = styled.div`
   border-radius: 9999px;
   background-color: ${({ color }) => color};
   border: 1px solid var(--pink-100);
+`
+
+const NumberOption = styled(ColorOption)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: nanumRound;
+  font-weight: bold;
+  font-size: 24px;
 `
 
 export default Custom

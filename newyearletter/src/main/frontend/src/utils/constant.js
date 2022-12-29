@@ -28,6 +28,9 @@ import PinkRabbit from '../assets/images/customize/rabbit/rabbit_fed1eb.png'
 import WhiteRabbit from '../assets/images/customize/rabbit/rabbit_fffdff.png'
 import styled from 'styled-components'
 
+import Background from '../assets/images/background.png'
+import BackgroundAlt from '../assets/images/background_alt.png'
+
 export const API_ADDRESS = 'http://203.252.240.74:8080'
 
 export const WISH_INIT_STATE = '2023년엔 행복한 일만 가득하길'
@@ -38,7 +41,6 @@ export const CUSTOM_INIT_STATE = {
   rabbitColor: 2,
   rabbitAcc: 0,
 }
-
 export const FONT_OPTION = [
   'Cafe24Surround',
   'ChosunCentennial',
@@ -74,6 +76,9 @@ const Accessory = styled.img`
   z-index: ${({ behind }) => (behind !== undefined ? '0' : '2')};
   height: auto;
 `
+
+export const BACKGROUND_OPTION = [Background, BackgroundAlt]
+
 export const ACCESSORY_OPTION = [
   <Accessory src={Carrot} width="40%" top="45%" left="45%" />,
   <Accessory src={Cushion} behind width="100%" top="75%" left="0%" />,

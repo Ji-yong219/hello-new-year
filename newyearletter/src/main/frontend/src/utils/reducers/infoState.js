@@ -8,6 +8,7 @@ const INIT_STATE = {
   wishColor: CUSTOM_INIT_STATE.wishColor,
   rabbitColor: CUSTOM_INIT_STATE.rabbitColor,
   rabbitAcc: CUSTOM_INIT_STATE.rabbitAcc,
+  background: 0,
 }
 
 function infoState(state = INIT_STATE, action) {
@@ -17,15 +18,14 @@ function infoState(state = INIT_STATE, action) {
         ...state,
         wish: action.wish,
         money: action.money,
-        wishFont: action.wishFont,
-        wishColor: action.wishColor,
-        rabbitColor: action.rabbitColor,
-        rabbitAcc: action.rabbitAcc,
+        wishFont: parseInt(action.wishFont),
+        wishColor: parseInt(action.wishColor),
+        rabbitColor: parseInt(action.rabbitColor),
+        rabbitAcc: parseInt(action.rabbitAcc),
+        background: parseInt(action.background),
       }
     case 'FREE':
-      return {
-        ...state,
-      }
+      return INIT_STATE
     default:
       return state
   }
@@ -39,6 +39,7 @@ export const setInfo = (wish, money, customStr) => ({
   wishColor: customStr.split(';')[1],
   rabbitColor: customStr.split(';')[2],
   rabbitAcc: customStr.split(';')[3],
+  background: customStr.split(';')[4],
 })
 
 setInfo.propTypes = {

@@ -6,10 +6,7 @@ import ButtonItem from '../components/ButtonItem'
 import Container from '../components/Container'
 import Logo from '../components/Logo'
 import Promise from '../components/Promise'
-import { SubTitle, Wrapper } from './Main'
-import Rabbit from './Main/LoginMain/Rabbit'
-import CustomContainer from '../components/CustomContainer'
-import { WISH_INIT_STATE } from '../utils/constant'
+import { Wrapper } from './Main'
 import { ResponseError } from '../utils/error'
 import { useDispatch, useSelector } from 'react-redux'
 import { setInfo } from '../utils/reducers/infoState'
@@ -19,9 +16,6 @@ function InviteLetter() {
   const { uuid } = useParams()
   const [nickName, setNickname] = React.useState('')
 
-  const { money, rabbitAcc, rabbitColor } = useSelector(
-    state => state.infoState
-  )
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
