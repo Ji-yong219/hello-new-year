@@ -55,5 +55,9 @@ const Content = styled.div`
   @media (max-height: 560px) {
     height: auto;
   }
+
+  @media (min-width: 500px) {
+    width: 500px;
+  }
 `
 export default Container
