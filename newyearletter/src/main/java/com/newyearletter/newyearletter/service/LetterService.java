@@ -17,6 +17,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +28,8 @@ import java.util.stream.Collectors;
 public class LetterService {
     private final UserRepository userRepository;
     private final LetterRepository letterRepository;
-
+    private LocalDateTime currentDateTime;
+    private LocalDateTime newYear = LocalDateTime.parse("2022-12-31T11:59:59.000");
     /**
      * 편지 작성 페이지 확인
      */
@@ -59,6 +62,11 @@ public class LetterService {
      * 편지 전체 조회
      */
     public PageImpl<LetterGetResponse> getAllLetter(Pageable pageable, String uuid, String userName) {
+        //1월1일 확인
+        currentDateTime = LocalDateTime.now();
+        if(currentDateTime.isBefore(newYear)){
+            throw new AppException(ErrorCode.INVALID_PERMISSION, "아직 확인할 수 없습니다.");
+        }
         //uuid가 올바른 주소인지 확인
         User user = userRepository.findByUuid(uuid)
                 .orElseThrow(() -> new AppException(ErrorCode.URL_NOT_FOUND, "해당 URL을 찾을 수 없습니다."));
@@ -75,7 +83,15 @@ public class LetterService {
         return new PageImpl<>(letterGetResponseList, pageable, letters.getTotalElements());
     }
 
+    /**
+     * 편지 상세 조회
+     */
     public LetterGetResponse getLetter(String uuid, Integer letterId, String userName) {
+        //1월1일 확인
+        currentDateTime = LocalDateTime.now();
+        if(currentDateTime.isBefore(newYear)){
+            throw new AppException(ErrorCode.INVALID_PERMISSION, "아직 확인할 수 없습니다.");
+        }
         //uuid가 올바른 주소인지 확인
         User user = userRepository.findByUuid(uuid)
                 .orElseThrow(() -> new AppException(ErrorCode.URL_NOT_FOUND, "해당 URL을 찾을 수 없습니다."));

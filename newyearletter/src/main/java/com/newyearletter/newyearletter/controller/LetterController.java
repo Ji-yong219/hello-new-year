@@ -22,7 +22,6 @@ import java.util.List;
 public class LetterController {
 
     private final LetterService letterService;
-    private final String sMailboxTitle = "우체통";
 
     /**
      * 편지 작성 페이지 조회
