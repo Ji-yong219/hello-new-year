@@ -1,12 +1,18 @@
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { BACKGROUND_OPTION } from '../utils/constant'
 
-import Background from '../assets/images/background.png'
-import BackgroundAlt from '../assets/images/background_old.png'
-
-function Container({ alt, children }) {
+function Container({ customBg, children }) {
+  const { background } = useSelector(state => state.infoState)
   return (
     <BackgroundContainer
-      background={alt !== undefined ? BackgroundAlt : Background}
+      background={
+        customBg !== undefined
+          ? BACKGROUND_OPTION[customBg]
+          : background !== undefined
+          ? BACKGROUND_OPTION[background]
+          : BACKGROUND_OPTION[0]
+      }
     >
       <Content>{children}</Content>
     </BackgroundContainer>
