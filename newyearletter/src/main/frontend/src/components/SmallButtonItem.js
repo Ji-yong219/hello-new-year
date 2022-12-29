@@ -25,22 +25,29 @@ const Container = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 9px;
+  gap: 4px;
 
-  width: 120px;
-  height: 40px;
+  width: 100px;
+  height: 35px;
 
   border: 1px solid var(${({ color }) => color});
   border-radius: 9999px;
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
 
   background: var(${props => props.background});
   color: var(${({ color }) => color});
 
   cursor: pointer;
+
+  @media (min-width: 500px) {
+    width: 120px;
+    height: 40px;
+    gap: 8px;
+    font-size: 14px;
+  }
 `
 
 export default SmallButtonItem

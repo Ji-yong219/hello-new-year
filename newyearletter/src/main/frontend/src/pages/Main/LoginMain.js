@@ -151,7 +151,7 @@ const Label = styled.div`
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: 21px;
+  font-size: 18px;
 
   border-radius: 9999px;
   border: 1px solid var(--pink-100);
