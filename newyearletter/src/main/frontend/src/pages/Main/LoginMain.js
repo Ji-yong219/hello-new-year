@@ -95,7 +95,6 @@ function LoginMain() {
 
   React.useEffect(() => {
     fetch(token, uuid)
-    setMetaTags()
 
     setTime(prev => new Date(prev.getTime() + 1000))
     getTImeDiff()
