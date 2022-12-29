@@ -22,6 +22,7 @@ import styled from 'styled-components'
 
 import { setInfo } from '../utils/reducers/infoState'
 import MyRabbit from '../components/MyRabbit'
+import Moon from '../components/Moon'
 
 function Custom() {
   const { uuid, token } = useSelector(state => state.loginState)
@@ -123,7 +124,6 @@ function Custom() {
           break
 
         case 404:
-          console.log(res.data)
           alert(`${res.data.result.message}`)
           navigate('/')
           break
@@ -189,15 +189,11 @@ function Custom() {
 
         <Wrapper gap={2}>
           <SmallText>올해, 나만의 토끼를 꾸며보세요!</SmallText>
-          <CustomContainer
-            money={money}
-            debug={false}
-            color={rabbitColorValue}
-            accessory={rabbitAccValue}
-            isCustom={true}
-          />
 
-          <MyRabbit rabbitColor={rabbitColorValue} rabbitAcc={rabbitAccValue} />
+          <MyRabbit
+            customRabbitColor={rabbitColorValue}
+            customRabbitAcc={rabbitAccValue}
+          />
 
           <Option>
             <OptionLabel>색상</OptionLabel>

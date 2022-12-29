@@ -13,6 +13,7 @@ import { WISH_INIT_STATE } from '../utils/constant'
 import { ResponseError } from '../utils/error'
 import { useDispatch, useSelector } from 'react-redux'
 import { setInfo } from '../utils/reducers/infoState'
+import MyRabbit from '../components/MyRabbit'
 
 function InviteLetter() {
   const { uuid } = useParams()
@@ -71,13 +72,7 @@ function InviteLetter() {
         <Promise />
       </Wrapper>
 
-      <CustomContainer
-        money={money}
-        debug={false}
-        color={rabbitColor}
-        accessory={rabbitAcc}
-        isCustom={false}
-      />
+      <MyRabbit />
 
       <ButtonItem onClick={() => navigate('send/', { state: nickName })}>
         편지 작성하기

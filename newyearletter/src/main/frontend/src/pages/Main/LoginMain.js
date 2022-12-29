@@ -16,6 +16,7 @@ import axios from 'axios'
 import { ResponseError } from '../../utils/error'
 import MoneyInfo from './LoginMain/MoneyInfo'
 import { setInfo } from '../../utils/reducers/infoState'
+import MyRabbit from '../../components/MyRabbit'
 
 function LoginMain() {
   const dispatch = useDispatch()
@@ -105,13 +106,7 @@ function LoginMain() {
         <MoneyInfo value={money} />
       </Wrapper>
 
-      <CustomContainer
-        money={money}
-        debug={false}
-        color={rabbitColor}
-        accessory={rabbitAcc}
-        isCustom={false}
-      />
+      <MyRabbit />
 
       <Label>편지 공개까지 2일 3시간</Label>
     </Container>
