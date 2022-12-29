@@ -8,7 +8,6 @@ import Logo from '../../components/Logo'
 import MaterialIcon from '../../components/MaterialIcon'
 import Promise from '../../components/Promise'
 import SmallButtonItem from '../../components/SmallButtonItem'
-import CustomContainer from '../../components/CustomContainer'
 import Container from '../../components/Container'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
@@ -19,9 +18,17 @@ import { setInfo } from '../../utils/reducers/infoState'
 import MyRabbit from '../../components/MyRabbit'
 
 function LoginMain() {
+  const { token, uuid } = useSelector(state => state.loginState)
+  const [time, setTime] = React.useState(new Date())
+  const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
+
   const dispatch = useDispatch()
 
-  const { token, uuid } = useSelector(state => state.loginState)
+  const getTImeDiff = React.useCallback(() => {
+    const newYear = new Date('2023-01-01')
+    setTimeDiff(formatTimeDIff(newYear.getTime() - time.getTime()))
+  }, [time])
+
   const fetch = React.useCallback(
     async (token, uuid) => {
       try {
@@ -40,13 +47,13 @@ function LoginMain() {
                 res.data.result.custom
               )
             )
+            setTime(new Date(res.data.result.currentDateTime))
             break
           default:
             throw new ResponseError('잘못된 응답입니다.', res)
         }
       } catch (err) {
-        const res = err.ResponseError
-
+        const res = err.response
         switch (res.status) {
           case 401:
             alert('세션이 만료되었습니다. 다시 로그인해주세요.')
@@ -67,8 +74,28 @@ function LoginMain() {
     [dispatch]
   )
 
+  const formatTimeDIff = timeDiff => {
+    const arr = (Math.floor((timeDiff / 1000 / 3600 / 24) * 10) / 10)
+      .toString()
+      .split('.')
+    console.log(arr)
+    return [arr[0], arr[1]]
+  }
+
   React.useEffect(() => {
     fetch(token, uuid)
+
+    setTime(prev => new Date(prev.getTime() + 1000))
+    getTImeDiff()
+
+    const timer = setInterval(() => {
+      setTime(prev => new Date(prev.getTime() + 1000))
+      getTImeDiff()
+    }, 60000)
+
+    return () => {
+      clearInterval(timer)
+    }
   }, [])
 
   const navigate = useNavigate()
@@ -105,7 +132,9 @@ function LoginMain() {
 
       <MyRabbit />
 
-      <Label>편지 공개까지 2일 3시간</Label>
+      <Label>
+        편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간
+      </Label>
     </Container>
   )
 }
