@@ -3,27 +3,39 @@ import ButtonItem from '../components/ButtonItem'
 import Container from '../components/Container'
 import Logo from '../components/Logo'
 import Promise from '../components/Promise'
-import { WISH_INIT_STATE } from '../utils/constant'
+import {
+  COLOR_OPTION,
+  WISH_INIT_STATE,
+  CUSTOM_INIT_STATE,
+} from '../utils/constant'
 import { SmallText } from './InviteLetter'
-import { Contour, SubTitle, Wrapper } from './Main'
+import { Wrapper } from './Main'
 import CustomContainer from '../components/CustomContainer'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { ResponseError } from '../utils/error'
 import { logout } from '../utils/reducers/loginState'
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 
-const CUSTOM_INIT_STATE = '1;1;2;0;1'
+import cafeTypo from '../assets/images/typo_icon_cafe.png'
+import chosunTypo from '../assets/images/typo_icon_chosun.png'
+import maruTypo from '../assets/images/typo_icon_maru.png'
+import SFTypo from '../assets/images/typo_icon_SF.png'
+import { setInfo } from '../utils/reducers/infoState'
 
 function Custom() {
   const { uuid, token } = useSelector(state => state.loginState)
-  const [money, setMoney] = React.useState(0)
-  const [wish, setWish] = React.useState(WISH_INIT_STATE)
-  const [custom, setCustom] = React.useState(CUSTOM_INIT_STATE)
+
+  const { wish, money, wishFont, wishColor, rabbitAcc, rabbitColor } =
+    useSelector(state => state.infoState)
+
+  const [wishValue, setWish] = React.useState('')
+  const [fontOption, setFont] = React.useState(0)
+  const [colorOption, setColor] = React.useState(0)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   const fetch = React.useCallback(async () => {
     try {
       const res = await axios.get(`/api/rabbit/mypage/${uuid}/custom`, {
@@ -36,9 +48,15 @@ function Custom() {
 
       switch (res.status) {
         case 200:
-          setWish(res.data.result.wish)
-          setCustom(res.data.result.custom)
-          setMoney(res.data.result.money)
+          dispatch(
+            setInfo(
+              res.data.result.wish,
+              res.data.result.money,
+              res.data.result.custom
+            )
+          )
+          setFont(wishFont)
+          setColor(wishColor)
           break
         default:
           throw new ResponseError('잘못된 응답입니다.', res)
@@ -66,25 +84,54 @@ function Custom() {
   React.useEffect(() => {
     fetch()
   }, [])
-
+  React.useEffect(() => {
+    console.log(wishValue)
+  }, [wishValue])
   return (
     <Container>
-      <Logo sx={2.5} />
-      <Wrapper gap={3}>
-        <Wrapper gap={1}>
+      <Wrapper gap={4}>
+        <Logo sx={2.5} />
+        <Wrapper gap={1.5}>
           <SmallText>2023년 새해 소망을 적어보세요!</SmallText>
-          <Promise editable={true} defaultText={wish} setValue={setWish} />
-        </Wrapper>
+          <Promise
+            editable={true}
+            setValue={setWish}
+            colorOption={colorOption}
+            fontOption={fontOption}
+          />
 
-        <Contour />
+          <Wrapper gap={1}>
+            <Option>
+              <OptionLabel>폰트</OptionLabel>
+              <OptionWrapper>
+                <FontOption src={cafeTypo} onClick={() => setFont(0)} />
+                <FontOption src={chosunTypo} onClick={() => setFont(1)} />
+                <FontOption src={maruTypo} onClick={() => setFont(2)} />
+                <FontOption src={SFTypo} onClick={() => setFont(3)} />
+              </OptionWrapper>
+            </Option>
+
+            <Option>
+              <OptionLabel>색상</OptionLabel>
+              <OptionWrapper>
+                <ColorOption colorOption={0} onClick={() => setColor(0)} />
+                <ColorOption colorOption={1} onClick={() => setColor(1)} />
+                <ColorOption colorOption={2} onClick={() => setColor(2)} />
+                <ColorOption colorOption={3} onClick={() => setColor(3)} />
+                <ColorOption colorOption={4} onClick={() => setColor(4)} />
+                <ColorOption colorOption={5} onClick={() => setColor(5)} />
+              </OptionWrapper>
+            </Option>
+          </Wrapper>
+        </Wrapper>
 
         <Wrapper gap={2}>
           <SmallText>올해, 나만의 토끼를 꾸며보세요!</SmallText>
           <CustomContainer
             money={money}
             debug={false}
-            color={custom.split(';')[2]}
-            accessory={custom.split(';')[3]}
+            color={rabbitColor}
+            accessory={rabbitAcc}
             isCustom={true}
           />
           <SmallText>달 위상은 보유한 용돈만큼 늘어납니다!</SmallText>
@@ -94,5 +141,43 @@ function Custom() {
     </Container>
   )
 }
+
+const Option = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--brown-100);
+`
+
+const OptionLabel = styled.div`
+  font-family: nanumRound;
+  font-weight: bold;
+  font-size: 18px;
+`
+
+const OptionWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  > * {
+    cursor: pointer;
+  }
+`
+
+const FontOption = styled.img`
+  width: 32px;
+  height: auto;
+  object-fit: cover;
+`
+
+const ColorOption = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background-color: ${({ colorOption }) => COLOR_OPTION[colorOption]};
+`
 
 export default Custom

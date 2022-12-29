@@ -29,12 +29,6 @@
 }
 
 @font-face {
-  font-family: 'bingSamanco';
-  font-weight: 700;
-  src: url('assets/fonts/BinggraeSamanco-Bold.ttf') format('truetype');
-}
-
-@font-face {
   font-family: 'Material Symbols Outlined';
   font-style: normal;
   font-weight: 100 700;
@@ -42,6 +36,11 @@
     format('woff2');
 }
 
+@font-face {
+  font-family: 'bingSamanco';
+  font-weight: 700;
+  src: url('assets/fonts/BinggraeSamanco-Bold.ttf') format('truetype');
+}
 
 @font-face {
   font-family: 'Cafe24Surround';
