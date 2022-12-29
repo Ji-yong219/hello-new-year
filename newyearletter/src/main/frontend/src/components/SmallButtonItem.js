@@ -20,7 +20,7 @@ SmallButtonItem.propTypes = {
   onClick: PropTypes.func,
 }
 
-const Container = styled.div`
+const Container = styled.button`
   position: relative;
   display: flex;
   justify-content: center;

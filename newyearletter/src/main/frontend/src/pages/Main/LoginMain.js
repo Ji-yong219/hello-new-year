@@ -18,6 +18,8 @@ import { setInfo } from '../../utils/reducers/infoState'
 import MyRabbit from '../../components/MyRabbit'
 import setMetaTags from '../../utils/meta'
 import { useLocation } from 'react-router-dom'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
 function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
   const [time, setTime] = React.useState(new Date())
@@ -80,17 +82,6 @@ function LoginMain() {
     [dispatch]
   )
 
-  const handleCopyClipBoard = async () => {
-    try {
-      await navigator.clipboard.writeText(
-        `${window.location.href}letter/${uuid}`
-      )
-      alert('클립보드에 링크가 복사되었습니다.')
-    } catch (e) {
-      alert('복사에 실패하였습니다')
-    }
-  }
-
   React.useEffect(() => {
     fetch(token, uuid)
 
@@ -113,14 +104,14 @@ function LoginMain() {
       <Logo sx={2.5} />
       <Wrapper>
         <ButtonWrapper>
-          <SmallButtonItem
-            background="--white"
-            color="--pink"
-            onClick={() => handleCopyClipBoard()}
-            // onClick={() => navigate(`/letter/${uuid}`)}
+          <CopyToClipboard
+            text={`${window.location.href}letter/${uuid}`}
+            onCopy={() => alert('링크가 성공적으로 복사되었습니다.')}
           >
-            <MaterialIcon iconName="link" color="--pink" /> 링크 복사
-          </SmallButtonItem>
+            <SmallButtonItem background="--white" color="--pink">
+              <MaterialIcon iconName="link" color="--pink" /> 링크 복사
+            </SmallButtonItem>
+          </CopyToClipboard>
 
           <SmallButtonItem onClick={() => navigate(`/custom`)}>
             내 화면 꾸미기
