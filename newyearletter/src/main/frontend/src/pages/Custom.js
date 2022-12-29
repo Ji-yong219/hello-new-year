@@ -4,7 +4,7 @@ import Container from '../components/Container'
 import Logo from '../components/Logo'
 import Promise from '../components/Promise'
 import {
-  ACCESSORY_OPTION,
+  ACCESSORY_ICON_OPTION,
   FONT_COLOR_OPTION,
   FONT_OPTION,
   FONT_TYPO_OPTION,
@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { setInfo } from '../utils/reducers/infoState'
+import MyRabbit from '../components/MyRabbit'
 
 function Custom() {
   const { uuid, token } = useSelector(state => state.loginState)
@@ -47,8 +48,6 @@ function Custom() {
         },
       })
 
-      console.log(res.data.result)
-
       switch (res.status) {
         case 200:
           dispatch(
@@ -58,6 +57,7 @@ function Custom() {
               res.data.result.custom
             )
           )
+          setWish(wish)
           setFont(wishFont)
           setFontColor(wishColor)
           setRabbitColor(rabbitColor)
@@ -75,6 +75,7 @@ function Custom() {
           dispatch(logout())
           navigate('/login')
           break
+
         case 404:
           console.log(res.data)
           alert(`${res.data.result.message}`)
@@ -85,6 +86,60 @@ function Custom() {
       }
     }
   }, [uuid, token])
+
+  const submit = React.useCallback(async () => {
+    try {
+      const res = await axios.post(
+        `/api/rabbit/mypage/${uuid}/custom`,
+        {
+          wish: wishValue,
+          custom: `${fontValue};${fontColorValue};${rabbitColorValue};${rabbitAccValue};1`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      switch (res.status) {
+        case 200:
+          alert('수정이 완료되었습니다.')
+          await fetch()
+          window.location.reload()
+          break
+
+        default:
+          throw new ResponseError('잘못된 응답입니다.', res)
+      }
+    } catch (err) {
+      const res = err.response
+
+      switch (res.status) {
+        case 401:
+          alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+          dispatch(logout())
+          navigate('/login')
+          break
+
+        case 404:
+          console.log(res.data)
+          alert(`${res.data.result.message}`)
+          navigate('/')
+          break
+        default:
+          alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+      }
+    }
+  }, [
+    wishValue,
+    fontValue,
+    fontColorValue,
+    rabbitAccValue,
+    rabbitColorValue,
+    token,
+    uuid,
+  ])
 
   React.useEffect(() => {
     fetch()
@@ -142,6 +197,8 @@ function Custom() {
             isCustom={true}
           />
 
+          <MyRabbit rabbitColor={rabbitColorValue} rabbitAcc={rabbitAccValue} />
+
           <Option>
             <OptionLabel>색상</OptionLabel>
             <OptionWrapper>
@@ -157,7 +214,7 @@ function Custom() {
           <Option>
             <OptionLabel>악세서리</OptionLabel>
             <OptionWrapper>
-              {ACCESSORY_OPTION.map((icon, index) => (
+              {ACCESSORY_ICON_OPTION.map((icon, index) => (
                 <IconOption
                   key={index}
                   src={icon}
@@ -170,7 +227,7 @@ function Custom() {
           <SmallText>달 위상은 보유한 용돈만큼 늘어납니다!</SmallText>
         </Wrapper>
       </Wrapper>
-      <ButtonItem> 커스텀</ButtonItem>
+      <ButtonItem onClick={() => submit()}> 커스텀</ButtonItem>
     </Container>
   )
 }

@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 
 import PromiseBg from '../assets/images/promise.png'
 import { useSelector } from 'react-redux'
+import { FONT_COLOR_OPTION, FONT_OPTION } from '../utils/constant'
 
 function Promise({ editable = false, font, color, setValue }) {
   const { wish, wishFont, wishColor } = useSelector(state => state.infoState)
   return (
     <Container
-      font={font !== undefined ? font : wishFont}
-      color={color !== undefined ? color : wishColor}
+      font={font !== undefined ? font : FONT_OPTION[wishFont]}
+      color={color !== undefined ? color : FONT_COLOR_OPTION[wishColor]}
     >
       <input
         disabled={editable ? false : true}

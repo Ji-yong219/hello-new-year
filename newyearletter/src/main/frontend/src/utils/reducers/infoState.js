@@ -17,6 +17,10 @@ function infoState(state = INIT_STATE, action) {
         ...state,
         wish: action.wish,
         money: action.money,
+        wishFont: action.wishFont,
+        wishColor: action.wishColor,
+        rabbitColor: action.rabbitColor,
+        rabbitAcc: action.rabbitAcc,
       }
     case 'FREE':
       return {
