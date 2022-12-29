@@ -16,6 +16,7 @@ import { ResponseError } from '../../utils/error'
 import MoneyInfo from './LoginMain/MoneyInfo'
 import { setInfo } from '../../utils/reducers/infoState'
 import MyRabbit from '../../components/MyRabbit'
+import setMetaTags from '../../utils/meta'
 
 function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
@@ -84,6 +85,7 @@ function LoginMain() {
 
   React.useEffect(() => {
     fetch(token, uuid)
+    setMetaTags()
 
     setTime(prev => new Date(prev.getTime() + 1000))
     getTImeDiff()

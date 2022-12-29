@@ -31,6 +31,9 @@ import styled from 'styled-components'
 import Background from '../assets/images/background.png'
 import BackgroundAlt from '../assets/images/background_alt.png'
 
+export const SITE_NAME = '2023 묘한 편지'
+export const SITE_DESC = '2023년, 흑토끼의 묘한 편지함을 찾아오세요'
+
 export const API_ADDRESS = 'http://203.252.240.74:8080'
 
 export const WISH_INIT_STATE = '2023년엔 행복한 일만 가득하길'
