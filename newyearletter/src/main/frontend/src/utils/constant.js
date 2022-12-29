@@ -14,7 +14,7 @@ import SunglassesIcon from '../assets/images/customize/icon/i_sunglasses.png'
 
 import Carrot from '../assets/images/customize/accessory/Carrot.png'
 import Cushion from '../assets/images/customize/accessory/Cushion.png'
-import Flower from '../assets/images/customize/accessory/flower.png'
+import Flower from '../assets/images/customize/accessory/Flower.png'
 import HanbokPink from '../assets/images/customize/accessory/Hanbok.png'
 import HanbokBlue from '../assets/images/customize/accessory/Hanbok2.png'
 import Pocket from '../assets/images/customize/accessory/Pocket.png'
