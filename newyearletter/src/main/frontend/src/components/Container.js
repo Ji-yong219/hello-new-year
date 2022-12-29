@@ -5,16 +5,18 @@ import { BACKGROUND_OPTION } from '../utils/constant'
 function Container({ customBg, children }) {
   const { background } = useSelector(state => state.infoState)
   return (
-    <BackgroundContainer
-      background={
-        customBg !== undefined
-          ? BACKGROUND_OPTION[customBg]
-          : background !== undefined
-          ? BACKGROUND_OPTION[background]
-          : BACKGROUND_OPTION[0]
-      }
-    >
-      <Content>{children}</Content>
+    <BackgroundContainer>
+      <Content
+        background={
+          customBg !== undefined
+            ? BACKGROUND_OPTION[customBg]
+            : background !== undefined
+            ? BACKGROUND_OPTION[background]
+            : BACKGROUND_OPTION[0]
+        }
+      >
+        {children}
+      </Content>
     </BackgroundContainer>
   )
 }
@@ -29,9 +31,6 @@ const BackgroundContainer = styled.div`
   max-width: 100vw;
   min-height: 100vh;
   height: auto;
-
-  background: url(${({ background }) => background});
-  background-repeat: repeat;
 `
 
 const Content = styled.div`
@@ -43,11 +42,16 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  padding: max(3rem, 54px) max(1.5rem, 27px);
+  padding: 54px;
   align-items: center;
-  gap: max(2rem, 36px);
+  gap: 36px;
 
   color: var(--brown);
+
+  background: url(${({ background }) => background});
+  background-repeat: repeat;
+  background-size: cover;
+
   @media (max-height: 560px) {
     height: auto;
   }
