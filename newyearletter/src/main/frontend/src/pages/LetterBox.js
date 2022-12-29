@@ -70,7 +70,7 @@ function LetterBox() {
   return (
     <Container>
       <Wrapper gap={2}>
-        <Logo sx={2.5} />
+        <Logo sx={1.75} />
 
         <MoneyInfo />
 

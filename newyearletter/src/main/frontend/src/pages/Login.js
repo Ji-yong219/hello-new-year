@@ -120,7 +120,7 @@ function Login() {
 }
 
 export const Input = styled.input`
-  width: 100%;
+  width: 75%;
   padding: 18px;
   color: var(--brown);
 

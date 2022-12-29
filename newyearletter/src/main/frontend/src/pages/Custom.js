@@ -24,6 +24,9 @@ import { setInfo } from '../utils/reducers/infoState'
 import MyRabbit from '../components/MyRabbit'
 import setMetaTags from '../utils/meta'
 
+import BG1Icon from '../assets/images/i_bg1.png'
+import BG2Icon from '../assets/images/i_bg2.png'
+
 function Custom() {
   React.useEffect(() => {
     setMetaTags(`내 화면 꾸미기 - ${SITE_NAME}`)
@@ -55,7 +58,6 @@ function Custom() {
         },
       })
 
-      console.log(res)
       switch (res.status) {
         case 200:
           dispatch(
@@ -157,16 +159,12 @@ function Custom() {
   return (
     <Container customBg={backgroundValue}>
       <Wrapper gap={4}>
-        <Logo sx={2.5} />
+        <Logo sx={1.75} />
         <Option>
           <OptionLabel>배경화면</OptionLabel>
           <OptionWrapper>
-            <NumberOption color="var(--white)" onClick={() => setBackground(0)}>
-              1
-            </NumberOption>
-            <NumberOption color="var(--white)" onClick={() => setBackground(1)}>
-              2
-            </NumberOption>
+            <IconOption src={BG1Icon} onClick={() => setBackground(0)} />
+            <IconOption src={BG2Icon} onClick={() => setBackground(1)} />
           </OptionWrapper>
         </Option>
         <Wrapper gap={1.5}>
@@ -280,6 +278,8 @@ const OptionWrapper = styled.div`
 const IconOption = styled.img`
   width: 32px;
   object-fit: cover;
+  border-radius: 9999px;
+  border: 1px solid var(--pink-100);
 `
 
 const ColorOption = styled.div`
@@ -288,15 +288,6 @@ const ColorOption = styled.div`
   border-radius: 9999px;
   background-color: ${({ color }) => color};
   border: 1px solid var(--pink-100);
-`
-
-const NumberOption = styled(ColorOption)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: nanumRound;
-  font-weight: bold;
-  font-size: 24px;
 `
 
 export default Custom

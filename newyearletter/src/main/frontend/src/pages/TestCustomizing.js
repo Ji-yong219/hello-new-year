@@ -9,15 +9,15 @@ import Moon from '../components/Moon'
 function TestCustomizing() {
   return (
     <>
-    <Container>
-      <Wrapper gap={2}>
-        <Logo sx={2.5} />
-        <Promise defaultText="커스터마이징 연구 중.." />
-      </Wrapper>
+      <Container>
+        <Wrapper gap={2}>
+          <Logo sx={1.75} />
+          <Promise defaultText="커스터마이징 연구 중.." />
+        </Wrapper>
 
-      {/* <CustomRabbit color={2} accessory={0} isCustom={true}/> */}
-      <Moon money={350000} debug={true} />
-    </Container>
+        {/* <CustomRabbit color={2} accessory={0} isCustom={true}/> */}
+        <Moon money={350000} debug={true} />
+      </Container>
     </>
   )
 }

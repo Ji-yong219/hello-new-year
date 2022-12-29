@@ -101,7 +101,7 @@ function LoginMain() {
   const navigate = useNavigate()
   return (
     <Container alt>
-      <Logo sx={2.5} />
+      <Logo sx={1.75} />
       <Wrapper gap={2}>
         <ButtonWrapper>
           <CopyToClipboard

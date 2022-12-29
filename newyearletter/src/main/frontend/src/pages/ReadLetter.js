@@ -71,7 +71,7 @@ function ReadLetter() {
   // const [data, setData] = React.useState(INFO_INIT_STATE)
   return (
     <Container>
-      <Logo sx={2.5} />
+      <Logo sx={1.75} />
       <LetterInfoLabel author={author} money={money} />
       <Letter defaultText={content} />
       <ButtonItem onClick={() => navigate('/letter-box')}>뒤로가기</ButtonItem>

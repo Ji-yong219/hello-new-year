@@ -9,7 +9,7 @@ function SendComplete() {
   const navigate = useNavigate()
   return (
     <Wrapper gap={4}>
-      <Logo sx={2.5} />
+      <Logo sx={1.75} />
       <SendCompleteLabel />
       <Wrapper gap={2}>
         <SendCompleteText />
