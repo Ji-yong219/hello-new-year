@@ -85,8 +85,8 @@ export const BACKGROUND_OPTION = [Background, BackgroundAlt]
 export const ACCESSORY_OPTION = [
   <Accessory src={Carrot} width="40%" top="45%" left="45%" />,
   <Accessory src={Cushion} behind width="100%" top="75%" left="0%" />,
-  <Accessory src={HanbokPink} width="90%" top="50%" left="4%" />,
-  <Accessory src={HanbokBlue} width="88%" top="50%" left="5%" />,
+  <Accessory src={HanbokPink} width="86%" top="50%" left="6.5%" />,
+  <Accessory src={HanbokBlue} width="87%" top="50%" left="6%" />,
   <Accessory src={Pocket} width="30%" top="48%" left="50%" />,
   <Accessory src={Ribbon} width="40%" top="18%" left="30%" />,
   <Accessory src={Sunglasses} width="40%" top="35%" left="37%" />,
