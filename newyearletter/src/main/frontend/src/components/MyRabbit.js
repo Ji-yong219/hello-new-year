@@ -31,7 +31,7 @@ function MyRabbit({ customRabbitColor, customRabbitAcc }) {
 
 const Container = styled.div`
   position: relative;
-  width: 100%;
+  width: 75%;
   padding-top: 30%;
   padding-bottom: 10%;
 `
