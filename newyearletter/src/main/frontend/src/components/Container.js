@@ -31,13 +31,12 @@ const BackgroundContainer = styled.div`
   height: auto;
 
   background: url(${({ background }) => background});
-  background-size: cover;
   background-repeat: repeat;
 `
 
 const Content = styled.div`
   min-width: 380px;
-  max-width: 450px;
+  max-width: 500px;
   min-height: 100vh;
 
   display: flex;

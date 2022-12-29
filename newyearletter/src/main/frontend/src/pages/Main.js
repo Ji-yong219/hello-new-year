@@ -18,13 +18,13 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: max(${({ gap = 1 }) => gap}rem, ${({ gap = 1 }) => gap * 18}px);
+  gap: ${({ gap = 1 }) => gap * 18}px;
 `
 
 export const SubTitle = styled.div`
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(1.2rem, 17px);
+  font-size: 18px;
 
   white-space: nowrap;
 

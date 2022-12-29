@@ -114,17 +114,17 @@ function Login() {
 }
 
 export const Input = styled.input`
-  width: max(16rem, 280px);
-  padding: max(1rem, 18px);
+  width: 100%;
+  padding: 18px;
   color: var(--brown);
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(1rem, 16px);
+  font-size: 18px;
   text-align: center;
 
   border: none;
-  border-radius: max(0.5rem, 9px);
+  border-radius: 9px;
   filter: drop-shadow(3px 3px 2px var(--light-300));
 
   :focus {
@@ -140,7 +140,7 @@ export const Input = styled.input`
 export const BottomText = styled.div`
   font-family: nanumRound;
   font-weight: 600;
-  font-size: max(1rem, 16px);
+  font-size: 16px;
 `
 
 export default Login

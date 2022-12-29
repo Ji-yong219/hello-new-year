@@ -150,13 +150,16 @@ const Label = styled.div`
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(1.2rem, 21px);
+  font-size: 21px;
+
+  border-radius: 9999px;
+  border: 1px solid var(--pink-100);
 
   text-align: center;
 
   background: white;
   color: var(--brown);
-  padding: max(1rem, 18px);
+  padding: 18px;
 `
 
 export default LoginMain

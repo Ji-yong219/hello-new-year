@@ -25,15 +25,15 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: max(0.5rem, 9px);
+  gap: 9px;
 
   font-family: nanumRound;
   font-weight: 600;
-  font-size: max(0.9rem, 18px);
+  font-size: 18px;
 
   .bold {
     font-weight: 800;
-    font-size: max(2rem, 32px);
+    font-size: 32px;
   }
 
   .focus {
