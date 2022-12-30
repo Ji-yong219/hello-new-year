@@ -22,12 +22,12 @@ export const rootReducer = combineReducers({
 
 const perReducer = persistReducer(persistConfig, rootReducer)
 
-const enhancer =
-  process.env.NODE_ENV === 'production'
-    ? compose(applyMiddleware())
-    : composeWithDevTools(applyMiddleware(logger))
+// const enhancer =
+//   process.env.NODE_ENV === 'production'
+//     ? compose(applyMiddleware())
+//     : composeWithDevTools(applyMiddleware(logger))
 
 // 리듀서+optional들을 넣어서 스토어를 만들어준다.
-const store = createStore(perReducer, enhancer)
+const store = createStore(perReducer, compose(applyMiddleware()))
 
 export default store
