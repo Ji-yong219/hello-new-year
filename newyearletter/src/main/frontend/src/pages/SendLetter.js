@@ -5,10 +5,11 @@ import { useLocation, useParams } from 'react-router-dom'
 import SendContent from './SendLetter/SendContent'
 import SendComplete from './SendLetter/SendComplete'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ResponseError } from '../utils/error'
 import setMetaTags from '../utils/meta'
 import { SITE_NAME } from '../utils/constant'
+import { freeLoading, setLoading } from '../utils/reducers/loadingState'
 
 function SendLetter() {
   const [money, setMoney] = React.useState(MONEY_INIT_STATE)
@@ -19,6 +20,7 @@ function SendLetter() {
 
   const { state } = useLocation()
   const { uuid } = useParams()
+  const dispatch = useDispatch()
 
   const selectMoney = moneyAmount => {
     var copy = Object.assign({}, MONEY_INIT_STATE)
@@ -46,11 +48,13 @@ function SendLetter() {
       alert('편지는 최대 100자까지 쓸 수 있습니다.')
     } else {
       try {
+        dispatch(setLoading())
         const res = await axios.post(`/api/letter/${uuid}`, {
           author: author,
           content: content,
           money: selectedMoney,
         })
+        dispatch(freeLoading())
 
         switch (res.status) {
           case 200:
@@ -60,8 +64,8 @@ function SendLetter() {
             throw new ResponseError('잘못된 응답입니다.', res)
         }
       } catch (err) {
+        dispatch(freeLoading())
         const res = err.ResponseError
-
         switch (res.status) {
           default:
             alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')

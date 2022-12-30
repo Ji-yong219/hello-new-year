@@ -13,6 +13,7 @@ import { setInfo } from '../utils/reducers/infoState'
 import MyRabbit from '../components/MyRabbit'
 import setMetaTags from '../utils/meta'
 import { SITE_NAME } from '../utils/constant'
+import { freeLoading, setLoading } from '../utils/reducers/loadingState'
 
 function InviteLetter() {
   const { uuid } = useParams()
@@ -23,8 +24,9 @@ function InviteLetter() {
 
   const fetch = React.useCallback(async uuid => {
     try {
+      dispatch(setLoading())
       const res = await axios.get(`/api/rabbit/${uuid}`)
-
+      dispatch(freeLoading())
       switch (res.status) {
         case 200:
           setNickname(res.data.result.nickName)
@@ -42,6 +44,7 @@ function InviteLetter() {
       }
     } catch (err) {
       const res = err.response
+      dispatch(freeLoading())
 
       switch (res.status) {
         case 404:

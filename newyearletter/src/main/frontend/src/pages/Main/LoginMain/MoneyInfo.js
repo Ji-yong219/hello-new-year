@@ -11,7 +11,7 @@ function MoneyInfo({ isFocus = false }) {
       <Content>
         <div>내가 받은 용돈</div>
         <div className={isFocus ? 'bold focus' : 'bold'}>
-          {money.toLocaleString()}
+          {money !== undefined ? money.toLocaleString() : 0}
         </div>
       </Content>
     </FlowerText>

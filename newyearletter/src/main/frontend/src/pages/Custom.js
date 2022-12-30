@@ -26,6 +26,7 @@ import setMetaTags from '../utils/meta'
 
 import BG1Icon from '../assets/images/i_bg1.png'
 import BG2Icon from '../assets/images/i_bg2.png'
+import { freeLoading, setLoading } from '../utils/reducers/loadingState'
 
 function Custom() {
   React.useEffect(() => {
@@ -52,12 +53,14 @@ function Custom() {
 
   const fetch = React.useCallback(async () => {
     try {
+      dispatch(setLoading())
       const res = await axios.get(`/api/rabbit/mypage/${uuid}/custom`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
 
+      dispatch(freeLoading())
       switch (res.status) {
         case 200:
           dispatch(
@@ -100,6 +103,7 @@ function Custom() {
 
   const submit = React.useCallback(async () => {
     try {
+      dispatch(setLoading())
       const res = await axios.post(
         `/api/rabbit/mypage/${uuid}/custom`,
         {
@@ -113,6 +117,7 @@ function Custom() {
         }
       )
 
+      dispatch(freeLoading())
       switch (res.status) {
         case 200:
           alert('수정이 완료되었습니다.')
@@ -125,7 +130,7 @@ function Custom() {
       }
     } catch (err) {
       const res = err.response
-
+      dispatch(freeLoading())
       switch (res.status) {
         case 401:
           alert('세션이 만료되었습니다. 다시 로그인해주세요.')

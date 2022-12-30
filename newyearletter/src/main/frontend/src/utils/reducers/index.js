@@ -3,6 +3,7 @@ import storageSession from 'redux-persist/lib/storage/session'
 
 import loginState from './loginState'
 import infoState from './infoState'
+import loadingState from './loadingState'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -16,6 +17,7 @@ const persistConfig = {
 export const rootReducer = combineReducers({
   loginState,
   infoState,
+  loadingState,
 })
 
 const perReducer = persistReducer(persistConfig, rootReducer)

@@ -16,15 +16,15 @@ import { ResponseError } from '../../utils/error'
 import MoneyInfo from './LoginMain/MoneyInfo'
 import { setInfo } from '../../utils/reducers/infoState'
 import MyRabbit from '../../components/MyRabbit'
-import setMetaTags from '../../utils/meta'
 import { useLocation } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Modal, { Content, SmallContent } from '../../components/Modal'
+import { freeLoading, setLoading } from '../../utils/reducers/loadingState'
+import Loading from '../../components/Loading'
 
 function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
   const { state } = useLocation()
-  console.log(state)
   const [time, setTime] = React.useState(new Date())
   const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
 
@@ -48,11 +48,13 @@ function LoginMain() {
   const fetch = React.useCallback(
     async (token, uuid) => {
       try {
+        dispatch(setLoading())
         const res = await axios.get(`/api/rabbit/mypage/${uuid}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
+        dispatch(freeLoading())
         switch (res.status) {
           case 200:
             dispatch(
@@ -68,7 +70,8 @@ function LoginMain() {
             throw new ResponseError('잘못된 응답입니다.', res)
         }
       } catch (err) {
-        const res = err.response
+        const res = err.ResponseError
+        dispatch(freeLoading())
         switch (res.status) {
           case 401:
             alert('세션이 만료되었습니다. 다시 로그인해주세요.')
@@ -156,6 +159,7 @@ function LoginMain() {
           </Copyright>
         </Wrapper>
       </Wrapper>
+      <Loading />
     </Container>
   )
 }
