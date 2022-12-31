@@ -35,7 +35,7 @@ function LetterBox() {
 
   const fetch = useCallback(async () => {
     try {
-      const res = await axios.get(`/api/letter/${uuid}/getList`, {
+      const res = await axios.get(`/api/letter/${uuid}/getLetter`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
