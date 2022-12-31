@@ -112,13 +112,14 @@ function LoginMain() {
   const navigate = useNavigate()
   return (
     <Container alt>
-      {parseInt(timeDiff[0]) === 0 &&
+      <ExpireModal />
+      {/* {parseInt(timeDiff[0]) === 0 &&
       parseInt(timeDiff[1]) === 0 &&
       parseInt(timeDiff[2]) === 0 ? (
         <ExpireModal />
       ) : helpOpen ? (
         <HelpModal setModalOpen={setHelpOpen} />
-      ) : null}
+      ) : null} */}
       <Logo sx={1.75} />
       <Wrapper gap={2}>
         <ButtonWrapper>
