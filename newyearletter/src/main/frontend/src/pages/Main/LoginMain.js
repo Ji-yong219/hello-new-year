@@ -18,7 +18,8 @@ import { setInfo } from '../../utils/reducers/infoState'
 import MyRabbit from '../../components/MyRabbit'
 import { useLocation } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import Modal, { Content, SmallContent } from '../../components/Modal'
+import HelpModal, { Content, SmallContent } from '../../components/HelpModal'
+import ExpireModal from '../../components/ExpireModal'
 import { freeLoading, setLoading } from '../../utils/reducers/loadingState'
 import Loading from '../../components/Loading'
 
@@ -26,7 +27,7 @@ function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
   const { state } = useLocation()
   const [time, setTime] = React.useState(new Date())
-  const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
+  const [timeDiff, setTimeDiff] = React.useState([99, 99, 99])
 
   const [helpOpen, setHelpOpen] = React.useState(
     state !== null ? state.isFirst : false
@@ -94,7 +95,6 @@ function LoginMain() {
 
   React.useEffect(() => {
     fetch(token, uuid)
-
     const timer = setInterval(() => {
       setTime(prev => new Date(prev.getTime() + 1000))
     }, 1000)
@@ -107,11 +107,18 @@ function LoginMain() {
   React.useEffect(() => {
     getTImeDiff()
   }, [time])
-
+  console.log(timeDiff)
+  console.log(timeDiff === [0, 0, 0])
   const navigate = useNavigate()
   return (
     <Container alt>
-      {helpOpen ? <Modal setModalOpen={setHelpOpen} /> : null}
+      {parseInt(timeDiff[0]) === 0 &&
+      parseInt(timeDiff[1]) === 0 &&
+      parseInt(timeDiff[2]) === 0 ? (
+        <ExpireModal />
+      ) : helpOpen ? (
+        <HelpModal setModalOpen={setHelpOpen} />
+      ) : null}
       <Logo sx={1.75} />
       <Wrapper gap={2}>
         <ButtonWrapper>

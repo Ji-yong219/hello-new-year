@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import FlowerText from '../../components/FlowerText'
 
-function MoneyInfo({ money = 0 }) {
+function MoneyInfo() {
+  const { money } = useSelector(state => state.infoState)
   return (
     <FlowerText>
       <Content>
