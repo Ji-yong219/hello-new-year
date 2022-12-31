@@ -41,6 +41,7 @@ function LetterBox() {
         },
       })
 
+      console.log(res)
       switch (res.status) {
         case 200:
           setLetterData(res.data.result)
@@ -58,6 +59,10 @@ function LetterBox() {
           alert('세션이 만료되었습니다. 다시 로그인해주세요.')
           dispatch(logout())
           navigate('/login')
+          break
+        case 404:
+          alert('받은 편지가 없습니다.')
+          navigate('/')
           break
         default:
           alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
