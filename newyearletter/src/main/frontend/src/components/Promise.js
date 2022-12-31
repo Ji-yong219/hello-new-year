@@ -3,23 +3,30 @@ import PropTypes from 'prop-types'
 
 import PromiseBg from '../assets/images/promise.png'
 import { useSelector } from 'react-redux'
+import { FONT_COLOR_OPTION, FONT_OPTION } from '../utils/constant'
 
 function Promise({ editable = false, font, color, setValue }) {
   const { wish, wishFont, wishColor } = useSelector(state => state.infoState)
   return (
     <Container
-      font={font !== undefined ? font : wishFont}
-      color={color !== undefined ? color : wishColor}
+      font={font !== undefined ? font : FONT_OPTION[wishFont]}
+      color={color !== undefined ? color : FONT_COLOR_OPTION[wishColor]}
     >
-      <input
-        disabled={editable ? false : true}
-        defaultValue={wish}
-        onChange={
-          setValue !== undefined
-            ? event => setValue(event.target.value)
-            : () => {}
-        }
-      />
+      <div
+        id="letter-content"
+        onKeyDown={event => {
+          if (event.key === 'Enter') {
+            document.execCommand('insertLineBreak')
+            event.preventDefault()
+          }
+        }}
+        onInput={event => {
+          setValue(event.target.outerText)
+        }}
+        contentEditable={editable ? true : false}
+      >
+        {wish !== undefined ? wish : null}
+      </div>
       <img src={PromiseBg} alt="" />
     </Container>
   )
@@ -43,7 +50,7 @@ const Container = styled.div`
     object-fit: cover;
   }
 
-  input {
+  > div {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -55,13 +62,21 @@ const Container = styled.div`
 
     font-family: ${({ font }) => font};
     font-weight: bold;
-    font-size: 21px;
+    font-size: 18px;
 
     padding: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   input:focus {
     outline: 2px solid var(--pink-200);
+  }
+
+  @media (min-width: 500px) {
+    font-size: 21px;
   }
 `
 

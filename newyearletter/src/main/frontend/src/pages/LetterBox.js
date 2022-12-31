@@ -12,8 +12,13 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { ResponseError } from '../utils/error'
 import { logout } from '../utils/reducers/loginState'
+import setMetaTags from '../utils/meta'
+import { SITE_NAME } from '../utils/constant'
 
 function LetterBox() {
+  React.useEffect(() => {
+    setMetaTags(`받은 편지함 - ${SITE_NAME}`)
+  }, [])
   const { uuid, token } = useSelector(state => state.loginState)
 
   const [letterData, setLetterData] = React.useState([])
@@ -34,6 +39,7 @@ function LetterBox() {
           },
         }
       )
+
       switch (res.status) {
         case 200:
           setLetterData(letterData.concat(res.data.result.content))
@@ -64,9 +70,9 @@ function LetterBox() {
   return (
     <Container>
       <Wrapper gap={2}>
-        <Logo sx={2.5} />
+        <Logo sx={1.75} />
 
-        <MoneyInfo money={125000} />
+        <MoneyInfo />
 
         <LetterWrapper>
           {letterData.map((item, idx) => (

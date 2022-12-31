@@ -20,10 +20,10 @@ Logo.propTypes = {
 const Container = styled.div`
   font-family: 'score';
   font-weight: 600;
-  font-size: max(2.5rem, 36px);
+  font-size: 36px;
 
   img {
-    width: max(${({ sx }) => sx * 3}rem, ${({ sx }) => sx * 50}px);
+    width: ${({ sx }) => sx * 50}px;
     height: auto;
   }
 `
