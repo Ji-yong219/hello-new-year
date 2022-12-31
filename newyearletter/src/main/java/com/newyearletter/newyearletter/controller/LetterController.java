@@ -45,9 +45,9 @@ public class LetterController {
      * 편지 전체 조회 페이지
      */
     @GetMapping("/{uuid}/getLetter")
-    public Response<PageImpl<LetterGetResponse>> getLetterList(@PageableDefault(size=9, sort="id",direction = Sort.Direction.DESC) Pageable pageable, @PathVariable String uuid, Authentication authentication) {
+    public Response<List<LetterGetResponse>> getLetterList(@PageableDefault(size=9, sort="id",direction = Sort.Direction.DESC) Pageable pageable, @PathVariable String uuid, Authentication authentication) {
         String userName = authentication.getName();
-        PageImpl<LetterGetResponse> letterGetResponseList = letterService.getAllLetter(pageable, uuid, userName);
+        List<LetterGetResponse> letterGetResponseList = letterService.getAllLetter(pageable, uuid, userName);
         return Response.success(letterGetResponseList);
 
     }
