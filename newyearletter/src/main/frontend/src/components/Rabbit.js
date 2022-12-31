@@ -188,6 +188,7 @@ function CustomRabbit({ color, accessory, isCustom = false }) {
     const rabbits = document.getElementsByClassName('rabbit')
     const accessorys = document.getElementsByClassName('accessory')
 
+    console.log(rabbits)
     $(rabbits).css('display', 'none')
     rabbits[color].style.display = 'block'
     rabbits[color].style.width = '80%'

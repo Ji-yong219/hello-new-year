@@ -20,15 +20,15 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: max(12rem, 220px);
-  height: max(3rem, 60px);
+  width: 60%;
+  height: 60px;
 
   border: 5px double var(--light-100);
   border-radius: 9999px;
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(1rem, 17px);
+  font-size: 18px;
 
   background: var(${props => props.background});
   color: var(--brown);

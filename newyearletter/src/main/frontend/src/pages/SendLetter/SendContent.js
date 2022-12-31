@@ -23,7 +23,7 @@ function SendContent({
   return (
     <>
       <Wrapper gap={2}>
-        <Logo sx={2.5} />
+        <Logo sx={1.75} />
 
         <SmallText>{nickName}님을 응원하는 마음만큼 용돈을 주세요!</SmallText>
 
@@ -57,6 +57,8 @@ function SendContent({
           setAuthor(event.target.value)
         }}
       />
+
+      <SmallText>편지 내용은 최대 100자까지 작성해주세요!</SmallText>
 
       <Letter editable={true} setValue={setContent} />
 

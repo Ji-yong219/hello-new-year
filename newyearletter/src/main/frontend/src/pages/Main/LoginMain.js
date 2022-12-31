@@ -8,7 +8,6 @@ import Logo from '../../components/Logo'
 import MaterialIcon from '../../components/MaterialIcon'
 import Promise from '../../components/Promise'
 import SmallButtonItem from '../../components/SmallButtonItem'
-import CustomContainer from '../../components/CustomContainer'
 import Container from '../../components/Container'
 import { useNavigate } from 'react-router-dom'
 import React from 'react'
@@ -16,23 +15,46 @@ import axios from 'axios'
 import { ResponseError } from '../../utils/error'
 import MoneyInfo from './LoginMain/MoneyInfo'
 import { setInfo } from '../../utils/reducers/infoState'
+import MyRabbit from '../../components/MyRabbit'
+import { useLocation } from 'react-router-dom'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import Modal, { Content, SmallContent } from '../../components/Modal'
+import { freeLoading, setLoading } from '../../utils/reducers/loadingState'
+import Loading from '../../components/Loading'
 
 function LoginMain() {
+  const { token, uuid } = useSelector(state => state.loginState)
+  const { state } = useLocation()
+  const [time, setTime] = React.useState(new Date())
+  const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
+
+  const [helpOpen, setHelpOpen] = React.useState(
+    state !== null ? state.isFirst : false
+  )
+
   const dispatch = useDispatch()
 
-  const { token, uuid } = useSelector(state => state.loginState)
-  const { money, rabbitAcc, rabbitColor } = useSelector(
-    state => state.infoState
-  )
+  const getTImeDiff = React.useCallback(() => {
+    const newYear = new Date('2023-01-01 00:00:00')
+    setTimeDiff(formatTimeDIff(newYear.getTime() - time.getTime()))
+  }, [time])
+
+  const formatTimeDIff = timeDiff => {
+    const diff = Math.floor(timeDiff / 1000 / 60)
+    const day = Math.floor(diff / (24 * 60))
+    return [day, Math.floor((diff / 60) % 24), Math.floor(diff % 60)]
+  }
+
   const fetch = React.useCallback(
     async (token, uuid) => {
       try {
+        dispatch(setLoading())
         const res = await axios.get(`/api/rabbit/mypage/${uuid}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
-
+        dispatch(freeLoading())
         switch (res.status) {
           case 200:
             dispatch(
@@ -42,13 +64,14 @@ function LoginMain() {
                 res.data.result.custom
               )
             )
+            setTime(new Date(res.data.result.currentDateTime))
             break
           default:
             throw new ResponseError('잘못된 응답입니다.', res)
         }
       } catch (err) {
         const res = err.ResponseError
-
+        dispatch(freeLoading())
         switch (res.status) {
           case 401:
             alert('세션이 만료되었습니다. 다시 로그인해주세요.')
@@ -71,21 +94,35 @@ function LoginMain() {
 
   React.useEffect(() => {
     fetch(token, uuid)
+
+    const timer = setInterval(() => {
+      setTime(prev => new Date(prev.getTime() + 1000))
+    }, 1000)
+
+    return () => {
+      clearInterval(timer)
+    }
   }, [])
+
+  React.useEffect(() => {
+    getTImeDiff()
+  }, [time])
 
   const navigate = useNavigate()
   return (
-    <Container>
-      <Logo sx={2.5} />
-      <Wrapper>
+    <Container alt>
+      {helpOpen ? <Modal setModalOpen={setHelpOpen} /> : null}
+      <Logo sx={1.75} />
+      <Wrapper gap={2}>
         <ButtonWrapper>
-          <SmallButtonItem
-            background="--white"
-            color="--pink"
-            onClick={() => navigate(`/letter/${uuid}`)}
+          <CopyToClipboard
+            text={`${window.location.href}letter/${uuid}`}
+            onCopy={() => alert('링크가 성공적으로 복사되었습니다.')}
           >
-            <MaterialIcon iconName="link" color="--pink" /> 링크 복사
-          </SmallButtonItem>
+            <SmallButtonItem background="--white" color="--pink">
+              <MaterialIcon iconName="link" color="--pink" /> 링크 복사
+            </SmallButtonItem>
+          </CopyToClipboard>
 
           <SmallButtonItem onClick={() => navigate(`/custom`)}>
             내 화면 꾸미기
@@ -100,20 +137,29 @@ function LoginMain() {
           </SmallButtonItem>
         </ButtonWrapper>
 
-        <Promise />
+        <Wrapper gap={0.5}>
+          <Promise />
+          <SmallTextButton onClick={() => setHelpOpen(true)}>
+            혹시 설명이 필요하신가요? <Focus>도움말 열기</Focus>
+          </SmallTextButton>
+        </Wrapper>
 
-        <MoneyInfo value={money} />
+        <MoneyInfo />
+
+        <MyRabbit />
+
+        <Wrapper gap={2}>
+          <Label>
+            편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
+          </Label>
+
+          <Copyright>
+            Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
+            김수아 all rights reserved. contact: corleone@kakao.com
+          </Copyright>
+        </Wrapper>
       </Wrapper>
-
-      <CustomContainer
-        money={money}
-        debug={false}
-        color={rabbitColor}
-        accessory={rabbitAcc}
-        isCustom={false}
-      />
-
-      <Label>편지 공개까지 2일 3시간</Label>
+      <Loading />
     </Container>
   )
 }
@@ -129,13 +175,35 @@ const Label = styled.div`
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(1.2rem, 21px);
+  font-size: 18px;
+
+  border-radius: 9999px;
+  border: 1px solid var(--pink-100);
 
   text-align: center;
 
   background: white;
   color: var(--brown);
-  padding: max(1rem, 18px);
+  padding: 18px;
 `
 
+export const Copyright = styled.div`
+  font-family: nanumRound;
+  font-size: 11px;
+  line-height: 15px;
+  text-align: center;
+  color: var(--brown-100);
+  white-space: keep-all;
+`
+
+const SmallTextButton = styled(Content)`
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+`
+
+const Focus = styled.span`
+  color: var(--pink);
+  font-weight: 700;
+`
 export default LoginMain

@@ -4,15 +4,15 @@ import Container from '../components/Container'
 import Logo from '../components/Logo'
 import Promise from '../components/Promise'
 import {
-  ACCESSORY_OPTION,
+  ACCESSORY_ICON_OPTION,
   FONT_COLOR_OPTION,
   FONT_OPTION,
   FONT_TYPO_OPTION,
   RABBIT_COLOR_OPTION,
+  SITE_NAME,
 } from '../utils/constant'
 import { SmallText } from './InviteLetter'
 import { Wrapper } from './Main'
-import CustomContainer from '../components/CustomContainer'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { ResponseError } from '../utils/error'
@@ -21,11 +21,21 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { setInfo } from '../utils/reducers/infoState'
+import MyRabbit from '../components/MyRabbit'
+import setMetaTags from '../utils/meta'
+
+import BG1Icon from '../assets/images/i_bg1.png'
+import BG2Icon from '../assets/images/i_bg2.png'
+import { freeLoading, setLoading } from '../utils/reducers/loadingState'
 
 function Custom() {
+  React.useEffect(() => {
+    setMetaTags(`내 화면 꾸미기 - ${SITE_NAME}`)
+  }, [])
+
   const { uuid, token } = useSelector(state => state.loginState)
 
-  const { wish, money, wishFont, wishColor, rabbitAcc, rabbitColor } =
+  const { wish, wishFont, wishColor, rabbitAcc, rabbitColor, background } =
     useSelector(state => state.infoState)
 
   const [wishValue, setWish] = React.useState('')
@@ -36,19 +46,21 @@ function Custom() {
   const [fontValue, setFont] = React.useState(0)
   const [fontColorValue, setFontColor] = React.useState(0)
 
+  const [backgroundValue, setBackground] = React.useState(0)
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const fetch = React.useCallback(async () => {
     try {
+      dispatch(setLoading())
       const res = await axios.get(`/api/rabbit/mypage/${uuid}/custom`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
 
-      console.log(res.data.result)
-
+      dispatch(freeLoading())
       switch (res.status) {
         case 200:
           dispatch(
@@ -58,10 +70,12 @@ function Custom() {
               res.data.result.custom
             )
           )
+          setWish(wish)
           setFont(wishFont)
           setFontColor(wishColor)
           setRabbitColor(rabbitColor)
           setRabbitAcc(rabbitAcc)
+          setBackground(background)
           break
         default:
           throw new ResponseError('잘못된 응답입니다.', res)
@@ -75,6 +89,7 @@ function Custom() {
           dispatch(logout())
           navigate('/login')
           break
+
         case 404:
           console.log(res.data)
           alert(`${res.data.result.message}`)
@@ -86,14 +101,77 @@ function Custom() {
     }
   }, [uuid, token])
 
+  const submit = React.useCallback(async () => {
+    try {
+      dispatch(setLoading())
+      const res = await axios.post(
+        `/api/rabbit/mypage/${uuid}/custom`,
+        {
+          wish: wishValue,
+          custom: `${fontValue};${fontColorValue};${rabbitColorValue};${rabbitAccValue};${backgroundValue}`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      dispatch(freeLoading())
+      switch (res.status) {
+        case 200:
+          alert('수정이 완료되었습니다.')
+          await fetch()
+          window.location.reload()
+          break
+
+        default:
+          throw new ResponseError('잘못된 응답입니다.', res)
+      }
+    } catch (err) {
+      const res = err.response
+      dispatch(freeLoading())
+      switch (res.status) {
+        case 401:
+          alert('세션이 만료되었습니다. 다시 로그인해주세요.')
+          dispatch(logout())
+          navigate('/login')
+          break
+
+        case 404:
+          alert(`${res.data.result.message}`)
+          navigate('/')
+          break
+        default:
+          alert('서버와 통신할 수 없습니다. 잠시 후 다시 시도해주세요.')
+      }
+    }
+  }, [
+    wishValue,
+    fontValue,
+    fontColorValue,
+    rabbitAccValue,
+    rabbitColorValue,
+    backgroundValue,
+    token,
+    uuid,
+  ])
+
   React.useEffect(() => {
     fetch()
   }, [])
 
   return (
-    <Container>
+    <Container customBg={backgroundValue}>
       <Wrapper gap={4}>
-        <Logo sx={2.5} />
+        <Logo sx={1.75} />
+        <Option>
+          <OptionLabel>배경화면</OptionLabel>
+          <OptionWrapper>
+            <IconOption src={BG1Icon} onClick={() => setBackground(0)} />
+            <IconOption src={BG2Icon} onClick={() => setBackground(1)} />
+          </OptionWrapper>
+        </Option>
         <Wrapper gap={1.5}>
           <SmallText>2023년 새해 소망을 적어보세요!</SmallText>
           <Promise
@@ -133,13 +211,14 @@ function Custom() {
         </Wrapper>
 
         <Wrapper gap={2}>
-          <SmallText>올해, 나만의 토끼를 꾸며보세요!</SmallText>
-          <CustomContainer
-            money={money}
-            debug={false}
-            color={rabbitColorValue}
-            accessory={rabbitAccValue}
-            isCustom={true}
+          <SmallText>
+            올해, 나만의 토끼를 꾸며보세요!
+            <br />달 위상은 보유한 용돈만큼 늘어납니다!
+          </SmallText>
+
+          <MyRabbit
+            customRabbitColor={rabbitColorValue}
+            customRabbitAcc={rabbitAccValue}
           />
 
           <Option>
@@ -157,7 +236,7 @@ function Custom() {
           <Option>
             <OptionLabel>악세서리</OptionLabel>
             <OptionWrapper>
-              {ACCESSORY_OPTION.map((icon, index) => (
+              {ACCESSORY_ICON_OPTION.map((icon, index) => (
                 <IconOption
                   key={index}
                   src={icon}
@@ -166,11 +245,9 @@ function Custom() {
               ))}
             </OptionWrapper>
           </Option>
-
-          <SmallText>달 위상은 보유한 용돈만큼 늘어납니다!</SmallText>
         </Wrapper>
       </Wrapper>
-      <ButtonItem> 커스텀</ButtonItem>
+      <ButtonItem onClick={() => submit()}> 커스텀</ButtonItem>
     </Container>
   )
 }
@@ -204,13 +281,15 @@ const OptionWrapper = styled.div`
 `
 
 const IconOption = styled.img`
-  width: 42px;
+  width: 32px;
   object-fit: cover;
+  border-radius: 9999px;
+  border: 1px solid var(--pink-100);
 `
 
 const ColorOption = styled.div`
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   border-radius: 9999px;
   background-color: ${({ color }) => color};
   border: 1px solid var(--pink-100);

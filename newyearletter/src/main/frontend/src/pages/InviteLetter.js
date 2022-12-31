@@ -6,28 +6,27 @@ import ButtonItem from '../components/ButtonItem'
 import Container from '../components/Container'
 import Logo from '../components/Logo'
 import Promise from '../components/Promise'
-import { SubTitle, Wrapper } from './Main'
-import Rabbit from './Main/LoginMain/Rabbit'
-import CustomContainer from '../components/CustomContainer'
-import { WISH_INIT_STATE } from '../utils/constant'
+import { Wrapper } from './Main'
 import { ResponseError } from '../utils/error'
 import { useDispatch, useSelector } from 'react-redux'
 import { setInfo } from '../utils/reducers/infoState'
+import MyRabbit from '../components/MyRabbit'
+import setMetaTags from '../utils/meta'
+import { SITE_NAME } from '../utils/constant'
+import { freeLoading, setLoading } from '../utils/reducers/loadingState'
 
 function InviteLetter() {
   const { uuid } = useParams()
   const [nickName, setNickname] = React.useState('')
 
-  const { money, rabbitAcc, rabbitColor } = useSelector(
-    state => state.infoState
-  )
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const fetch = React.useCallback(async uuid => {
     try {
+      dispatch(setLoading())
       const res = await axios.get(`/api/rabbit/${uuid}`)
-
+      dispatch(freeLoading())
       switch (res.status) {
         case 200:
           setNickname(res.data.result.nickName)
@@ -45,6 +44,7 @@ function InviteLetter() {
       }
     } catch (err) {
       const res = err.response
+      dispatch(freeLoading())
 
       switch (res.status) {
         case 404:
@@ -63,21 +63,19 @@ function InviteLetter() {
     fetch(uuid)
   }, [])
 
+  React.useEffect(() => {
+    setMetaTags(`${nickName}님의 편지함 - ${SITE_NAME}`)
+  }, [nickName])
+
   return (
-    <Container>
+    <Container alt>
       <Wrapper gap={2}>
-        <Logo sx={2.5} />
+        <Logo sx={1.75} />
         <SmallText>{nickName}님에게 응원의 편지를 적어주세요.</SmallText>
         <Promise />
       </Wrapper>
 
-      <CustomContainer
-        money={money}
-        debug={false}
-        color={rabbitColor}
-        accessory={rabbitAcc}
-        isCustom={false}
-      />
+      <MyRabbit />
 
       <ButtonItem onClick={() => navigate('send/', { state: nickName })}>
         편지 작성하기
@@ -89,8 +87,10 @@ function InviteLetter() {
 export const SmallText = styled.div`
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(0.9rem, 16px);
+  font-size: 16px;
+  line-height: 24px;
   color: var(--brown);
+  text-align: center;
 `
 
 export default InviteLetter

@@ -20,27 +20,34 @@ SmallButtonItem.propTypes = {
   onClick: PropTypes.func,
 }
 
-const Container = styled.div`
+const Container = styled.button`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: max(0.5rem, 9px);
+  gap: 4px;
 
-  width: max(6rem, 100px);
-  height: max(2rem, 35px);
+  width: 100px;
+  height: 35px;
 
   border: 1px solid var(${({ color }) => color});
   border-radius: 9999px;
 
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(0.7rem, 12px);
+  font-size: 12px;
 
   background: var(${props => props.background});
   color: var(${({ color }) => color});
 
   cursor: pointer;
+
+  @media (min-width: 500px) {
+    width: 120px;
+    height: 40px;
+    gap: 8px;
+    font-size: 14px;
+  }
 `
 
 export default SmallButtonItem

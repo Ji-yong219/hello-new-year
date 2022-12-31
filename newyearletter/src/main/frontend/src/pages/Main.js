@@ -6,8 +6,14 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import LogoutMain from './Main/LogoutMain'
 import LoginMain from './Main/LoginMain'
+import { SITE_NAME } from '../utils/constant'
+import setMetaTags from '../utils/meta'
 
 function Main() {
+  React.useEffect(() => {
+    setMetaTags(`메인 - ${SITE_NAME}`)
+  }, [])
+
   const { isLogin } = useSelector(state => state.loginState)
 
   return isLogin ? <LoginMain /> : <LogoutMain />
@@ -18,13 +24,13 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: max(${({ gap = 1 }) => gap}rem, ${({ gap = 1 }) => gap * 18}px);
+  gap: ${({ gap = 1 }) => gap * 18}px;
 `
 
 export const SubTitle = styled.div`
   font-family: nanumRound;
   font-weight: bold;
-  font-size: max(1.2rem, 17px);
+  font-size: 18px;
 
   white-space: nowrap;
 

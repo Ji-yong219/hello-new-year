@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import FlowerText from '../../../components/FlowerText'
 
-function MoneyInfo({ isFocus = false, value = 0 }) {
+function MoneyInfo({ isFocus = false }) {
+  const { money } = useSelector(state => state.infoState)
   return (
     <FlowerText>
       <Content>
         <div>내가 받은 용돈</div>
         <div className={isFocus ? 'bold focus' : 'bold'}>
-          {value.toLocaleString()}
+          {money !== undefined ? money.toLocaleString() : 0}
         </div>
       </Content>
     </FlowerText>
@@ -18,21 +20,20 @@ function MoneyInfo({ isFocus = false, value = 0 }) {
 
 MoneyInfo.propTypes = {
   isFocus: PropTypes.bool,
-  value: PropTypes.number,
 }
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: max(0.5rem, 9px);
+  gap: 9px;
 
   font-family: nanumRound;
   font-weight: 600;
-  font-size: max(0.9rem, 18px);
+  font-size: 18px;
 
   .bold {
     font-weight: 800;
-    font-size: max(2rem, 32px);
+    font-size: 32px;
   }
 
   .focus {
