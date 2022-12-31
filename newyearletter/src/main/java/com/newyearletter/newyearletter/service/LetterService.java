@@ -31,7 +31,7 @@ public class LetterService {
     private final UserRepository userRepository;
     private final LetterRepository letterRepository;
     private LocalDateTime currentDateTime;
-    private LocalDateTime newYear = LocalDateTime.parse("2022-12-31T18:30:00.000");
+    private LocalDateTime newYear = LocalDateTime.parse("2022-12-31T11:59:59.000");
     /**
      * 편지 작성 페이지 확인
      */
@@ -64,8 +64,6 @@ public class LetterService {
      * 편지 전체 조회
      */
 
-//    Post post = postRepository.findById(id).get();
-//        return commentRepository.findCommentsByPost(post);
     public List<LetterGetResponse> getAllLetter(Pageable pageable, String uuid, String userName) {
         //1월1일 확인
         currentDateTime = LocalDateTime.now();
