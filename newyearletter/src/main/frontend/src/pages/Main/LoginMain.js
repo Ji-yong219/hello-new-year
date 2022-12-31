@@ -27,7 +27,7 @@ function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
   const { state } = useLocation()
   const [time, setTime] = React.useState(new Date())
-  const [timeDiff, setTimeDiff] = React.useState([99, 99, 99])
+  const [timeDiff, setTimeDiff] = React.useState([0, 0, 0])
 
   const [helpOpen, setHelpOpen] = React.useState(
     state !== null ? state.isFirst : false
@@ -95,13 +95,13 @@ function LoginMain() {
 
   React.useEffect(() => {
     fetch(token, uuid)
-    const timer = setInterval(() => {
-      setTime(prev => new Date(prev.getTime() + 1000))
-    }, 1000)
+    // const timer = setInterval(() => {
+    //   setTime(prev => new Date(prev.getTime() + 1000))
+    // }, 1000)
 
-    return () => {
-      clearInterval(timer)
-    }
+    // return () => {
+    //   clearInterval(timer)
+    // }
   }, [])
 
   React.useEffect(() => {
@@ -157,10 +157,11 @@ function LoginMain() {
         <MyRabbit />
 
         <Wrapper gap={2}>
-          <Label>
+          {/* <Label>
             편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
-          </Label>
+          </Label> */}
 
+          <Label>2023년 새해 복 많이 받으세요!</Label>
           <Copyright>
             Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
             김수아 all rights reserved. contact: corleone@kakao.com
