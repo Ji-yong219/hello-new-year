@@ -107,8 +107,8 @@ function LoginMain() {
   React.useEffect(() => {
     getTImeDiff()
   }, [time])
-  console.log(timeDiff)
-  console.log(timeDiff === [0, 0, 0])
+  // console.log(timeDiff)
+  // console.log(timeDiff === [0, 0, 0])
   const navigate = useNavigate()
   return (
     <Container alt>
