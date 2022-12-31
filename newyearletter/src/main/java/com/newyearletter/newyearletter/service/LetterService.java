@@ -29,7 +29,7 @@ public class LetterService {
     private final UserRepository userRepository;
     private final LetterRepository letterRepository;
     private LocalDateTime currentDateTime;
-    private LocalDateTime newYear = LocalDateTime.parse("2022-12-31T11:59:59.000");
+    private LocalDateTime newYear = LocalDateTime.parse("2022-12-31T18:30:00.000");
     /**
      * 편지 작성 페이지 확인
      */
