@@ -14,10 +14,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +63,8 @@ public class LetterService {
     /**
      * 편지 전체 조회
      */
-    public PageImpl<LetterGetResponse> getAllLetter(Pageable pageable, String uuid, String userName) {
+
+    public List<LetterGetResponse> getAllLetter(Pageable pageable, String uuid, String userName) {
         //1월1일 확인
         currentDateTime = LocalDateTime.now();
         if(currentDateTime.isBefore(newYear)){
@@ -76,11 +79,15 @@ public class LetterService {
             throw new AppException(ErrorCode.INVALID_PERMISSION, ErrorCode.INVALID_TOKEN.getMessage());
         }
 
-        Page<Letter> letters = letterRepository.findAll(pageable);
+
+        List<Letter> letters = user.getLetters();
+        if(letters.size() == 0){
+            throw new AppException(ErrorCode.LETTER_NOT_FOUND, ErrorCode.LETTER_NOT_FOUND.getMessage());
+        }
         List<LetterGetResponse> letterGetResponseList = letters.stream()
                 .map(letter -> LetterGetResponse.fromEntity(letter)).collect(Collectors.toList());
 
-        return new PageImpl<>(letterGetResponseList, pageable, letters.getTotalElements());
+        return letterGetResponseList;
     }
 
     /**
