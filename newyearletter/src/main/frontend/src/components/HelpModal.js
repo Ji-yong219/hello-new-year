@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import ButtonItem from './ButtonItem'
 
-function Modal({ setModalOpen }) {
+function HelpModal({ setModalOpen }) {
   const closeModal = () => setModalOpen(false)
   return (
     <ModalContainer>
@@ -24,7 +24,7 @@ function Modal({ setModalOpen }) {
   )
 }
 
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   width: 400px;
 
   z-index: 999;
@@ -37,7 +37,7 @@ const ModalContainer = styled.div`
   background: white;
   border-radius: 12px;
   border: 1px solid var(--pink-100);
-  padding: 20px;
+  padding: 40px 20px;
 
   display: flex;
   flex-direction: column;
@@ -58,11 +58,11 @@ export const Content = styled.div`
   text-align: center;
 `
 
-const Title = styled(Content)`
+export const Title = styled(Content)`
   font-size: 24px;
 `
 
-const Focus = styled.span`
+export const Focus = styled.span`
   color: var(--pink);
 `
-export default Modal
+export default HelpModal

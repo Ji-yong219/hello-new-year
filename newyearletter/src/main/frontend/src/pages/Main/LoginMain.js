@@ -18,7 +18,8 @@ import { setInfo } from '../../utils/reducers/infoState'
 import MyRabbit from '../../components/MyRabbit'
 import { useLocation } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import Modal, { Content, SmallContent } from '../../components/Modal'
+import HelpModal, { Content, SmallContent } from '../../components/HelpModal'
+import ExpireModal from '../../components/ExpireModal'
 import { freeLoading, setLoading } from '../../utils/reducers/loadingState'
 import Loading from '../../components/Loading'
 
@@ -26,7 +27,7 @@ function LoginMain() {
   const { token, uuid } = useSelector(state => state.loginState)
   const { state } = useLocation()
   const [time, setTime] = React.useState(new Date())
-  const [timeDiff, setTimeDiff] = React.useState(['0', '0'])
+  const [timeDiff, setTimeDiff] = React.useState([0, 0, 0])
 
   const [helpOpen, setHelpOpen] = React.useState(
     state !== null ? state.isFirst : false
@@ -94,24 +95,31 @@ function LoginMain() {
 
   React.useEffect(() => {
     fetch(token, uuid)
+    // const timer = setInterval(() => {
+    //   setTime(prev => new Date(prev.getTime() + 1000))
+    // }, 1000)
 
-    const timer = setInterval(() => {
-      setTime(prev => new Date(prev.getTime() + 1000))
-    }, 1000)
-
-    return () => {
-      clearInterval(timer)
-    }
+    // return () => {
+    //   clearInterval(timer)
+    // }
   }, [])
 
   React.useEffect(() => {
     getTImeDiff()
   }, [time])
-
+  // console.log(timeDiff)
+  // console.log(timeDiff === [0, 0, 0])
   const navigate = useNavigate()
   return (
     <Container alt>
-      {helpOpen ? <Modal setModalOpen={setHelpOpen} /> : null}
+      <ExpireModal />
+      {/* {parseInt(timeDiff[0]) === 0 &&
+      parseInt(timeDiff[1]) === 0 &&
+      parseInt(timeDiff[2]) === 0 ? (
+        <ExpireModal />
+      ) : helpOpen ? (
+        <HelpModal setModalOpen={setHelpOpen} />
+      ) : null} */}
       <Logo sx={1.75} />
       <Wrapper gap={2}>
         <ButtonWrapper>
@@ -149,10 +157,11 @@ function LoginMain() {
         <MyRabbit />
 
         <Wrapper gap={2}>
-          <Label>
+          {/* <Label>
             편지 공개까지 {timeDiff[0]}일 {timeDiff[1]}시간 {timeDiff[2]}분
-          </Label>
+          </Label> */}
 
+          <Label>2023년 새해 복 많이 받으세요!</Label>
           <Copyright>
             Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
             김수아 all rights reserved. contact: corleone@kakao.com
