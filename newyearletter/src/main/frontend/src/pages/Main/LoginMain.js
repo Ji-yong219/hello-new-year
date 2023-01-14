@@ -163,7 +163,7 @@ function LoginMain() {
 
           <Label>2023년 새해 복 많이 받으세요!</Label>
           <Copyright>
-            Copyright 2022. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
+            Copyright 2023. 구민구 박지용 양희범 박수진 이현무 김보영 이유진
             김수아 all rights reserved. contact: corleone@kakao.com
           </Copyright>
         </Wrapper>
