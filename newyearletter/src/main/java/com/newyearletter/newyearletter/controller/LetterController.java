@@ -24,7 +24,7 @@ public class LetterController {
     private final LetterService letterService;
 
     /**
-     * 편지 작성 페이지 조회
+     * 편지 작성 페이지 조회0
      */
     @GetMapping("/{uuid}")
     public Response<LetterPageResponse> letterPage(@PathVariable String uuid){
